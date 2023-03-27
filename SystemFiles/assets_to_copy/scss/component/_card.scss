@@ -1,0 +1,31 @@
+@import '../base/typography';
+@import 'button';
+@import '../abstracts/mixins';
+
+.axo-card{
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px 10px 10px 10px;
+    gap:1rem;
+    .card-title{
+        text-align: left !important;
+        margin: 0 !important;
+        @include textStyle($card-title-font-size,$hero-font-weight,$font-family,$subtitle-line-height,$text-color);
+        @include respond(tab-land){
+            font-size: $phone-hero-title-font-size;
+            line-height: $phone-hero-title-line-height;
+        }
+    }
+    .card-text{
+        text-align: left !important;
+        margin: 0 !important;
+        @include textStyle($text-font-size,$text-font-weight,$font-family,$text-line-height,$text-color);
+        @include respond(tab-land){
+            font-size: $phone-text-font-size;
+            line-height: $phone-text-line-height;
+        }
+    }
+}

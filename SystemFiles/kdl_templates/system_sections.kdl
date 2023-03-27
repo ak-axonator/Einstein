@@ -1,0 +1,86 @@
+define_section name="import" class="Import" {
+    url type="string" required=true
+}
+
+define_section name="auto_align_image_sections" class="AutoAlignImageSections" {
+    enabled style="attribute" type="stringbool" required=true
+}
+
+define_section name="cta_section" abstract=true class="CTASection" {
+    position style="attribute" type="choice" options="right | inline | left"
+    heading style="property" type="string" required=true min_words=10 max_words=100 
+    background_image type="image" required=true width=100 height=100
+    input type="input" required=false {
+        label type="string" required=false min_words=1 max_words=4
+        placeholder type="string" required=true min_words=1 max_words=4
+        validation style="attribute" type="choice" options="email | phone | number | text" required=true
+    }
+    primary_button type="button" required=false {
+        label type="string" required=true min_words=1 max_words=4
+        link type="string" required=true
+    }
+}
+define_section name="default_navigation_section" class="DefaultNavigationSection" {
+}
+define_section name="hero_section"  class="HeroSection" {
+    heading style="property" type="string" required=true min_words=10 max_words=100 
+    sub_heading style="property" type="string" required=true min_words=10 max_words=100 
+    background_image type="image" required=true width=100 height=100
+    primary_button style="nested" type="button" required=false {
+        label type="string" required=true min_words=1 max_words=4
+        link type="string" required=true
+    }
+    secondary_button style="nested" type="button" required=false {
+        label type="string" required=true min_words=1 max_words=4
+        link type="string" required=true
+    }
+}
+define_section name="client_logos_section" class="ClientLogosSection" {
+}
+define_section name="cta_box_right_image_full_purple_back_section" class="CTABoxRightImageFullPurpleBackSection" {
+}
+
+define_section name="cta_no_box_full_light_purple_back_section" class="CTANoBoxFullLightPurpleBackSection" {
+}
+
+define_section name="grid_section" class="GridSection" {
+}
+
+define_section name="industries_section" class="IndustriesSection" {
+}
+
+define_section name="navigation_section" class="NavigationSection" {
+}
+
+define_section name="page_begin_section" class="PageBeginSection" {
+}
+
+define_section name="page_end_section" class="PageEndSection" {
+}
+
+define_section name="watch_video_section" class="WatchVideoSection" {
+}
+
+define_section name="group_header" class="GroupHeader" {
+    heading style="property" type="string" required=true min_words=10 max_words=100 
+    sub_heading style="property" type="string" required=true min_words=10 max_words=100 
+}
+define_section name="image_section" class="ImageSection" {
+    heading style="property" type="string" required=true min_words=10 max_words=100 
+    sub_heading style="property" type="string" required=true min_words=10 max_words=100 
+    image style="property" type="image" required=true width=100 height=100 
+    align style="attribute" type="choice" options="left | right"
+}
+define_section name="schedule_demo_section" class="ScheduleDemoSection" {
+    heading style="property" type="string" required=true min_words=10 max_words=100 
+    sub_heading style="property" type="string" required=true min_words=10 max_words=100 
+    background_image type="image" required=true width=100 height=100
+    primary_button type="button" required=false {
+        label type="string" required=true min_words=1 max_words=4
+        link type="string" required=true
+    }
+}
+define_section name="testimonials_section" class="TestimonialsSection" {
+}
+define_section name="default_footer_section" class="DefaultFooterSection" {
+}

@@ -1,0 +1,48 @@
+
+@mixin btn {
+    font-size: $btn-font-size;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-family: $font-family;
+    font-weight: $btn-font-weight;
+    @media only screen and (max-width: 1050px) {
+        font-size: $phone-btn-font-size;
+    }
+  }
+
+  .primary-btn{
+    color:$primary-btn-color;
+    background-color: $primary-color;
+    @include btn;
+}
+
+.cta-btn{
+    padding: 0;
+    font-family: $font-family;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 19.44px;
+    color: #303030;
+    background-color: #ffffff00;
+    border-style: none;
+    display: flex;
+    justify-content: center;
+    transition: all .4s ease;
+    &:hover{
+        color: #6c52ed;
+    }
+}
+
+.cta-btn-2{
+    padding: 0;
+    font-family: $font-family;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19.44px;
+    color: #6c52ed;
+    background-color: #ffffff00;
+    border-style: none;
+    display: flex;
+    justify-content: center;
+    transition: all .4s ease;
+}

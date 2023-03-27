@@ -1,0 +1,143 @@
+{
+    "background_content": "<one time>",
+    //What is the name of your app?
+    "appname": "",
+    //What is the description of your app?
+    "app_description": "",
+    //Please provide a list of keywords related to your app (comma-separated).
+    "keywords": [
+        "",
+        ""
+    ],
+    //generate meta description
+    "prompts": [
+        {
+            "type": "SinglePointPrompt",
+            "number": 1,
+            "what": "meta description",
+            "expected_once": [
+                "headline",
+                "subtitle"
+            ],
+            "expected_repeat": [
+                "question",
+                "answer"
+            ]
+        },
+        //generate hero section
+        {
+            "type": "MultiPointPrompt",
+            "number": 1,
+            "what": "salesy headline and subheadline and image description ",
+            "expected_once": [
+                "headline",
+                "subheadline",
+                "image_description"
+            ],
+            "expected_repeat": []
+        },
+        //generate challenges section
+        {
+            "type": "MultiPointPrompt",
+            "number": 6,
+            "what": "top challenges",
+            "expected_once": [
+                "maintitle",
+                "subtitle"
+            ],
+            "expected_repeat": [
+                "title",
+                "description"
+            ]
+        },
+        //generate benefits section
+        {
+            "type": "MultiPointPrompt",
+            "number": 6,
+            "what": "benefits",
+            "expected_once": [
+                "maintitle",
+                "subtitle"
+            ],
+            "expected_repeat": [
+                "title",
+                "description"
+            ]
+        },
+        //generate who-uses section
+        {
+            "type": "MultiPointPrompt",
+            "number": 6,
+            "what": "who uses",
+            "expected_once": [
+                "maintitle",
+                "subtitle"
+            ],
+            "expected_repeat": [
+                "title",
+                "description"
+            ]
+        },
+        //generate impact section
+        {
+            "type": "MultiPointPrompt",
+            "number": 6,
+            "what": "impact statistics",
+            "additional_prompt": "The description must be very short and only with statistic number.",
+            "expected_once": [
+                "maintitle",
+                "subtitle"
+            ],
+            "expected_repeat": [
+                "title",
+                "description"
+            ]
+        },
+        //generate testimonials
+        {
+            "type": "MultiPointPrompt",
+            "number": 3,
+            "what": "testimonials given by customers",
+            "additional_prompt": "Include random author name and position for the testimonial writer.",
+            "expected_once": [
+                "maintitle",
+                "subtitle"
+            ],
+            "expected_repeat": [
+                "title",
+                "description",
+                "author_name",
+                "author_position"
+            ]
+        },
+        //generate faq section
+        {
+            "type": "MultiPointPrompt",
+            "number": 10,
+            "what": "faq",
+            "expected_once": [
+                "maintitle",
+                "subtitle"
+            ],
+            "expected_repeat": [
+                "question",
+                "answer"
+            ]
+        },
+        //generate relevant features section
+        {
+            "type": "MultiPointPrompt",
+            "number": 8,
+            "what": "from the following list of product features that are highly relevant from the feature list",
+            "additional_prompt": "Here is the feature list: Image Capture With Annotation & Notes, QR Code Enabled Forms, Offline Data Collection, Task Scheduler, Dynamic Checklist Configuration, Data Validation, Visual Cues, Task Escalations, Visual Workflow Builder, SLA & Escalations, Algorithmic Task Assignment, Automated Information Routing, Multistep Workflows, Reminders, E-mails & Notifications, Conditional Logic, Visual Report Builder, Automated Export, PDF, Excel, & CSV Format, Consolidated Reports, Whitelabel Reports, Signature Attestation, Image Annotation, Database Integration, Drag & Drop Dashboard Builder, Graphical Charts, Tabular View, Trend & Pattern Identification, CalenderView, Advanced Filters, Deep Analytics, Integrations, Integration Builder, Powerful that connects everyone to everything, API integration, Cloud Integration, On-premise Integration, Single Sign-on, Data Encryption, Third Party Integration, Legacy System Integration, Connectors.",
+            "expected_once": [
+                "maintitle",
+                "subtitle"
+            ],
+            "expected_repeat": [
+                "title"
+            ]
+        }
+        
+    ]
+}

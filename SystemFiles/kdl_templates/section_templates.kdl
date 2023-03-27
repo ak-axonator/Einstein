@@ -1,0 +1,7 @@
+import "system_sections.kdl"
+define_section_template name="purple_cta_section" abstract=true parent_section="cta_section" {
+    background_image "purple_bubble_background" fixed="true"
+}
+define_section_template name="wide_purple_cta_section" parent_template="purple_cta_section" {
+
+}
