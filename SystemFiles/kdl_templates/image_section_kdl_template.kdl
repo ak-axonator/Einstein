@@ -1,0 +1,21 @@
+image_section \{
+    heading "{Header.headline}"
+    sub_heading "{Header.subheadline}"
+    image "asset_management_dashboard" alt="Asset Management Dashboard"
+\}
+
+image_section \{
+    items 3
+    title "{Header.maintitle}"
+    sub_title "{Header.subtitle}"
+
+    {for image in Images:    img \{
+        heading "{image.headline}"
+        description "{image.subheadline}"
+        image "{image.image_description}"
+    \}
+
+    }
+    img \{\}
+\}
+

@@ -1,0 +1,236 @@
+page_begin_section
+default_navigation_section
+navigation_section
+meta_section { 
+    meta "Streamline your safety audit process with our mobile safety audit software. Collect data on-the-go with mobile forms and automate workflows for improved efficiency."
+}
+hero_section {
+    heading "Effortlessly monitor safety with the top-rated Safety Audit App!"
+    sub_heading "Collect on-the-go audit data on your mobile and automate safety workflows with cutting-edge safety audit software."
+    primary_button {
+        label "Start Free Trial"
+        url "https://axonator.com"
+    }
+    secondary_button {
+        label "Schedule Demo"
+        url "https://axonator.com"
+    }
+    image "asset_management_dashboard" alt="Asset Management Dashboard"
+}
+grid_section {
+    items 1
+    heading "Top Challenges for the Safety Audit App"
+    card {
+        title "Data Privacy and Security"
+        description "Ensuring the safety and confidentiality of audit data in the safety audit software."
+    }
+    card {
+        title "User Adoption and Acceptance"
+        description "Encouraging employees to utilize the safety audit app in their daily routines."
+    }
+    card {
+        title "Customization and Flexibility"
+        description "Providing sufficient customizations options to tailor the safety audit software to meet the specific needs and requirements of different organizations."
+    }
+    card {
+        title "Reliability and Stability"
+        description "Ensuring the safety audit app remains operational and stable, especially during audits."
+    }
+    card {
+        title "Integration with Existing Systems"
+        description "Ensuring the safety audit software integrates seamlessly with an organization’s existing safety management system."
+    }
+    card {
+        title "Data Ownership and Access"
+        description "Clarifying data ownership and access, including audit data retention periods, rights, and control."
+    }
+card {}
+}
+grid_section {
+    items 1
+    heading "6 Benefits of Safety Audit App"
+    card {
+        title "Efficient Safety Data Collection"
+        description "Easily collect safety audit data on smartphones and tablets using mobile forms."
+    }
+    card {
+        title "Accurate and Consistent Data Collection"
+        description "Ensure consistent data collection every time to improve safety audit software quality."
+    }
+    card {
+        title "Real-time Monitoring of Safety Processes"
+        description "Get real-time updates and alerts on safety processes."
+    }
+    card {
+        title "Increased Safety Compliance"
+        description "Reduce safety audit software risks and boost compliance with safety regulations."
+    }
+    card {
+        title "Streamlined Safety Workflows"
+        description "Automate safety workflows to minimize manual intervention and minimize safety audit software errors."
+    }
+    card {
+        title "Improved Reporting and Analytics"
+        description "Effortlessly generate safety audit reports and derive insights with safety audit software analytics."
+    }
+card {}
+}
+grid_section {
+    items 1
+    heading "Safety Audit App"
+    card {
+        title "Construction Inspectors"
+        description "Conduct on-site inspections using safety audit software for accurate recording of hazards and inspection results."
+    }
+    card {
+        title "Maintenance Personnel"
+        description "Easily document equipment inspections and track maintenance schedules using the safety audit app."
+    }
+    card {
+        title "Quality Control Managers"
+        description "Improve quality control and compliance by using the app to perform regular safety audits and track corrective actions."
+    }
+    card {
+        title "Facility Managers"
+        description "The app enables facility managers to easily create and manage OSHA inspections and compliant reporting with minimal effort."
+    }
+    card {
+        title "Risk Managers"
+        description "Automate risk management and risk assessment using the safety audit software for increased efficiency and audit trail."
+    }
+    card {
+        title "Workplace Safety Professionals"
+        description "Easily conduct safety audits using the app to document observations, track action items, and improve workplace safety."
+    }
+card {}
+}
+grid_section {
+    items 1
+    heading "Safety Audit App Impact Statistics"
+    card {
+        title "Increased Efficiency"
+        description "Saves up to 70% inspection time through automation."
+    }
+    card {
+        title "Real-Time Reporting"
+        description "Improves productivity by 40% with automated reporting."
+    }
+    card {
+        title "Better Compliance"
+        description "90% increase in compliance enforcement with safety audit software."
+    }
+    card {
+        title "Fewer Errors"
+        description "40% reduction in errors with mobile forms compared to paper forms."
+    }
+    card {
+        title "Improved Communication"
+        description "Seamless communication and collaboration through real-time updates."
+    }
+    card {
+        title "Increased Accountability"
+        description "Accountability increase by 80% with tracking and notifications."
+    }
+card {}
+}
+grid_section {
+    items 1
+    heading "Testimonials for Safety Audit App"
+    card {
+        title "Saved us so much time"
+        description "The Safety Audit Software has completely changed the way we approach safety compliance. We can now quickly collect data onsite which has saved us hours in data entry time. Highly recommended!"
+    }
+    card {
+        title "Easy to use and customize"
+        description "The Safety Audit App is incredibly user-friendly and allows us to quickly customize and create mobile forms for our specific audit needs. The automated workflows have also streamlined our safety reporting process."
+    }
+    card {
+        title "Improved our safety compliance"
+        description "Since implementing the Safety Audit App, we have seen a significant improvement in our safety compliance. The real-time data collection and reporting has allowed us to identify potential hazards and take corrective action quickly."
+    }
+card {}
+}
+grid_section {
+    items 1
+    heading "FAQs for Safety Audit App"
+    card {
+        title ""
+        description ""
+    }
+    card {
+        title ""
+        description ""
+    }
+    card {
+        title ""
+        description ""
+    }
+    card {
+        title ""
+        description ""
+    }
+    card {
+        title ""
+        description ""
+    }
+    card {
+        title ""
+        description ""
+    }
+    card {
+        title ""
+        description ""
+    }
+    card {
+        title ""
+        description ""
+    }
+    card {
+        title ""
+        description ""
+    }
+    card {
+        title ""
+        description ""
+    }
+card {}
+}
+grid_section {
+    items 1
+    heading "Top 8 Features of Safety Audit Software"
+    card {
+        title "Offline Data Collection"
+        description ""
+    }
+    card {
+        title "Task Scheduler"
+        description ""
+    }
+    card {
+        title "Visual Workflow Builder"
+        description ""
+    }
+    card {
+        title "Reminders, E-mails & Notifications"
+        description ""
+    }
+    card {
+        title "Visual Report Builder"
+        description ""
+    }
+    card {
+        title "Automated Export, PDF, Excel, & CSV Format"
+        description ""
+    }
+    card {
+        title "Integration Builder"
+        description ""
+    }
+    card {
+        title "Third Party Integration"
+        description ""
+    }
+card {}
+}
+default_footer_section
+page_end_section

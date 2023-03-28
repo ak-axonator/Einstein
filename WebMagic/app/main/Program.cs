@@ -10,21 +10,25 @@ namespace WebMagic
     {
         public string Title { get; set; }
         public string Description { get; set; }
+
     }
     class Program
     {
         static ComandProcessor processor;
+        public static string NewPageName { get; set; }
         static void Main(string[] args)
         {
+            processor = new ComandProcessor();
+            processor.initGlobalPaths();
             //testChatGPTAPI();
-            MainCompilationStart(args);
+            // MainCompilationStart(args);
             //task.Wait();
-            // InitGlobalPaths();
-            //testGPTResponseFiletoKDL();
+            // initGlobalPaths();
+            // testGPTResponseFiletoKDL();
             testCSVAppNameRename();
             
-            //testGPTGeneratePrompts();
-            //testGPTAPICalls();
+            // testGPTGeneratePrompts();
+            // testGPTAPICalls();
             // string response = testOpenAI();
             // testValidateResponse(response);
             // testBenefitsParsing(response);
@@ -34,25 +38,71 @@ namespace WebMagic
 
         private static void testCSVAppNameRename()
         {
-            string csvFileName = @"E:\JK\app30k.csv";
+            string csvFileName = @"/Users/arohikulkarni/Downloads/Web pages auto generator list - Sheet1.csv";
             var csv = new CSVProcessor(csvFileName);
             csv.ProcessCSV();
         }
 
+        private static void testGPTGeneratePrompts()
+        {            
+            var generator = new GPTPromptsGenerator();
+            generator.Generate();
+            testGPTAPICalls();
+        }
+        public static void csvGPTGeneratePrompts(Input input)
+        {            
+            var generator = new GPTPromptsGenerator();
+            generator.Generate(input);
+            testGPTAPICalls();
+        }
+        static void testGPTAPICalls()
+        {
+            string inputFilePath = Path.Combine(GlobalPaths.GPTFolder,"GPTPageContent.jsonc");
+            string outputFilePath = Path.Combine(GlobalPaths.GPTFolder,"GPTPageContentOutput.jsonc");
+
+            runOpenAICalls(inputFilePath, outputFilePath);
+        }
+
+        static void runOpenAICalls(string inputFilePath, string outputFilePath)
+        {
+            GPTPromptsRunner.Run(inputFilePath, outputFilePath);
+            testGPTResponseFiletoKDL();
+        }
         private static void testGPTResponseFiletoKDL()
         {
-            string inputFilePath = @"E:\JK\GPTJsonPageGenFiles\GPTPageContentOutput.jsonc";
-            string outputFilePath = @"E:\JK\GPTJsonPageGenFiles\GPTPageContentKDL.kdl";
-            string promptGeneratorFilePath = @"E:\JK\GPTJsonPageGenFiles\GPTInput.jsonc";
-            
+            string inputFilePath = Path.Combine(GlobalPaths.GPTFolder,"GPTPageContentOutput.jsonc");
+            string outputFilePath = Path.Combine(GlobalPaths.GPTFolder,"GPTPageContentKDL.jsonc");
+            string promptGeneratorFilePath = Path.Combine(GlobalPaths.GPTFolder,"GPTInput.jsonc");
+
             runGPTResponseFiletoKDL(inputFilePath, outputFilePath, promptGeneratorFilePath);
             
         }
-
         private static void runGPTResponseFiletoKDL(string inputFilePath, string outputFilePath, string promptGeneratorFilePath)
         {
             GPTResponseFiletoKDL.Run(inputFilePath, outputFilePath, promptGeneratorFilePath);
+            CreatePageFileFromOutputKDL(outputFilePath);
         }
+
+        private static void CreatePageFileFromOutputKDL(string outputFilePath)
+        {
+            // Read the contents of the output file
+            string contents = File.ReadAllText(outputFilePath);
+            string _fileName = (NewPageName != null && NewPageName != "" ? NewPageName : "new_page").ToLower().Replace(" ", "_");
+
+            // Create a new file with the specified name in the project folder
+            string pageFilePath = Path.Combine(GlobalPaths.ProjectFolder,"pages", _fileName+".page");
+            File.WriteAllText(pageFilePath, contents);
+
+            Console.WriteLine($"Hurray!!! Your new page {_fileName} is created!");
+
+            processor = new ComandProcessor();
+            processor.processCommand();
+
+            Console.WriteLine($"Hurray!!! Your new page {_fileName} is live now!");
+
+        }
+
+
 
         private static void testChatGPTAPI()
         {
@@ -62,23 +112,6 @@ namespace WebMagic
         }
 
 
-        static void testGPTAPICalls()
-        {
-            string inputFilePath = @"E:\JK\GPTJsonPageGenFiles\GPTPageContent.jsonc";
-            string outputFilePath = @"E:\JK\GPTJsonPageGenFiles\GPTPageContentOutput.jsonc";
-
-            runOpenAICalls(inputFilePath, outputFilePath);
-        }
-
-        static void runOpenAICalls(string inputFilePath, string outputFilePath)
-        {
-            GPTPromptsRunner.Run(inputFilePath, outputFilePath);
-        }
-        private static void testGPTGeneratePrompts()
-        {
-            var generator = new GPTPromptsGenerator();
-            generator.Generate();
-        }
 
         private static void testValidateResponse(string response)
         {

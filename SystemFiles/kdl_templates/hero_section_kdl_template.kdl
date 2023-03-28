@@ -1,0 +1,13 @@
+hero_section \{
+    heading "{Header.headline}"
+    sub_heading "{Header.subheadline}"
+    primary_button \{
+        label "Start Free Trial"
+        url "https://axonator.com"
+    \}
+    secondary_button \{
+        label "Schedule Demo"
+        url "https://axonator.com"
+    \}
+    image "asset_management_dashboard" alt="Asset Management Dashboard"
+\}

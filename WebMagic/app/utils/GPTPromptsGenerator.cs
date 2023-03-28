@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,15 +10,29 @@ namespace WebMagic
 {
     public class GPTPromptsGenerator
     {
-        private const string InputFilePath = @"E:\JK\GPTJsonPageGenFiles\GPTInput.jsonc";
-        private const string OutputFilePath = @"E:\JK\GPTJsonPageGenFiles\GPTPageContent.jsonc";
+        private string InputFilePath = @"/Users/arohikulkarni/Work/Einstein/SystemFiles/GPTJsonPageGenFiles/GPTInput.jsonc";
+        private string OutputFilePath = @"/Users/arohikulkarni/Work/Einstein/SystemFiles/GPTJsonPageGenFiles/GPTPageContent.jsonc";
+        public GPTPromptsGenerator(){
+            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
+            var configuration = builder.Build();
+            string gpt_folder = configuration.GetValue<string>("gpt_folder");
+            InputFilePath = Path.Combine(gpt_folder,"GPTInput.jsonc");
+            OutputFilePath = Path.Combine(gpt_folder,"GPTPageContent.jsonc");
+        }
 
-        public void Generate()
+        public void Generate(Input _input = null)
         {
+            Console.WriteLine($"Generating GPT prompts for {InputFilePath}...");
             var inputJson = File.ReadAllText(InputFilePath);
             inputJson = Regex.Replace(inputJson, @"^\s*//.*$", "", RegexOptions.Multiline);
             var input = JsonConvert.DeserializeObject<Input>(inputJson);
+            if(_input != null){
+                input.AppName = _input.AppName;
+                input.AppDescription = _input.AppDescription;
+                input.Keywords = _input.Keywords;
+            }
             var prompts = input.Prompts;
+            Program.NewPageName = input.AppName;
             var GPTPromptsFile = new GPTPromptFile();
             GPTPromptsFile.Prompts = new List<GPTPrompt>();
 
@@ -33,6 +48,7 @@ namespace WebMagic
             }
             var outputJson = JsonConvert.SerializeObject(GPTPromptsFile, Formatting.Indented);
             File.WriteAllText(OutputFilePath, outputJson);
+            Console.WriteLine($"Generated prompts in {outputJson}");
         }
 
         private string GetPromptString(Prompt prompt, Input input)

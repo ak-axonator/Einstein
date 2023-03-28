@@ -1,0 +1,12 @@
+grid_section \{
+    items 1
+    heading "{Header.maintitle}"
+
+    {for card in Points:    card \{
+        title "{card.title}"
+        description "{card.description}"
+    \}
+
+}
+    card \{\}
+\}

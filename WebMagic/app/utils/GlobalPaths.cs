@@ -30,5 +30,13 @@ namespace WebMagic
         get { return _assetFolder; }
         set { _assetFolder = value; }
     }
+
+    private static string _GPTFolder;
+
+    public static string GPTFolder
+    {
+        get { return _GPTFolder; }
+        set { _GPTFolder = value; }
+    }
 }
 }

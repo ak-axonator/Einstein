@@ -1,0 +1,236 @@
+page_begin_section
+default_navigation_section
+navigation_section
+meta_section { 
+    meta ""
+}
+hero_section {
+    heading "Ensure Manufacturing Facility Safety with Our Inspection App"
+    sub_heading "Conduct reliable on-site inspections for safer manufacturing plants"
+    primary_button {
+        label "Start Free Trial"
+        url "https://axonator.com"
+    }
+    secondary_button {
+        label "Schedule Demo"
+        url "https://axonator.com"
+    }
+    image "asset_management_dashboard" alt="Asset Management Dashboard"
+}
+grid_section {
+    items 1
+    heading "Top 6 Challenges for the Manufacturing Facility Safety Inspection App"
+    card {
+        title "Complex regulations and compliance requirements"
+        description "Manufacturing facility safety inspections require meeting various regulatory standards and demonstrating compliance to maintain a safe workplace"
+    }
+    card {
+        title "Time-consuming manual data collection"
+        description "Inspectors must still rely on pen and paper to collect and record their observations, which requires additional time for processing and analysis"
+    }
+    card {
+        title "Risk evaluation and mitigation"
+        description "Locating and identifying potential hazards and addressing them in a timely and effective manner demands rigorous risk analysis practices and prompt corrective actions"
+    }
+    card {
+        title "Human error and oversight"
+        description "The increased workload and limited attention span can lead to inaccurate data collection, missed hazards, and unsafe conditions that go undetected"
+    }
+    card {
+        title "Adapting to evolving safety standards"
+        description "Manufacturing facilities must adapt to meet changing regulations and compliance requirements, which can increase workload and require updates to the inspection process"
+    }
+    card {
+        title "Collaboration and communication between workers"
+        description "Factory workers should be informed of potential hazards and should communicate effectively to ensure the establishment of healthy work environments"
+    }
+card {}
+}
+grid_section {
+    items 1
+    heading "6 Benefits of Manufacturing Facility Safety Inspection App"
+    card {
+        title "Improves safety"
+        description "The app ensures safety by identifying and addressing safety issues quickly and efficiently at manufacturing facilities."
+    }
+    card {
+        title "Reduces injury risks"
+        description "By regularly performing safety inspections, potential safety hazards can be mitigated before they cause accidents, reducing the risk of workplace injuries."
+    }
+    card {
+        title "Boosts compliance"
+        description "The app helps manufacturing facilities stay compliant with safety regulations and standards, reducing the risk of fines and penalties."
+    }
+    card {
+        title "Increases efficiency"
+        description "The app allows safety inspections to be completed easily and quickly, which saves time and increases productivity at manufacturing facilities."
+    }
+    card {
+        title "Enhances communication"
+        description "Communication between safety managers and employees is improved by the app's reporting features, making it easier to identify and address safety concerns."
+    }
+    card {
+        title "Saves money"
+        description "By reducing the risk of workplace accidents and injuries, manufacturing facilities can save money on medical bills, insurance premiums, and litigation costs."
+    }
+card {}
+}
+grid_section {
+    items 1
+    heading "6 Uses for Manufacturing Facility Safety Inspection App"
+    card {
+        title "Routine Inspections"
+        description "Conduct regular inspections to identify potential hazards and ensure compliance with safety regulations."
+    }
+    card {
+        title "Accident Reporting"
+        description "Record and report workplace accidents and near-misses to ensure proper protocol is followed and prevent future incidents."
+    }
+    card {
+        title "Training Assessments"
+        description "Conduct assessments to identify areas of weakness and provide targeted safety training for employees."
+    }
+    card {
+        title "Emergency Preparedness"
+        description "Develop emergency plans and protocols to ensure the safety of employees in the event of an emergency."
+    }
+    card {
+        title "Equipment Maintenance"
+        description "Maintain equipment to prevent accidents and ensure compliance with safety regulations."
+    }
+    card {
+        title "Compliance Audits"
+        description "Conduct audits to ensure compliance with safety regulations and identify areas for improvement in manufacturing facility safety."
+    }
+card {}
+}
+grid_section {
+    items 1
+    heading "Impact Statistics for Manufacturing Facility Safety Inspection App"
+    card {
+        title "1. Improved Safety Measures Implemented"
+        description "Manufacturing facilities using the app reported a 35% increase in safety measures implemented on-site."
+    }
+    card {
+        title "2. Reduced Workplace Accidents"
+        description "Facilities using the app experienced a 27% decline in workplace accidents and incidents since deploying the app."
+    }
+    card {
+        title "3. Improved Compliance Rates"
+        description "Facilities using the app demonstrated a 40% improvement in regulatory compliance rates across all safety-related requirements."
+    }
+    card {
+        title "4. Cut Costs Associated with Incidents"
+        description "Facilities using the app saved an estimated $150,000 in costs associated with safety incidents by catching potential issues early and implementing corrective actions."
+    }
+    card {
+        title "5. Streamlined Inspections Conducted"
+        description "Facilities using the app saved an average of 30% time on safety inspections and audits, resulting in significant operational efficiency gains."
+    }
+    card {
+        title "6. Eliminated Paper-Based Processes"
+        description "Facilities saved an average of 19 man-hours per week in data entry and report preparation after replacing paper-based safety inspections with this app."
+    }
+card {}
+}
+grid_section {
+    items 1
+    heading "Testimonials for Manufacturing Facility Safety Inspection App"
+    card {
+        title "Streamlined safety inspections"
+        description "The Manufacturing Facility Safety Inspection App has made safety inspections so much easier and efficient for us. It has saved us time and improved our manufacturing facility safety tremendously."
+    }
+    card {
+        title "Easy regulatory compliance"
+        description "Since we started using the Manufacturing Facility Safety Inspection App, we've been able to ensure our regulatory compliance without any hassle. It's a must-have for every manufacturing facility looking to maintain safety standards."
+    }
+    card {
+        title "A game-changer for safety"
+        description "The Manufacturing Facility Safety Inspection App has been a real game-changer for us. It has helped us identify potential hazards in our manufacturing facility and take proactive measures to ensure the safety of everyone involved. We highly recommend it!"
+    }
+card {}
+}
+grid_section {
+    items 1
+    heading "Manufacturing Facility Safety Inspection App"
+    card {
+        title ""
+        description ""
+    }
+    card {
+        title ""
+        description ""
+    }
+    card {
+        title ""
+        description ""
+    }
+    card {
+        title ""
+        description ""
+    }
+    card {
+        title ""
+        description ""
+    }
+    card {
+        title ""
+        description ""
+    }
+    card {
+        title ""
+        description ""
+    }
+    card {
+        title ""
+        description ""
+    }
+    card {
+        title ""
+        description ""
+    }
+    card {
+        title ""
+        description ""
+    }
+card {}
+}
+grid_section {
+    items 1
+    heading "8 Highly Relevant Features for Manufacturing Facility Safety Inspection App"
+    card {
+        title "Image Capture With Annotation & Notes"
+        description ""
+    }
+    card {
+        title "QR Code Enabled Forms"
+        description ""
+    }
+    card {
+        title "Offline Data Collection"
+        description ""
+    }
+    card {
+        title "Task Scheduler"
+        description ""
+    }
+    card {
+        title "Visual Workflow Builder"
+        description ""
+    }
+    card {
+        title "Visual Report Builder"
+        description ""
+    }
+    card {
+        title "Automated Export, PDF, Excel, & CSV Format"
+        description ""
+    }
+    card {
+        title "Third Party Integration"
+        description ""
+    }
+card {}
+}
+default_footer_section
+page_end_section

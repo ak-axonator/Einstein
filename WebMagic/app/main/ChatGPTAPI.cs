@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using OpenAI;
 using OpenAI.Chat;
 using OpenAI.Models;
@@ -6,8 +7,13 @@ namespace WebMagic
 {
     internal class ChatGPTAPI
     {
+        private string apiKey = "";
+
         public ChatGPTAPI()
         {
+            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
+            var configuration = builder.Build();
+            apiKey = configuration.GetValue<string>("gptApiKey");
         }
 
         internal string GetResponse(string v)
@@ -20,7 +26,7 @@ namespace WebMagic
 
         private  async Task<string> getChatGPTResponse(string prompt)
         {
-            var api = new OpenAIClient(new OpenAIAuthentication("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"));
+            var api = new OpenAIClient(new OpenAIAuthentication(apiKey));
             string response = string.Empty;
             var chatPrompts = new List<ChatPrompt>
             {

@@ -43,7 +43,6 @@ namespace WebMagic
         {
             foreach (string file in files)
             {
-                Console.WriteLine("Deleting " + file + "...");
 
                 // Determine the S3 key for the file based on the prefix and file name
                 string s3Key = Path.Combine(folderPrefix, System.IO.Path.GetFileName(file));
@@ -57,6 +56,7 @@ namespace WebMagic
                     Key = _fileName
                 };
 
+                Console.WriteLine("Deleting " + _fileName + "...");
                 // Use the transfer utility object to delete the file from S3
                 s3Client.DeleteObjectAsync(request);
             }

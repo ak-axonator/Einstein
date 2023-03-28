@@ -138,7 +138,7 @@ namespace WebMagic
         private List<Section> DefineSystemSections()
         {
             // Read the KDL file that defines the sections
-            string kdlFileName = Path.Combine(system_Folder, "kdl_templates/system_sections.kdl");
+            string kdlFileName = Path.Combine(system_Folder, "kdls/system_sections.kdl");
             KDLFile kdlFile = new KDLFile(kdlFileName);
 
             List<Section> definedSections = new List<Section>();

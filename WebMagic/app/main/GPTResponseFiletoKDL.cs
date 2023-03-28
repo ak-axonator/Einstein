@@ -2,6 +2,7 @@ using System.Text.Json;
 using Cottle;
 using KdlDotNet;
 using Newtonsoft.Json;
+using JsonException = System.Text.Json.JsonException;
 
 namespace WebMagic
 {
@@ -9,8 +10,7 @@ namespace WebMagic
     {
         internal static void Run(string inputFilePath, string outputFilePath, string promptGeneratorFilePath)
         {
-            
-
+            Console.WriteLine($"Generating KDL output for {inputFilePath}");
             string jsonString = File.ReadAllText(inputFilePath);
             var responseFile = JsonConvert.DeserializeObject<GPTResponseFile>(jsonString);
 
@@ -19,28 +19,44 @@ namespace WebMagic
             List<string> outputBuffer = new List<string>();
             
             outputBuffer.AddRange(promptGeneratorFile.PageStart);
-            
-
 
             foreach (var response in responseFile.Responses)
             {
                 string section = response.Section;
-                string responseJSON = response.Response;
+                string responseJSON = response.Response.Replace("{'","{\"").Replace(" '"," \"").Replace("\n'","\n\"").Replace("':","\":").Replace("'}","\"}").Replace("',","\",").TrimEnd('.');
                 //read file into a string with file name as section appended with _kdl_template.kdl
-                string kdlTemplate = File.ReadAllText(Path.Combine(GlobalPaths.SystemFolder, @"kdl_templates\"+section + "_kdl_template.kdl"));
+                string kdlTemplate = File.ReadAllText(Path.Combine(GlobalPaths.SystemFolder, "kdl_templates",section + "_kdl_template.kdl"));
                 //replace the response text in the template
-
+                Console.WriteLine(responseJSON);
                 JsonDocumentOptions options = new JsonDocumentOptions { AllowTrailingCommas = true };
-                JsonDocument jsonDocument = JsonDocument.Parse(responseJSON, options);
+                try{
 
-                Dictionary<string, object> dict = ConvertJSONDoc2Dict(jsonDocument);
-                Dictionary<Value, Value> valueDict = ConvertDict2ValueDict(dict);
-                var kdlString = RenderTemplate(valueDict, kdlTemplate);
-                outputBuffer.Add(kdlString);
+                    JsonDocument jsonDocument = JsonDocument.Parse(responseJSON, options);
+
+                    Dictionary<string, object> dict = ConvertJSONDoc2Dict(jsonDocument);
+                    Dictionary<Value, Value> valueDict = ConvertDict2ValueDict(dict);
+                    var kdlString = RenderTemplate(valueDict, kdlTemplate);
+                    outputBuffer.Add(kdlString);
+                }
+                catch (JsonException ex)
+                {
+                    LogJsonParsingError(ex, responseJSON);
+                }
+            
             }
 
             outputBuffer.AddRange(promptGeneratorFile.PageEnd);
             File.WriteAllLines(outputFilePath, outputBuffer);
+            Console.WriteLine($"KDL generated in {outputFilePath}");
+        }
+
+        static void LogJsonParsingError(JsonException ex, string responseJSON)
+        {
+            string logFilePath = Path.Combine(GlobalPaths.GPTFolder,"GPTJsonParsing.errors.txt");
+
+            string logMessage = $"An error occurred while parsing the following JSON: {responseJSON}\n\nError details:\n{ex}";
+
+            File.AppendAllText(logFilePath, logMessage);
         }
 
         private static Dictionary<string, object> ConvertJSONDoc2Dict(JsonDocument jsonDocument)

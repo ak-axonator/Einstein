@@ -38,11 +38,19 @@ namespace WebMagic
                     string category = values[1].Trim();
                     string subcategory = values[2].Trim();
 
-                    string prompt = GeneratePrompt(title, category, subcategory);
-                    GetGPTResponse(prompt);
+                    Input csvInput = new Input();
+                    csvInput.AppName = values[0].Trim();
+                    csvInput.AppDescription = values[1].Trim();
+                    csvInput.Keywords = values[2].Trim().Split(',').ToList();
+                    Console.WriteLine($"calling GPT with csv input...");
+                    Program.csvGPTGeneratePrompts(csvInput);
+                    
 
-                    string prompt2 = GeneratePrompt2(title, category, subcategory);
-                    GetGPTResponse(prompt2);
+                    // string prompt = GeneratePrompt(title, category, subcategory);
+                    // GetGPTResponse(prompt);
+
+                    // string prompt2 = GeneratePrompt2(title, category, subcategory);
+                    // GetGPTResponse(prompt2);
                 }
             }
         }

@@ -12,6 +12,7 @@ namespace WebMagic
         {
             ChatGPTAPI  ai = new ChatGPTAPI();
             
+            Console.WriteLine($"Running prompts from {inputFilePath}");
             // Load JSON from file
             string jsonString = File.ReadAllText(inputFilePath);
             //JsonDocument document = JsonDocument.Parse(jsonString);
@@ -35,7 +36,8 @@ namespace WebMagic
             }
             // Write output JSON to file
             var outputJson = JsonConvert.SerializeObject(outputContent, Formatting.Indented);
-             File.WriteAllText(outputFilePath, outputJson);
+            File.WriteAllText(outputFilePath, outputJson);
+            Console.WriteLine($"prompt responses stored in {outputFilePath}");
         }
     }
 }

@@ -1,0 +1,37 @@
+An error occurred while parsing the following JSON: {"Header": {"maintitle": "Housekeeping HSE Audit's FAQ", "subtitle": "Top 10 frequently asked questions"}, "Points": [{"question": "What is Housekeeping HSE Audit?", "answer": "It is a mobile app designed to perform safety audits in the workplace."}, {"questio...ctive audits that meet your safety standards."}, {"question": "How can I customize my audit?", "answer": "You can add your own questions, photos, comments or customize the scoring system to tailor audits to your specific needs."}]}
+
+
+Error details:
+System.Text.Json.JsonReaderException: '}' is invalid after a property name. Expected a ':'. LineNumber: 0 | BytePositionInLine: 309.
+   at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader& json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+   at System.Text.Json.Utf8JsonReader.ConsumePropertyName()
+   at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+   at System.Text.Json.Utf8JsonReader.Read()
+   at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb& database, StackRowStack& stack)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+   at WebMagic.GPTResponseFiletoKDL.Run(String inputFilePath, String outputFilePath, String promptGeneratorFilePath) in /Users/arohikulkarni/Work/Einstein/WebMagic/app/main/GPTResponseFiletoKDL.cs:line 34An error occurred while parsing the following JSON: {"Header": {"maintitle": "Housekeeping HSE Audit's FAQ", "subtitle": "Top 10 frequently asked questions"}, "Points": [{"question": "What is Housekeeping HSE Audit?", "answer": "It is a mobile app designed to perform safety audits in the workplace."}, {"questio...ctive audits that meet your safety standards."}, {"question": "How can I customize my audit?", "answer": "You can add your own questions, photos, comments or customize the scoring system to tailor audits to your specific needs."}]}
+
+
+Error details:
+System.Text.Json.JsonReaderException: '}' is invalid after a property name. Expected a ':'. LineNumber: 0 | BytePositionInLine: 309.
+   at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader& json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+   at System.Text.Json.Utf8JsonReader.ConsumePropertyName()
+   at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+   at System.Text.Json.Utf8JsonReader.Read()
+   at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb& database, StackRowStack& stack)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+   at WebMagic.GPTResponseFiletoKDL.Run(String inputFilePath, String outputFilePath, String promptGeneratorFilePath) in /Users/arohikulkarni/Work/Einstein/WebMagic/app/main/GPTResponseFiletoKDL.cs:line 34An error occurred while parsing the following JSON: {"Header": {"maintitle": "Housekeeping HSE Audit's FAQ", "subtitle": "Top 10 frequently asked questions"}, "Points": [{"question": "What is Housekeeping HSE Audit?", "answer": "It is a mobile app designed to perform safety audits in the workplace."}, {"questio...ctive audits that meet your safety standards."}, {"question": "How can I customize my audit?", "answer": "You can add your own questions, photos, comments or customize the scoring system to tailor audits to your specific needs."}]}
+
+
+Error details:
+System.Text.Json.JsonReaderException: '}' is invalid after a property name. Expected a ':'. LineNumber: 0 | BytePositionInLine: 309.
+   at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader& json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+   at System.Text.Json.Utf8JsonReader.ConsumePropertyName()
+   at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+   at System.Text.Json.Utf8JsonReader.Read()
+   at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb& database, StackRowStack& stack)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+   at WebMagic.GPTResponseFiletoKDL.Run(String inputFilePath, String outputFilePath, String promptGeneratorFilePath) in /Users/arohikulkarni/Work/Einstein/WebMagic/app/main/GPTResponseFiletoKDL.cs:line 34

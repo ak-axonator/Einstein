@@ -1,0 +1,4 @@
+group_header \{
+    heading "{Header.heading}"
+    sub_heading "{Header.sub_heading}"
+\}

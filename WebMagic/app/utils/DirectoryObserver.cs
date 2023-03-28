@@ -17,7 +17,7 @@ namespace WebMagic
             this.watcher = new FileSystemWatcher();
             this.watcher.Path = path;
             this.watcher.IncludeSubdirectories = true;
-            // this.watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite;
+            this.watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite;
             this.watcher.Filter = $"*.{extension}";
             this.watcher.EnableRaisingEvents = true;
             this.watcher.Changed += new FileSystemEventHandler(this.OnFileChanged);

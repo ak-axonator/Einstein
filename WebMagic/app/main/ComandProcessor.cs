@@ -14,6 +14,11 @@ namespace WebMagic
         private bool _uploadAndWatch = false;
         DirectoryObserver observer;
 
+        public ComandProcessor(){
+            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
+            var configuration = builder.Build();
+            this._folderPath = configuration.GetValue<string>("default_project_folder");
+        }
         public ComandProcessor(string[] args)
         {
             if (args.Length < 1)
@@ -30,7 +35,7 @@ namespace WebMagic
             }
 
             //If folder found, set global paths relative to the folder location
-            setGlobalPaths();
+            initGlobalPaths();
 
             //Set compile, upload and watch flags
             for (int i = 1; i < args.Length; i++)
@@ -56,7 +61,7 @@ namespace WebMagic
             }
         }
 
-        private void setGlobalPaths(){
+        public void initGlobalPaths(){
             string project_folder = _folderPath;
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
             var configuration = builder.Build();
@@ -67,6 +72,7 @@ namespace WebMagic
             GlobalPaths.ProjectFolder = project_folder;
             GlobalPaths.OutputFolder = output_folder;
             GlobalPaths.AssetsFolder = Path.Combine(GlobalPaths.SystemFolder, "assets_to_copy");
+            GlobalPaths.GPTFolder = Path.Combine(GlobalPaths.SystemFolder, "GPTJsonPageGenFiles");
         }
 
         public void processCommand()
