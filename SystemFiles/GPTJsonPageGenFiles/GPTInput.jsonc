@@ -47,7 +47,7 @@
         },
         //generate meta description
         {
-            "Enabled" : true,
+            "Enabled" : false,
             "Section": "meta_section",
             "Type": "SinglePointPrompt",
             "What": "meta description",
@@ -57,7 +57,7 @@
         },
         //generate hero section
         {
-            "Enabled" : true,
+            "Enabled" : false,
             "Section": "hero_section",
             "Type": "SinglePointPrompt",
             "What": "salesy headline and subheadline and image description ",
@@ -69,7 +69,7 @@
         },
         //generate challenges section
         {
-            "Enabled" : true,
+            "Enabled" : false,
             "Section": "grid_section",
             "Type": "MultiPointPrompt",
             "Number": 6,
@@ -86,7 +86,7 @@
         //generate benefits section
         {
             "Enabled" : true,
-            "Section": "image_section",
+            "Section": "auto_align_image_sections",
             "Type": "MultiPointPrompt",
             "Number": 3,
             "What": "benefits",
@@ -96,7 +96,7 @@
             ],
             "ExpectedRepeat": [
                 "headline",
-                "subheadline",
+                "description",
                 "image_description"
             ]
         },
@@ -106,7 +106,7 @@
             "Section": "grid_section",
             "Type": "MultiPointPrompt",
             "Number": 6,
-            "What": "who uses",
+            "What": "users", //who uses
             "ExpectedOnce": [
                 "maintitle",
                 "subtitle"
@@ -118,7 +118,7 @@
         },
         //generate impact section
         {
-            "Enabled" : true,
+            "Enabled" : false,
             "Section": "grid_section",
             "Type": "MultiPointPrompt",
             "Number": 6,
@@ -135,7 +135,7 @@
         },
         //generate testimonials
         {
-            "Enabled" : true,
+            "Enabled" : false,
             "Section": "grid_section",
             "Type": "MultiPointPrompt",
             "Number": 3,
@@ -154,7 +154,7 @@
         },
         //generate faq section
         {
-            "Enabled" : true,
+            "Enabled" : false,
             "Section": "grid_section",
             "Type": "MultiPointPrompt",
             "Number": 10,
@@ -170,7 +170,7 @@
         },
         //generate relevant features section
         {
-            "Enabled" : true,
+            "Enabled" : false,
             "Section": "grid_section",
             "Type": "MultiPointPrompt",
             "Number": 8,

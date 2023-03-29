@@ -126,7 +126,7 @@ namespace WebMagic
         }
         private void uploadChanges(List<string> compiledFiles)
         {
-            if (_upload || _uploadAndWatch || compiledFiles.Count > 0)
+            if ((_upload || _uploadAndWatch) && compiledFiles.Count > 0)
             {
                 Console.WriteLine($"Uploading {compiledFiles.Count} files...");
                 S3Uploader uploader = new S3Uploader("us-west-2", "axonator.co");

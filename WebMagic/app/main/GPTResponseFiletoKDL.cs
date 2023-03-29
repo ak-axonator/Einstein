@@ -35,7 +35,8 @@ namespace WebMagic
 
                     Dictionary<string, object> dict = ConvertJSONDoc2Dict(jsonDocument);
                     Dictionary<Value, Value> valueDict = ConvertDict2ValueDict(dict);
-                    var kdlString = RenderTemplate(valueDict, kdlTemplate);
+                    string kdlString;
+                    kdlString = RenderTemplate(valueDict, kdlTemplate);
                     outputBuffer.Add(kdlString);
                 }
                 catch (JsonException ex)
@@ -159,6 +160,27 @@ namespace WebMagic
                 output = e.Message + kdlTemplate;
 
             }
+            return output;
+        }
+        private static string RenderImageTemplate(Dictionary<Value, Value> valueDict, string kdlTemplate)
+        {
+            var documentResult = Document.CreateDefault(kdlTemplate); // Create from template string
+            IDocument? document = null;
+            string output = "";
+            // valueDict["Points"].Fields[0].Fields["headline"].AsString
+            List<Value> list = new List<Value>();
+            // foreach (var point in valueDict["Points"].Fields)
+            // {
+            //     try {
+            //         document = documentResult.DocumentOrThrow; // Throws ParseException on error
+            //         IContext context = Context.CreateBuiltin(point);
+            //         output += document.Render(context);
+            //     } 
+            //     catch (Exception e) {
+            //         output = e.Message + kdlTemplate;
+            //     }
+            // }
+            
             return output;
         }
     }

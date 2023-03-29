@@ -2,11 +2,15 @@ using KdlDotNet;
 
 namespace WebMagic
 {
-    internal class AutoAlignImageSectionsHandler : ISectionHandler
+    internal class AutoAlignImageSectionsHandler : SectionHandler
     {
-        string ISectionHandler.RenderSection(KDLNode node)
+        // string ISectionHandler.RenderSection(KDLNode node)
+        // {
+        //     return "AutoAlignImageSectionsHandler";
+        // }
+        protected override string GetTemplateName()
         {
-            return "<!-- Todo: AutoAlignImageSectionsHandler -->";
+            return "AutoAlignImageSectionsHandler";
         }
     }
 }

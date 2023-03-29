@@ -14,7 +14,6 @@ namespace WebMagic
                 Dictionary<string, object> dict0 = new Dictionary<string, object>();
                 Dictionary<Value, Value> valueDict0 = ConvertDict2ValueDict(dict0);
                 return RenderTemplate(valueDict0, templateName);
-
             }
             IReadOnlyList<KDLNode> nodes = node.Child.Nodes;
             

@@ -92,7 +92,7 @@ namespace WebMagic
                 if (prompt.Type == "SinglePointPrompt")
                     promptString = $"Give {prompt.What} for the app: {input.AppName}. Here is what the app does: {input.AppDescription}. {prompt.AdditionalPrompt}. Use the keywords '{keywords}' as much as possible in your response. {json_format}. {additionalNotes}";
                 else if (prompt.Type == "MultiPointPrompt")
-                    promptString = $"Give {numberString} {prompt.What} for the app: {input.AppName}. Here is what the app does: {input.AppDescription}. {prompt.AdditionalPrompt}. Provide {expected_once_list}. And for each point provide: {expected_repeat_list}. Use the keywords '{keywords}' as much as possible in your response. Maximum length for headlines and descriptions should be 50 words. {json_format} {additionalNotes}";
+                    promptString = $"Give {numberString} {prompt.What} for the app: {input.AppName}. Here is what the app does: {input.AppDescription}. {prompt.AdditionalPrompt}. Provide {expected_once_list}. And for each point provide: {expected_repeat_list}. Use the keywords '{keywords}' as much as possible in your response. Maximum length for headlines, subheadlines and descriptions should be 50 words. {json_format} {additionalNotes}";
             }
             return promptString;
         }

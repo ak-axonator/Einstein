@@ -3,6 +3,17 @@ using KdlDotNet;
 using OpenAI;
 using OpenAI.Chat;
 using OpenAI.Models;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
+using ImageMagic;
 
 namespace WebMagic
 {
@@ -25,7 +36,8 @@ namespace WebMagic
             //task.Wait();
             // initGlobalPaths();
             // testGPTResponseFiletoKDL();
-            testCSVAppNameRename();
+            // testCSVAppNameRename();
+            testDynamicSVGRender();
             
             // testGPTGeneratePrompts();
             // testGPTAPICalls();
@@ -34,6 +46,10 @@ namespace WebMagic
             // testBenefitsParsing(response);
             //testS3Uploading();
 
+        }
+
+        private static void testDynamicSVGRender(){
+            ImageMagic.Program.testDynamicSVGRender();
         }
 
         private static void testCSVAppNameRename()
@@ -86,6 +102,7 @@ namespace WebMagic
         private static void CreatePageFileFromOutputKDL(string outputFilePath)
         {
             // Read the contents of the output file
+            // string _outputFilePath = outputFilePath == "" ? Path.Combine(GlobalPaths.ProjectFolder,"pages", "new_page.page") : outputFilePath;
             string contents = File.ReadAllText(outputFilePath);
             string _fileName = (NewPageName != null && NewPageName != "" ? NewPageName : "new_page").ToLower().Replace(" ", "_");
 
@@ -93,7 +110,7 @@ namespace WebMagic
             string pageFilePath = Path.Combine(GlobalPaths.ProjectFolder,"pages", _fileName+".page");
             File.WriteAllText(pageFilePath, contents);
 
-            Console.WriteLine($"Hurray!!! Your new page {_fileName} is created!");
+            Console.WriteLine($"New page {_fileName} is created!");
 
             processor = new ComandProcessor();
             processor.processCommand();

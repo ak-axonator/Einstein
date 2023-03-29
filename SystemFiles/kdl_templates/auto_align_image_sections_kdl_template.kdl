@@ -1,0 +1,14 @@
+auto_align_image_sections \{
+    items 3
+    title "{Header.maintitle}"
+    sub_title "{Header.subtitle}"
+
+    {for image in Points:    img \{
+        heading "{image.headline}"
+        description "{image.description}"
+        image "{image.image_description}"
+    \}
+
+    }
+    img \{\}
+\}
