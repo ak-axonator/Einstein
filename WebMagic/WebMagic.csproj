@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="itext7" Version="7.2.5" />
     <PackageReference Include="KdlDotNet" Version="1.1.0" />
     <PackageReference Include="OpenAI" Version="1.6.0" />
     <PackageReference Include="OpenAI-DotNet" Version="6.3.1" />

@@ -37,8 +37,8 @@ namespace WebMagic
             // initGlobalPaths();
             // testGPTResponseFiletoKDL();
             // testCSVAppNameRename();
-            testDynamicSVGRender();
-            
+            // testDynamicSVGRender();
+            testPDFFormRender();
             // testGPTGeneratePrompts();
             // testGPTAPICalls();
             // string response = testOpenAI();
@@ -46,6 +46,11 @@ namespace WebMagic
             // testBenefitsParsing(response);
             //testS3Uploading();
 
+        }
+
+        private static void testPDFFormRender(){
+            string htmlFilePath = "/Users/arohikulkarni/Work/Website Project/SourceFiles/FormHTMLs/Forklift inspection checklist.html";
+            string pdfFilePath = HtmlToPdfConverter.Convert(htmlFilePath);
         }
 
         private static void testDynamicSVGRender(){
