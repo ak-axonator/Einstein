@@ -1,0 +1,9 @@
+faq_section \{
+
+    {for card in Points:    card \{
+        prefix "{card.question}"
+        value "{card.answer}"
+    \}
+    }
+    card \{\}
+\}

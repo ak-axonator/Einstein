@@ -1,0 +1,11 @@
+features_section \{
+
+    heading "{Header.maintitle}"
+    subheading "{Header.subtitle}"
+
+    {for card in Points:    card \{
+        title "{card.title}"
+    \}
+    }
+    card \{\}
+\}

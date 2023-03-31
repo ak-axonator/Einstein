@@ -1,0 +1,15 @@
+  <div class="featured-section">
+    <div class="axo-container">
+      <div class="title-white sm:pb-4 md:pb-8">{maintitle}</div>
+      <div class="text sm:pb-4 md:pb-8">{subtitle}</div>
+        <div class="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-4 gap-6">
+          {for card in Points:
+          <div class="feature-item">
+              <div class="feature-icon"><i aria-hidden="true" class="fas fa-check-circle"></i></div>
+              <div class="text">{card.title}</div>
+            </div>
+          }
+        </div>
+    </div>
+    <div class="imag-overlay"></div>
+  </div>

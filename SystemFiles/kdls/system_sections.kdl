@@ -46,6 +46,18 @@ define_section name="cta_no_box_full_light_purple_back_section" class="CTANoBoxF
 define_section name="grid_section" class="GridSection" {
 }
 
+define_section name="impact_section" class="ImpactSection" {
+}
+
+define_section name="faq_section" class="FAQSection" {
+}
+
+define_section name="features_section" class="FAQSection" {
+}
+
+define_section name="rating_section" class="FAQSection" {
+}
+
 define_section name="industries_section" class="IndustriesSection" {
 }
 

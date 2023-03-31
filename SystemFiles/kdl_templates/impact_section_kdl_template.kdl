@@ -1,0 +1,14 @@
+impact_section \{
+
+    heading "{Header.maintitle}"
+    subheading "{Header.subtitle}"
+
+    {for card in Points:    card \{
+        prefix "{card.prefix}"
+        value "{card.value}"
+        suffix "{card.suffix}"
+        text "{card.description}"
+    \}
+    }
+    card \{\}
+\}

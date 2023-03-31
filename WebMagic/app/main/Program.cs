@@ -21,7 +21,6 @@ namespace WebMagic
     {
         public string Title { get; set; }
         public string Description { get; set; }
-
     }
     class Program
     {
@@ -38,14 +37,24 @@ namespace WebMagic
             // testGPTResponseFiletoKDL();
             // testCSVAppNameRename();
             // testDynamicSVGRender();
-            testPDFFormRender();
+            // testPDFFormRender();
             // testGPTGeneratePrompts();
             // testGPTAPICalls();
             // string response = testOpenAI();
             // testValidateResponse(response);
             // testBenefitsParsing(response);
             //testS3Uploading();
+            // CreatePageFileFromOutputKDL();
+            testMDtoKDLParser();
 
+        }
+
+        private static void testMDtoKDLParser()
+        {
+            // var input = "What is the Purpose of a Control Plan in Quality Management?\n------------------------------------------------------------\n\nA quality control plan aims to establish a framework for preventing defects and non-conformities in a product or service.\n\n* It identifies key characteristics of the process and establishes methods for monitoring and measuring those characteristics.\n* It includes process steps, key process inputs and outputs, critical-to-quality (CTQ) characteristics, control methods, control limits, and corrective actions.\n* It establishes a control plan that ensures consistent production of quality products or services by identifying areas for improvement and reducing the risk of defects and non-conformities.\n\nWhat are the Three Types of Control Plans in Quality Management?\n----------------------------------------------------------------\n\nThree types of control plans are used in quality management:\n\nPrototype Control Plan\n----------------------\n\nThis type of control plan is used in the early stages of development when a product is still in the prototype phase. It outlines the dimensions, materials, and performance tests necessary for developing a prototype. \n\nFor example, a company developing a new smartphone may create a prototype control plan to ensure that the phone’s dimensions, materials, and performance tests meet the desired standards.\n\nPre-Launch Control Plan\n-----------------------\n\nOnce a product prototype is complete, a pre-launch control plan is used to ensure the product is ready for full production. It includes dimension measurements, materials, and performance tests conducted after the prototype phase. \n\nFor example, a company producing a new car may use a pre-launch control plan to test the vehicle’s braking system, acceleration, and fuel efficiency before the car is approved for full production.\n\nProduction Control Plan\n-----------------------\n\nA production control plan is used when a product is in total production. It includes characteristics, process controls, tests, and measurements throughout production. \n\nFor example, a company manufacturing electronic devices may use a production control plan to ensure that the products are consistent in quality, performance, and appearance throughout the production process.\n\nWhat is a Control Plan Format?\n------------------------------\n\nThere is no specific format that a control plan must follow, but generally, it includes the following information:\n\n| Control Plan Information | Description |\n| --- | --- |\n| Header Information | Title of the control plan, date of creation, and revision number |\n| Process Steps | Detailed description of process steps to identify potential quality issues and ensure consistent production. It may include process flow diagrams, process maps, and process descriptions. |\n| Key Process Inputs and Outputs | List of key inputs and outputs for each process step to ensure proper measurement and monitoring. |\n| Critical-to-Quality (CTQ) Characteristics | Identification of the most important characteristics directly affecting customer satisfaction. The control plan outlines acceptable limits and measurements for each CTQ characteristic. |\n| Control Methods | Outline of methods used to ensure the process operates within defined control limits, such as visual inspections, statistical process control, or other monitoring methods. |\n| Control Limits | Identification of acceptable ranges for each key input and output in the control plan. This allows for early detection of issues and timely corrective actions. |\n| Corrective Actions | Plan for corrective actions in case of deviations from the control limits, which may include stopping production, making adjustments to the process, or re-inspecting the product. |\n| Responsibilities | Identify whois responsible for each step of the process and who is responsible for monitoring and controlling the quality of the product or service |";
+            string inputFilePath = "/Users/arohikulkarni/Work/Website Project/Old Website/blogs/blog2.md";
+            var parser = new TextParser();
+            parser.Convert(inputFilePath);
         }
 
         private static void testPDFFormRender(){
@@ -104,11 +113,11 @@ namespace WebMagic
             CreatePageFileFromOutputKDL(outputFilePath);
         }
 
-        private static void CreatePageFileFromOutputKDL(string outputFilePath)
+        public static void CreatePageFileFromOutputKDL(string outputFilePath = "")
         {
             // Read the contents of the output file
-            // string _outputFilePath = outputFilePath == "" ? Path.Combine(GlobalPaths.ProjectFolder,"pages", "new_page.page") : outputFilePath;
-            string contents = File.ReadAllText(outputFilePath);
+            string _outputFilePath = outputFilePath == "" ? Path.Combine(GlobalPaths.ProjectFolder,"pages", "new_page.page") : outputFilePath;
+            string contents = File.ReadAllText(_outputFilePath);
             string _fileName = (NewPageName != null && NewPageName != "" ? NewPageName : "new_page").ToLower().Replace(" ", "_");
 
             // Create a new file with the specified name in the project folder

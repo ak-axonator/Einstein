@@ -2,14 +2,14 @@ using KdlDotNet;
 
 namespace WebMagic
 {
-    internal class Section
+    public class Section
     {
         public KDLString HandlerName { get; internal set; }
         public KDLString HandlerClassName { get; internal set; }
         public KDLBoolean isAbstract { get; internal set; }
         public string Identifier { get; private set; }
-        public ISectionHandler Handler { get; private set; }
-        public List<Instruction> DefinedInstructions { get; }
+        internal ISectionHandler Handler { get; private set; }
+        internal List<Instruction> DefinedInstructions { get; }
         public Section(string identifier, KDLString handlerClassName, KDLString handlerName, KDLBoolean isAbstract)
         {
             this.Identifier = identifier;

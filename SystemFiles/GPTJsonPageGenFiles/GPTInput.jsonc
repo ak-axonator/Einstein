@@ -5,10 +5,7 @@
     "AppName": "Housekeeping HSE Audit",
     // "AppName": "Quality Audit App",
     //What is the description of your app?
-    "AppDescription": "Housekeeping HSE Audit is a powerful mobile app designed to help you conduct workplace safety audits with ease.
-    With this app, you can easily assess the safety of your workplace and identify potential hazards that could put your employees at risk.
-    Whether you're a safety manager, an auditor, or a business owner, this app is the perfect tool to help you ensure that your workplace is safe and compliant with all relevant regulations.
-    The Housekeeping HSE Audit app is easy to use and comes with a range of features that make it a must-have for anyone involved in workplace safety. With this app, you can create custom checklists and audit templates, schedule audits, and assign tasks to team members. You can also track audit progress in real-time, generate reports, and share them with stakeholders. The app is designed to be flexible and customizable, so you can tailor it to your specific needs. You can add your own questions, customize the scoring system, and even add photos and comments to your audits. This makes it easy to identify areas that need improvement and take action to address them. With Housekeeping HSE Audit, you can rest assured that your workplace is safe and compliant with all relevant regulations. Download the app today and start conducting workplace safety audits with ease!",
+    "AppDescription": "Housekeeping HSE Audit is a powerful mobile app designed to help you conduct workplace safety audits with ease. With this app, you can easily assess the safety of your workplace and identify potential hazards that could put your employees at risk. Whether you're a safety manager, an auditor, or a business owner, this app is the perfect tool to help you ensure that your workplace is safe and compliant with all relevant regulations. The Housekeeping HSE Audit app is easy to use and comes with a range of features that make it a must-have for anyone involved in workplace safety. With this app, you can create custom checklists and audit templates, schedule audits, and assign tasks to team members. You can also track audit progress in real-time, generate reports, and share them with stakeholders. The app is designed to be flexible and customizable, so you can tailor it to your specific needs. You can add your own questions, customize the scoring system, and even add photos and comments to your audits. This makes it easy to identify areas that need improvement and take action to address them. With Housekeeping HSE Audit, you can rest assured that your workplace is safe and compliant with all relevant regulations. Download the app today and start conducting workplace safety audits with ease!",
     // "AppDescription": "The app provides mobile forms to collect audit data on smartphones and tablets and allows quality Workflow automation. ",
     //Please provide a list of keywords related to your app (comma-separated).
     "Keywords": [
@@ -119,17 +116,19 @@
         //generate impact section
         {
             "Enabled" : false,
-            "Section": "grid_section",
+            "Section": "impact_section",
             "Type": "MultiPointPrompt",
-            "Number": 6,
+            "Number": 3,
             "What": "impact statistics",
-            "AdditionalPrompt": "The description must be very short and only with statistic Numbers.",
+            "AdditionalPrompt": "The description must be very short and only with statistic Numbers. The prefix and suffix could be characters like units and percentage of the statistical value.",
             "ExpectedOnce": [
                 "maintitle",
                 "subtitle"
             ],
             "ExpectedRepeat": [
-                "title",
+                "prefix",
+                "value",
+                "suffix",
                 "description"
             ]
         },
@@ -155,13 +154,11 @@
         //generate faq section
         {
             "Enabled" : false,
-            "Section": "grid_section",
+            "Section": "faq_section",
             "Type": "MultiPointPrompt",
             "Number": 10,
             "What": "faq",
             "ExpectedOnce": [
-                "maintitle",
-                "subtitle"
             ],
             "ExpectedRepeat": [
                 "question",
@@ -171,7 +168,7 @@
         //generate relevant features section
         {
             "Enabled" : false,
-            "Section": "grid_section",
+            "Section": "features_section",
             "Type": "MultiPointPrompt",
             "Number": 8,
             "What": "features from the following list of product features that are highly relevant from the feature list",

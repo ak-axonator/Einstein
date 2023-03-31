@@ -118,10 +118,9 @@ namespace WebMagic
                 document = documentResult.DocumentOrThrow; // Throws ParseException on error
                 IContext context = Context.CreateBuiltin(heroAttributes);
                 output = document.Render(context);
-            } 
+            }
             catch (Exception e) {
                 output = e.Message + template;
-
             }
             return output;
         }

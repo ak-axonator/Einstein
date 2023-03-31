@@ -9,8 +9,8 @@ namespace WebMagic
     {
         private string _folderPath;
         private bool _compile = true;
-        private bool _upload = false;
-        private bool _compileAndWatch = false;
+        private bool _upload = true;
+        private bool _compileAndWatch = true;
         private bool _uploadAndWatch = false;
         DirectoryObserver observer;
 

@@ -2,7 +2,8 @@
     <div class="axo-container">
       <div class="title xl:px-64 lg:px-48 md:px-20">{Header.maintitle}</div>
       <!-- <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 xl:mt-16 mt-12"> -->
-        {for img in imgs:
+        {for index, img in imgs:
+          {if mod(index,2) = 1:
           <div class="left-right-section-wrapper">
             <!-- <div class="title">Stay on Top of Mobile Data Collection, Always!</div> -->
             <div class="axo-container">
@@ -19,6 +20,24 @@
               </div>
             </div> 
           </div>
+          | else:
+          <div class="left-right-section-wrapper">
+            <!-- <div class="title">Stay on Top of Mobile Data Collection, Always!</div> -->
+            <div class="axo-container">
+              <div class="left-right-section flex-col-reverse md:flex-row">
+                <div class="left-right-section-image">
+                  <img src="assets/images/Paperless-Data-Capture-Process-Quality-Audit-1980x1318.webp" alt="{img.image_description}">
+                </div>
+                <div class="left-right-section-content">
+                  <div class="subtitle text-left">{img.heading}</div>
+                  <div class="text text-left">
+                    {img.description}
+                  </div>
+                </div>
+              </div>
+            </div> 
+          </div>
+          }
         }
       <!-- </div> -->
     </div>

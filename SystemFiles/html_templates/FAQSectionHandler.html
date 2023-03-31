@@ -1,0 +1,13 @@
+  <div class="faq-section">
+    <div class="axo-container">
+      <div class="title">FAQ</div>
+      <div class="accordion-wrapper">
+      {for card in cards:
+        <div class="accordion">
+          <div class="accordion-header"><div class="accordion-title font-medium">{card.question}</div><div class="accordion-icon"><i class="fa-toggle fas fa-plus"></i></div></div>
+          <div class="accordion-body">{card.answer}</div>
+        </div>
+      }
+      </div>
+    </div>
+  </div>
