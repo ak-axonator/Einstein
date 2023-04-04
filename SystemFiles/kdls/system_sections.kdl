@@ -52,13 +52,25 @@ define_section name="impact_section" class="ImpactSection" {
 define_section name="faq_section" class="FAQSection" {
 }
 
-define_section name="features_section" class="FAQSection" {
+define_section name="features_section" class="FeaturesSection" {
 }
 
-define_section name="rating_section" class="FAQSection" {
+define_section name="rating_section" class="RatingSection" {
+}
+
+define_section name="integrations_section" class="IntegrationsSection" {
+}
+
+define_section name="apps_for_industry_section" class="AppsForIndustrySection" {
 }
 
 define_section name="industries_section" class="IndustriesSection" {
+}
+
+define_section name="get_quote_section" class="GetQuoteSection" {
+}
+
+define_section name="related_resources_section" class="RelatedResourcesSection" {
 }
 
 define_section name="navigation_section" class="NavigationSection" {
@@ -71,6 +83,18 @@ define_section name="page_end_section" class="PageEndSection" {
 }
 
 define_section name="watch_video_section" class="WatchVideoSection" {
+}
+
+define_section name="para_section" class="ParaSection" {
+}
+
+define_section name="blog_heading_section" class="BlogHeadingSection" {
+}
+
+define_section name="sub_heading_section" class="SubHeadingSection" {
+}
+
+define_section name="bullets_section" class="BulletsSection" {
 }
 
 define_section name="group_header" class="GroupHeader" {

@@ -32,10 +32,33 @@ namespace WebMagic
             {
                 Console.WriteLine("Uploading " + file + "...");
                 // Determine the S3 key for the file based on the prefix and file name
-                string s3Key = Path.Combine(folderPrefix, System.IO.Path.GetFileName(file));
-                // Create a transfer utility to upload the file to S3
-                TransferUtility transferUtility = new TransferUtility(s3Client);
-                transferUtility.Upload(file, bucketName, s3Key);
+                string[] prefixes = new string[] { "app-", "blog-", "customer-success-story-" ,"guide-", "micro-app-store-", "news-", "topic-" };
+                string prefix = "";
+                string fileName = Path.GetFileNameWithoutExtension(file).TrimEnd('_', '-').Replace("_","-");
+                // if the filename starts with any of the prefixes, remove it from file name and join it withing the s3Key
+
+                foreach (string p in prefixes)
+                {
+                    if (fileName.StartsWith(p))
+                    {
+                        prefix = p.TrimEnd('-');
+                        fileName = fileName.Substring(p.Length);
+                        break;
+                    }
+                }
+                string s3Key = Path.Combine(folderPrefix, prefix, fileName);
+                // UploadFile(file);
+
+                var putRequest = new PutObjectRequest
+                {
+                    BucketName = bucketName,
+                    Key = s3Key,
+                    FilePath = file,
+                    ContentType = "text/html"
+                };
+
+                s3Client.PutObjectAsync(putRequest);
+
             }
         }
 

@@ -153,7 +153,7 @@
         },
         //generate faq section
         {
-            "Enabled" : false,
+            "Enabled" : true,
             "Section": "faq_section",
             "Type": "MultiPointPrompt",
             "Number": 10,

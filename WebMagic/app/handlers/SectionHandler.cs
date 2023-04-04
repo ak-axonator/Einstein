@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Cottle;
 using KdlDotNet;
 
@@ -54,7 +55,7 @@ namespace WebMagic
                         valueDict[item.Key] = kdlValue.AsNumber().ToString();
                     else
                     if(kdlValue.IsString)
-                        valueDict[item.Key] = kdlValue.AsString().Value; 
+                        valueDict[item.Key] = ReplaceHyperlinks(kdlValue.AsString().Value); 
                     else if(kdlValue.IsBoolean)
                         valueDict[item.Key] = kdlValue.AsBoolean().Value;
 
@@ -63,6 +64,22 @@ namespace WebMagic
             }
             return valueDict;
         }
+        private static string ReplaceHyperlinks(string input)
+        {
+            var hyperlinkRegex = new Regex(@"\[(.*?)\]\((.*?)\)");
+            var output = input;
+            
+            foreach (Match match in hyperlinkRegex.Matches(input))
+            {
+                var hyperlinkText = match.Groups[1].Value;
+                var hyperlinkUrl = match.Groups[2].Value;
+                var hyperlinkTag = $"<a href=\"{hyperlinkUrl}\">{hyperlinkText}</a>";
+                output = output.Replace(match.Value, hyperlinkTag);
+            }
+            
+            return output;
+        }
+
 
         private Dictionary<string, object> ConvertKDLNodes2Dictionary(IReadOnlyList<KDLNode> nodes)
         {

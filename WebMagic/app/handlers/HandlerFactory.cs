@@ -17,9 +17,15 @@ namespace WebMagic
                 case "ClientLogosSection":
                     return new ClientLogosSection(); 
                 case "GroupHeader":
-                    return new GroupHeaderHandler(); 
+                    return new GroupHeaderHandler();
+                case "ParaSection":
+                    return new ParaSectionHandler();
+                case "BlogHeadingSection":
+                    return new BlogHeadingSectionHandler();
                 case "ImageSection":
-                    return new ImageSectionHandler(); 
+                    return new ImageSectionHandler();
+                case "ImpactSection":
+                    return new ImpactSectionHandler();
                 case "ScheduleDemoSection":
                     return new ScheduleDemoSectionHandler(); 
                 case "TestimonialsSection":
@@ -34,8 +40,26 @@ namespace WebMagic
                     return new CTANoBoxFullLightPurpleBackSectionHandler();
                 case "GridSection":
                     return new GridSectionHandler();
+                case "BulletsSection":
+                    return new BulletsSectionHandler();
+                case "FAQSection":
+                    return new FAQSectionHandler();
+                case "FeaturesSection":
+                    return new FeaturesSectionHandler();
+                case "RatingSection":
+                    return new RatingSectionHandler();
+                case "RelatedResourcesSection":
+                    return new RelatedResourcesSectionHandler();
                 case "IndustriesSection":
                     return new IndustriesSectionHandler();
+                case "IntegrationsSection":
+                    return new IntegrationsSectionHandler();
+                case "AppsForIndustrySection":
+                    return new AppsForIndustrySectionHandler();
+                case "GetQuoteSection":
+                    return new GetQuoteSectionHandler();
+                case "SubHeadingSection":
+                    return new SubHeadingSectionHandler();
                 case "NavigationSection":
                     return new NavigationSectionHandler();
                 case "PageBeginSection":

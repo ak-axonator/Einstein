@@ -1,0 +1,7 @@
+bullets_section \{
+
+    {for bullet in Points:
+        bullet "{bullet.contents}"
+        bullet ""
+    }
+\}

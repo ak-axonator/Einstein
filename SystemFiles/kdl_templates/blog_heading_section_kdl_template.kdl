@@ -1,0 +1,5 @@
+blog_heading_section \{
+    heading "{Header.headline}"
+    author "{Header.author}"
+    date "{Header.date}"
+\}

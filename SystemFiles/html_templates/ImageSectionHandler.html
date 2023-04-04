@@ -1,16 +1,36 @@
-<div class="left-right-section-wrapper">
-  <!-- <div class="title">Stay on Top of Mobile Data Collection, Always!</div> -->
+{if align != "left":
+<div class="right-image-section-wrapper">
+  <div class="axo-container">
+    <div class="left-right-section flex-col md:flex-row">
+      <div class="descripion-section">
+        <div class="subtitle text-left">{heading}</div>
+        <div class="text text-left">
+          {description} 
+        </div>
+      </div>
+      <div class="image-section">
+        <img src="{img.src}" alt="{img.alt}">
+      </div>
+    </div>
+  </div>
+</div>
+    | else:
+    <!----Left Imae section-->
+<div class="left-image-section-wrapper">
   <div class="axo-container">
     <div class="left-right-section flex-col-reverse md:flex-row">
-      <div class="left-right-section-content">
+      <div class="image-section">
+        <img src="{img.src}" alt="{img.alt}">
+      </div>
+      <div class="descripion-section">
         <div class="subtitle text-left">{heading}</div>
         <div class="text text-left">
           {description}
         </div>
       </div>
-      <div class="left-right-section-image">
-        <img src="{img_src}" alt="{image_description}">
-      </div>
+      
     </div>
   </div> 
 </div>
+}
+  
