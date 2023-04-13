@@ -17,9 +17,9 @@ namespace WebMagic
                 streamReader.Close();
                 this.doc = parser.Parse(kdlString);
             }
-            catch (KDLParserException e)
+            catch (Exception e)
             {
-                throw new Exception($"Error parsing {kdlFileName}: {e.Message}");
+                CommandProcessor.LogJsonParsingError(e, e.Message, kdlFileName);
             }
         }
 

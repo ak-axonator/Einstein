@@ -66,7 +66,8 @@ define_section name="apps_for_industry_section" class="AppsForIndustrySection" {
 
 define_section name="industries_section" class="IndustriesSection" {
 }
-
+define_section name="hero_with_bg_section" class="HeroWithBGSection" {
+}
 define_section name="get_quote_section" class="GetQuoteSection" {
 }
 
@@ -117,6 +118,8 @@ define_section name="schedule_demo_section" class="ScheduleDemoSection" {
     }
 }
 define_section name="testimonials_section" class="TestimonialsSection" {
+}
+define_section name="infinite_posibilities_section" class="InfinitePosibilitiesSection" {
 }
 define_section name="default_footer_section" class="DefaultFooterSection" {
 }

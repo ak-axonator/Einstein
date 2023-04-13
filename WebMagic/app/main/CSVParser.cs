@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text;
+using Microsoft.VisualBasic.FileIO; // Need to add reference to Microsoft.VisualBasic.dll
 
 namespace WebMagic
 {
@@ -21,38 +22,52 @@ namespace WebMagic
                 Console.WriteLine("File not found.");
                 return;
             }
-            
 
+            // Create a new TextFieldParser object
+            TextFieldParser parser = new TextFieldParser(_filePath);
 
-            using (var reader = new StreamReader(_filePath))
+            // Set up the parser's properties
+            parser.TextFieldType = FieldType.Delimited;
+            parser.SetDelimiters(",");
+            var i = 0;
+            // Read the file and parse the data
+            while (!parser.EndOfData)
             {
-                // Read the header line
-                reader.ReadLine();
+                // Read the current line
+                string[] fields = parser.ReadFields();
 
-                while (!reader.EndOfStream)
-                {
-                    var line = reader.ReadLine();
-                    var values = line.Split(',');
-
-                    string title = values[0].Trim();
-                    string category = values[1].Trim();
-                    string subcategory = values[2].Trim();
-
-                    Input csvInput = new Input();
-                    csvInput.AppName = values[0].Trim();
-                    csvInput.AppDescription = values[1].Trim();
-                    csvInput.Keywords = values[2].Trim().Split(',').ToList();
-                    Console.WriteLine($"calling GPT with csv input...");
-                    Program.csvGPTGeneratePrompts(csvInput);
-                    
-
-                    // string prompt = GeneratePrompt(title, category, subcategory);
-                    // GetGPTResponse(prompt);
-
-                    // string prompt2 = GeneratePrompt2(title, category, subcategory);
-                    // GetGPTResponse(prompt2);
+                // Process the fields as needed
+                Input csvInput = new Input();
+                csvInput.Industry = fields[0].Trim();
+                if (csvInput.Industry.Contains("Industry") || csvInput.Industry.Contains("Category"))
+                    continue;
+                csvInput.Category = fields[1].Trim();
+                csvInput.AppName = fields[2].Trim().Replace("/","-");
+                // csvInput.Keywords = fields[2].Trim().Split(',').ToList();
+                var timestamp = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));
+                Console.WriteLine(timestamp);
+                Console.WriteLine($"Processing {csvInput.AppName}...");
+                var generator = new GPTPromptsGenerator();
+                try{
+                    generator.Generate(csvInput);
                 }
+                catch(Exception e){
+                    CommandProcessor.LogJsonParsingError(e, e.Message, fields.ToString());
+                }
+                // testGPTAPICalls();
+                
+                Console.WriteLine();
+                i++;
+                // string prompt = GeneratePrompt(title, category, subcategory);
+                // GetGPTResponse(prompt);
+
+                // string prompt2 = GeneratePrompt2(title, category, subcategory);
+                // GetGPTResponse(prompt2);
             }
+
+            // Close the parser
+            parser.Close();
+
         }
 
         private string GeneratePrompt(string title, string category, string subcategory)

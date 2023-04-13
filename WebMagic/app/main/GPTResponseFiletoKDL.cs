@@ -22,7 +22,7 @@ namespace WebMagic
 
             foreach (var response in responseFile.Responses)
             {
-                string section = response.Section;
+                string section = response.Artifact;
                 string responseJSON = response.Response.Replace("{'","{\"").Replace(" '"," \"").Replace("\n'","\n\"").Replace("':","\":").Replace("'}","\"}").Replace("',","\",").TrimEnd('.');
                 //read file into a string with file name as section appended with _kdl_template.kdl
                 string kdlTemplate = File.ReadAllText(Path.Combine(GlobalPaths.SystemFolder, "kdl_templates",section + "_kdl_template.kdl"));

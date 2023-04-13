@@ -1,0 +1,21 @@
+{
+    //What is the name of your dashboard?
+    "ArtifactName": "",
+    "Prompts": [
+        //generate dashboard prompt
+        {
+            "Enabled" : true,
+            "PrefixInstruction": "Give dashboard: ",
+            "Artifact": "dashboard",
+            "GiveContentFor": [],
+            "MoreInstructions": [
+                "Write section \"Objective\"",
+                "Write section \"Who should use this dashboard?\"",
+                "Write dashboard template with a chart type, name, description, metrics and dimensions in a tabular format. Give 10 charts. Give bold headings.",
+                "Write section \"Benefits and Impact\"",
+                "Write section \"Sources and References\"",
+                "Give response in markdown syntax"
+            ]
+        }
+    ]
+}

@@ -46,6 +46,12 @@ namespace WebMagic
         public string Alt { get; set; }
         public List<Link> links { get; set; }
     }
+    public class MDHeroWithBgSection : MDSection
+    {
+        public string Heading { get; set; }
+        public string Description { get; set; }
+        public List<Link> links { get; set; }
+    }
 
     public class Link
     {
@@ -149,7 +155,7 @@ namespace WebMagic
             {
                 string line = lines[i].Trim();
                 var section_obj = new SectionObject();
-                if (line.StartsWith("[") && line.Contains("](") && line.Contains(")"))
+                if (line.StartsWith("[") && line.Contains("](") && line.Contains(")") || line.Contains("elementor"))
                 {
                     continue;
                 }
@@ -184,6 +190,13 @@ namespace WebMagic
                             i += section_obj.links.Count + 3;
                         else
                             i += 3;
+                    }
+                    if (section_obj.type == "hero_with_bg_section")
+                    {
+                        if (section_obj.links.Count > 0)
+                            i += section_obj.links.Count + 2;
+                        else
+                            i += 2;
                     }
                     if (section_obj.type == "group_header" && !string.IsNullOrEmpty(section_obj.subheading))
                     { //skip ---- and subheading lines
@@ -268,6 +281,7 @@ namespace WebMagic
             var section_obj = new SectionObject();
             var _idx = i;
             var line = lines[_idx].Trim();
+            char[] trimChars = { '_', '-', ' ', '*', '#' };
 
             List<string> single_line_sections = new List<string>();
             // single_line_sections.Add("subheading");
@@ -285,8 +299,8 @@ namespace WebMagic
                 var next_next_section_obj = DetectLine(lines, i+3);
                 if (next_section_obj.type == "bullets" && next_next_section_obj.type == "bullets"){
                     section_obj.type = "heading";
-                    section_obj.author = next_section_obj.contents;
-                    section_obj.date = next_next_section_obj.contents;
+                    section_obj.author = next_section_obj.contents.TrimStart(trimChars).TrimEnd(trimChars);
+                    section_obj.date = next_next_section_obj.contents.TrimStart(trimChars).TrimEnd(trimChars);
                     MDSection.page_type = "blog";
                     return section_obj;
                 }
@@ -297,20 +311,23 @@ namespace WebMagic
                         MDSection.page_type = "landing";
                         return section_obj;
                     }
-
+                    else if(section_obj.type == "hero_with_bg_section"){
+                        MDSection.page_type = "industry";
+                        return section_obj;
+                    }
                 }
 
             }
-            else if (section_obj.type == "subheading" && MDSection.page_type == "landing"){
+            else if (section_obj.type == "subheading" && (MDSection.page_type == "landing" || MDSection.page_type == "industry")){
                 // next line will be -----
                 // This could be a group header or a grid section if more than 2 images found after this
                 
                 section_obj.type = "group_header";
-                section_obj.heading = section_obj.subheading;
+                section_obj.heading = section_obj.subheading.TrimStart(trimChars).TrimEnd(trimChars);
                 // if next next line is paragraph, then the groupheader also has subheading
                 var next_section_obj = DetectLine(lines, i+2);
                 if (next_section_obj.type == "paragraph"){
-                    section_obj.subheading = next_section_obj.contents;
+                    section_obj.subheading = next_section_obj.contents.TrimStart(trimChars).TrimEnd(trimChars);
                     return section_obj;
                 }
                 else{
@@ -321,13 +338,13 @@ namespace WebMagic
             else if (section_obj.type == "bullets"){
                 // while next line starts with bullet, add to bullets
                 section_obj.bullets = new List<string>();
-                section_obj.bullets.Add(section_obj.contents);
+                section_obj.bullets.Add(section_obj.contents.TrimStart(trimChars).TrimEnd(trimChars));
                 var bullet_cnt = 1;
                 var next_section_obj = DetectLine(lines, i);
                 // while the next section is bullet or undetected and empty
                 while (next_section_obj.type == "bullets"){// || (next_section_obj.type == "undetected" && string.IsNullOrEmpty(next_section_obj.contents))){
                     // skip adding if the content is empty
-                    var bullet_contents = next_section_obj.contents;
+                    var bullet_contents = next_section_obj.contents.TrimStart(trimChars).TrimEnd(trimChars);
                     if (!string.IsNullOrEmpty(bullet_contents)){
                         section_obj.bullets.Add(bullet_contents);
                     }
@@ -345,8 +362,8 @@ namespace WebMagic
                         section_obj.source = next_next_section_obj.source;
                         section_obj.alt = next_next_section_obj.alt;
                         section_obj.align = "right";
-                        section_obj.heading = section_obj.heading;
-                        section_obj.subheading = next_section_obj.contents;
+                        section_obj.heading = section_obj.heading.TrimStart(trimChars).TrimEnd(trimChars);
+                        section_obj.subheading = next_section_obj.contents.TrimStart(trimChars).TrimEnd(trimChars);
                         return section_obj;
                     }
                 }
@@ -361,8 +378,8 @@ namespace WebMagic
                         section_obj.source = section_obj.source;
                         section_obj.alt = section_obj.alt;
                         section_obj.align = "left";
-                        section_obj.heading = next_section_obj.heading;
-                        section_obj.subheading = next_next_section_obj.contents;
+                        section_obj.heading = next_section_obj.heading.TrimStart(trimChars).TrimEnd(trimChars);
+                        section_obj.subheading = next_next_section_obj.contents.TrimStart(trimChars).TrimEnd(trimChars);
                         return section_obj;
                     }
                 }
@@ -391,14 +408,14 @@ namespace WebMagic
                     var question_and_answer = new QuestionAndAnswer();
                     var next_section_obj = DetectLine(lines, i+1);
                     if (next_section_obj.type == "question"){
-                        question_and_answer.Question = next_section_obj.contents;
+                        question_and_answer.Question = next_section_obj.contents.TrimStart(trimChars).TrimEnd(trimChars);
                         var next_next_section_obj = DetectLine(lines, i+2);
                         if (next_next_section_obj.type == "paragraph"){
                             // initialize the list of questions and answers if it is null
                             if (section_obj.questions_and_answers == null){
                                 section_obj.questions_and_answers = new List<QuestionAndAnswer>();
                             }
-                            question_and_answer.Answer = next_next_section_obj.contents;
+                            question_and_answer.Answer = next_next_section_obj.contents.TrimStart(trimChars).TrimEnd(trimChars);
                             section_obj.questions_and_answers.Add(question_and_answer);
                             i = i+2;
                         }
@@ -424,7 +441,7 @@ namespace WebMagic
                     SectionObject link_obj = DetectLine(lines, i + 1);
                     var app_img = img_obj.source;
                     var app_url = link_obj.links[0].Url;
-                    var app_name = link_obj.links[0].Text;
+                    var app_name = link_obj.links[0].Text.TrimStart(trimChars).TrimEnd(trimChars);
                     app.Name = app_name;
                     app.Url = app_url;
                     app.Image = app_img;
@@ -500,6 +517,10 @@ namespace WebMagic
                 section_obj.source = imageSection.source;
                 section_obj.alt = imageSection.alt;
             }
+            if (sectionFound[0]) { //Heading wiht description found
+                section_obj.type = "hero_with_bg_section";
+                section_obj.subheading = paragraphSection.contents;
+            }
             return section_obj;
         }
 
@@ -511,6 +532,8 @@ namespace WebMagic
                 return section_obj;
             }
             var line = lines[i].Trim();
+            char[] trimChars = new char[] { '"', ' ', '.', '#', '*' };
+
             Match img_match = new Regex(@"!\[(.*?)\]\((.*?)\)").Match(lines[i]);
             Match link_match = new Regex(@"^\s*(?:\[(.*?)\]\((.*?)\))?$").Match(lines[i]);
             // check if the next line contains multiple = or - characters
@@ -518,9 +541,9 @@ namespace WebMagic
             {
                 // heading found
                 section_obj.type = "heading";
-                section_obj.heading = lines[i].Trim();
+                section_obj.heading = lines[i].TrimStart(trimChars).TrimEnd(trimChars);
             }
-            else if (lines[i].Trim().Contains("Integration") || lines[i].Trim().Contains("Integrate")){
+            else if ((lines[i].Trim().Contains("Integration") || lines[i].Trim().Contains("Integrate")) && MDSection.page_type != "blog"){
                 section_obj.type = "integrations_section";
             }
             else if (lines[i].Trim().Contains("## Apps for Industry")){
@@ -533,16 +556,16 @@ namespace WebMagic
             {
                 // image found
                 section_obj.type = "image";
-                section_obj.source = img_match.Groups[2].Value;
+                section_obj.source = Path.Combine("/","assets","images",Path.GetFileName(img_match.Groups[2].Value));
                 section_obj.alt = img_match.Groups[1].Value;
             }
             else if (link_match.Success)
             {
-                // image found
+                // link found
                 section_obj.type = "link";
                 var link = new Link();
-                link.Text = link_match.Groups[1].Value;
-                link.Url = link_match.Groups[2].Value;
+                link.Text = link_match.Groups[1].Value.TrimStart(trimChars).TrimEnd(trimChars);
+                link.Url = link_match.Groups[2].Value.Replace("https://axonator.com/", "/");
                 section_obj.links = new List<Link>();
                 section_obj.links.Add(link);
             }
@@ -557,54 +580,54 @@ namespace WebMagic
                 else if (lines[i].Trim().Contains("Quick Estimate")){
                     section_obj.type = "get_quote_section";
                 }
-                else if (lines[i].Trim().Contains("Related Resources")){
+                else if (lines[i].Trim().Contains("Resources")){
                     section_obj.type = "related_resources_section";
                 }
                 else if (lines[i].Trim().Contains("Schedule Your Demo Today")){
                     section_obj.type = "schedule_demo_section";
                 }
-                else if (lines[i].Trim().Contains("FAQ")){
+                else if (lines[i].Trim().Contains("FAQ") || lines[i].Trim().Contains("Frequently Asked Question")){
                     section_obj.type = "faq_section";
                 }
                 else{
                     // subheading found
                     section_obj.type = "subheading";
-                    section_obj.subheading = lines[i].Trim();
+                    section_obj.subheading = lines[i].TrimStart(trimChars).TrimEnd(trimChars);
                 }
             }
             else if (lines[i].Trim().StartsWith("### "))
             {
                 // h3 section
                 section_obj.type = "h3";
-                section_obj.heading = lines[i].Trim();
+                section_obj.heading = lines[i].TrimStart(trimChars).TrimEnd(trimChars);
             }
             else if (lines[i].Trim().StartsWith("*"))
             {
                 // bullet section
                 section_obj.type = "bullets";
-                section_obj.contents = lines[i].Trim();
+                section_obj.contents = lines[i].TrimStart(trimChars).TrimEnd(trimChars);
             }
             else if (lines[i].Trim().StartsWith("|"))
             {
                 // table section
                 section_obj.type = "table";
-                section_obj.contents = lines[i].Trim();
+                section_obj.contents = lines[i].TrimStart(trimChars).TrimEnd(trimChars);
             }
             else if(lines[i].Length > 20 && lines[i].Trim().EndsWith("?")){
                 // question section
                 section_obj.type = "question";
-                section_obj.contents = lines[i].Trim();
+                section_obj.contents = lines[i].TrimStart(trimChars).TrimEnd(trimChars);
             }
             else if(lines[i].Length > 100){
                 // paragraph section
                 section_obj.type = "paragraph";
-                section_obj.contents = lines[i].Trim();
+                section_obj.contents = lines[i].TrimStart(trimChars).TrimEnd(trimChars);
             }
             else
             {
                 // undetected section
                 section_obj.type = "undetected";
-                section_obj.contents = lines[i].Trim();
+                section_obj.contents = lines[i].TrimStart(trimChars).TrimEnd(trimChars);
             }
             return section_obj;
         }
@@ -622,10 +645,15 @@ namespace WebMagic
             var bullets = section_obj.bullets;
             var tableHeader = section_obj.tableHeader;
             var tableRows = section_obj.tableRows;
-            var contents = section_obj.contents ?? "";
             var links = section_obj.links;
             var questions_and_answers = section_obj.questions_and_answers;
             var appsForIndustry = section_obj.appsForIndustry;
+            var contents = "";
+            char[] trimChars = new char[] { '"', ' ', '.', '#', '*' };
+            if (!string.IsNullOrEmpty(section_obj.contents))
+            {
+                contents = section_obj.contents.TrimStart(trimChars).TrimEnd(trimChars);
+            }
 
             switch (type)
             {
@@ -633,6 +661,8 @@ namespace WebMagic
                     return new HeadingSection { Type = type, Heading = heading, Author = author, Date = date };
                 case "hero_section":
                     return new MDHeroSection { Type = type, Heading = heading, Description = subheading, Source = source, Alt = alt, links = links };
+                case "hero_with_bg_section":
+                    return new MDHeroWithBgSection { Type = type, Heading = heading, Description = subheading, links = links };
                 case "subheading":
                     return new SubHeadingSection { Type = type, SubHeading = subheading };
                 case "image":
@@ -680,10 +710,17 @@ namespace WebMagic
                         "\theading \"" + hero.Heading.Trim() + "\"\n"+
                         "\tsub_heading \"" + hero.Description.Trim() + "\"\n"+
                         "\timg {\n"+
-                        "\t\tsource \"" + hero.Source.Trim() + "\"\n"+
+                        "\t\tsrc \"" + hero.Source.Trim() + "\"\n"+
                         "\t\talt \"" + hero.Alt.Trim() + "\"\n"+
                         "\t}\n"+
                         appendLinks(hero.links)+
+                        "}");
+                        break;
+                    case MDHeroWithBgSection hero:
+                        kdl_lines.Add("hero_with_bg_section {\n" +
+                        "\theading \"" + hero.Heading.Trim() + "\"\n" +
+                        "\tsub_heading \"" + hero.Description.Trim() + "\"\n" +
+                        appendLinks(hero.links) +
                         "}");
                         break;
                     case HeadingSection hs:
@@ -727,7 +764,7 @@ namespace WebMagic
                         foreach (var bullet in bs.Bullets)
                         {
                             kdl_lines.Add($"\n\tbullet {{\n");
-                            kdl_lines.Add($"\t\t\"{bullet.Trim()}\"\n");
+                            kdl_lines.Add($"\t\tcontents \"{bullet.Trim()}\"\n");
                             kdl_lines.Add($"\t}}\n");
                         }
                         kdl_lines.Add("\n}");
@@ -790,8 +827,12 @@ namespace WebMagic
                 }
             }
             
+            string prefix, fileName;
+            S3Uploader.GetFileNameAndPrefix(inputFilePath, out prefix, out fileName); //filename will contain hyphens, so not used here
+            prefix = prefix.Replace("-", " ").ToLower();
             char[] trimChars = { '_', '-' };
-            string outputFilePath = Path.Combine(GlobalPaths.ProjectFolder, "pages", Path.GetFileNameWithoutExtension(inputFilePath).TrimStart(trimChars).TrimEnd(trimChars) + ".page");
+            string outputFilePath = Path.Combine(GlobalPaths.ProjectFolder, prefix, Path.GetFileNameWithoutExtension(inputFilePath).TrimStart(trimChars).TrimEnd(trimChars) + ".page");
+            Compiler.CreateOutputDirectory(outputFilePath);
             using (StreamWriter writer = new StreamWriter(outputFilePath))
             {
                 // prepend Page start lines to kdl_lines
@@ -809,7 +850,7 @@ namespace WebMagic
                 foreach (string line in kdl_lines)
                 {
                     Console.WriteLine(line);
-                    writer.WriteLine(line);
+                    writer.WriteLine(line.Replace("https://axonator.com/", "/"));
                 }
                 VerifyAndCorrectKdlFile(outputFilePath);
             }

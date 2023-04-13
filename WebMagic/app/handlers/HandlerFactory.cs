@@ -18,6 +18,8 @@ namespace WebMagic
                     return new ClientLogosSection(); 
                 case "GroupHeader":
                     return new GroupHeaderHandler();
+                case "HeroWithBGSection":
+                    return new HeroWithBGSectionHandler();
                 case "ParaSection":
                     return new ParaSectionHandler();
                 case "BlogHeadingSection":
@@ -54,6 +56,8 @@ namespace WebMagic
                     return new IndustriesSectionHandler();
                 case "IntegrationsSection":
                     return new IntegrationsSectionHandler();
+                case "InfinitePosibilitiesSection":
+                    return new InfinitePosibilitiesSectionHandler();
                 case "AppsForIndustrySection":
                     return new AppsForIndustrySectionHandler();
                 case "GetQuoteSection":

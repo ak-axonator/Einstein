@@ -11,7 +11,7 @@
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/WebMagic/bin/Debug/net7.0/WebMagic.dll",
-            "args": ["/Users/arohikulkarni/Work/Website Project/SourceFiles","-cw","-uw"],
+            "args": ["/Users/arohikulkarni/Work/Website Project/SourceFiles/WebsiteSourceProject","-c"],
             "cwd": "${workspaceFolder}/WebMagic",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
@@ -27,7 +27,7 @@
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/ImageMagic/bin/Debug/net7.0/ImageMagic.dll",
-            "args": ["/Users/arohikulkarni/Work/Website Project/SourceFiles","-cw","-u"],
+            "args": [],
             "cwd": "${workspaceFolder}/ImageMagic",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
@@ -43,7 +43,7 @@
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/AppMagic/bin/Debug/net7.0/AppMagic.dll",
-            "args": ["/Users/arohikulkarni/Work/Website Project/SourceFiles","-cw","-u"],
+            "args": [],
             "cwd": "${workspaceFolder}/AppMagic",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",

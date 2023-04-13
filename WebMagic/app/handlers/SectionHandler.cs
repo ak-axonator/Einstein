@@ -73,7 +73,7 @@ namespace WebMagic
             {
                 var hyperlinkText = match.Groups[1].Value;
                 var hyperlinkUrl = match.Groups[2].Value;
-                var hyperlinkTag = $"<a href=\"{hyperlinkUrl}\">{hyperlinkText}</a>";
+                var hyperlinkTag = $" <a class=\"text-link\" href=\"{hyperlinkUrl}\">{hyperlinkText}</a>";
                 output = output.Replace(match.Value, hyperlinkTag);
             }
             
@@ -122,9 +122,6 @@ namespace WebMagic
             return dict;
         }
 
-       
-
-       
         private static string RenderTemplate(Dictionary<Value, Value> heroAttributes, string templateName)
         {
             string template = TemplateLoader.LoadTemplate(templateName);
@@ -137,7 +134,8 @@ namespace WebMagic
                 output = document.Render(context);
             }
             catch (Exception e) {
-                output = e.Message + template;
+                output = "";
+                CommandProcessor.LogJsonParsingError(e, e.Message + template);
             }
             return output;
         }

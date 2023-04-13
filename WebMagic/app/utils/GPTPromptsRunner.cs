@@ -8,36 +8,21 @@ namespace WebMagic
 {
     public class GPTPromptsRunner
     {
-        public static void Run(string inputFilePath, string outputFilePath)
+        public static void Run(string prompt, string outputFilePath)
         {
             ChatGPTAPI  ai = new ChatGPTAPI();
-            
-            Console.WriteLine($"Running prompts from {inputFilePath}");
-            // Load JSON from file
-            string jsonString = File.ReadAllText(inputFilePath);
-            //JsonDocument document = JsonDocument.Parse(jsonString);
-            var input = JsonConvert.DeserializeObject<GPTPromptFile>(jsonString);
-
-            var outputContent = new GPTResponseFile();
-            outputContent.Responses = new List<GPTResponse>();
-
-            foreach (var gptPrompt in input.Prompts)
+            Console.WriteLine("Running prompt: "+ prompt);
+            string result = ai.GetResponse(prompt);
+            if (string.IsNullOrEmpty(result))
             {
-                string prompt = gptPrompt.Prompt;
-                Console.WriteLine("Running prompt: "+ prompt);
-                string result = ai.GetResponse(prompt);
-                Console.WriteLine("ChatGPT Response: " + result);
-                GPTResponse response = new GPTResponse();
-                response.Section = gptPrompt.Section;
-                response.Response = result;
-                
-                outputContent.Responses.Add(response);
-                System.Threading.Thread.Sleep(5000);
+                CommandProcessor.LogJsonParsingError(new Exception("Empty response from GPT"), "Empty response from GPT", prompt);
+                return;
             }
+            // Console.WriteLine("ChatGPT Response: " + result);
             // Write output JSON to file
-            var outputJson = JsonConvert.SerializeObject(outputContent, Formatting.Indented);
-            File.WriteAllText(outputFilePath, outputJson);
-            Console.WriteLine($"prompt responses stored in {outputFilePath}");
+            File.WriteAllText(outputFilePath, result);
+            Console.WriteLine($"prompt response stored in {outputFilePath}");
+            System.Threading.Thread.Sleep(1000);
         }
     }
 }

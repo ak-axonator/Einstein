@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "LhFF8Z+Rqsamg4NTqR4eFLVqKbwEzgXvTO/TrOxnv59hZaaOX4Wpb0qvHtjeQ9XeNaySgVKN9Mp1d5/a8XrGkg==",
+  "success": true,
+  "projectFilePath": "/Users/arohikulkarni/Work/Einstein/LeadMagicLambda/src/LeadMagicLambda/LeadMagicLambda.csproj",
+  "expectedPackageFiles": [
+    "/Users/arohikulkarni/.nuget/packages/amazon.lambda.core/2.1.0/amazon.lambda.core.2.1.0.nupkg.sha512",
+    "/Users/arohikulkarni/.nuget/packages/amazon.lambda.serialization.systemtextjson/2.3.1/amazon.lambda.serialization.systemtextjson.2.3.1.nupkg.sha512",
+    "/Users/arohikulkarni/.nuget/packages/microsoft.netcore.app.crossgen2.osx-arm64/6.0.15/microsoft.netcore.app.crossgen2.osx-arm64.6.0.15.nupkg.sha512"
+  ],
+  "logs": []
+}

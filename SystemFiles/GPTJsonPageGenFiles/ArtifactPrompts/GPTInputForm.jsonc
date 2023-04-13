@@ -1,0 +1,89 @@
+{
+    //What is the name of your form?
+    "ArtifactName": "",
+    "Prompts": [
+        //generate form prompt
+        {
+            "Enabled": true,
+            "PrefixInstruction": "Give a Form: ",
+            "Artifact": "form",
+            "GiveContentFor": [
+            {
+                "JSONKey": "form_title",
+                "JSONValue": "form main title"
+            },
+            {
+                "JSONKey": "form_description",
+                "JSONValue": "form description in 200 words"
+            },
+            {
+                "JSONKey": "users",
+                "JSONValue": "users array of strings"
+            },
+            {
+                "JSONKey": "benefits",
+                "JSONValue": "benefits array of benefits_title and benefits_description"
+            },
+            {
+                "JSONKey": "benefits_title",
+                "JSONValue": "title in 6 to 8 words in the benefits array"
+            },
+            {
+                "JSONKey": "benefits_description",
+                "JSONValue": "description in 35 words in the benefits array"
+            },
+            {
+                "JSONKey": "features",
+                "JSONValue": "features array of features_title and features_description"
+            },
+            {
+                "JSONKey": "features_title",
+                "JSONValue": "title in 6 to 8 words in the features array"
+            },
+            {
+                "JSONKey": "features_description",
+                "JSONValue": "description in 35 words in the features array"
+            },
+            {
+                "JSONKey": "use",
+                "JSONValue": "array of how to use this form with and without Axonator"
+            },
+            {
+                "JSONKey": "faqs",
+                "JSONValue": "10 faqs array of this form with question and answer"
+            },
+            {
+                "JSONKey": "form_fields",
+                "JSONValue": "fields list array"
+            },
+            {
+                "JSONKey": "form_field",
+                "JSONValue": "form field name in the form_fields array"
+            },
+            {
+                "JSONKey": "field_type",
+                "JSONValue": "field type in the form_fields array"
+            },
+            {
+                "JSONKey": "description",
+                "JSONValue": "description in the form_fields array"
+            },
+            {
+                "JSONKey": "options",
+                "JSONValue": "options for dropdown selection in the form_fields array"
+            },
+            {
+                "JSONKey": "validation",
+                "JSONValue": "form field value validation rules in the form_fields array"
+            }
+            ],
+            "MoreInstructions": [
+                "JSON top level element should be object",
+                "Use exact json keys provided. Make JSON Value length 100 words. All titles must use title case.",
+                "Include fields of types like picture upload, gps location, audio capture, video capture, textbox, choices, date picker, number, textarea, time picker, file upload.",
+                "Give 15 fields",
+                "Only JSON response. No extra text."
+            ]
+            }
+    ]
+}

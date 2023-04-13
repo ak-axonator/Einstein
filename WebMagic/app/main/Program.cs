@@ -24,18 +24,27 @@ namespace WebMagic
     }
     class Program
     {
-        static ComandProcessor processor;
+        static CommandProcessor processor;
         public static string NewPageName { get; set; }
         static void Main(string[] args)
         {
-            processor = new ComandProcessor();
+            processor = new CommandProcessor();
             processor.initGlobalPaths();
             //testChatGPTAPI();
             // MainCompilationStart(args);
             //task.Wait();
             // initGlobalPaths();
             // testGPTResponseFiletoKDL();
-            // testCSVAppNameRename();
+            testCSVAppNameRename();
+            // GenerateAndRunAppArtifactPrompts("form");
+            // GenerateAndRunAppArtifactPrompts("report");
+            // GenerateAndRunAppArtifactPrompts("checklist");
+            // GenerateAndRunAppArtifactPrompts("dashboard");
+            // GenerateAndRunAppArtifactPrompts("audit_checklist");
+            // GenerateAndRunAppArtifactPrompts("workflow");
+            // GenerateAndRunAppArtifactPrompts("guidelines");
+            // GenerateAndRunAppArtifactPrompts("standards");
+            // GenerateAndRunAppArtifactPrompts("document");
             // testDynamicSVGRender();
             // testPDFFormRender();
             // testGPTGeneratePrompts();
@@ -45,18 +54,84 @@ namespace WebMagic
             // testBenefitsParsing(response);
             //testS3Uploading();
             // CreatePageFileFromOutputKDL();
-            testMDtoKDLParser();
+            // testMDtoKDLParser();
+            // ReplacePageBeginSections();
+
+        }
+
+        public static void ReplacePageBeginSections(){
+            string pagesFolder = "/Users/arohikulkarni/Work/Website Project/SourceFiles/WebsiteSourceProject";
+            string metaFile = "/Users/arohikulkarni/Downloads/meta_kdls.txt";
+
+            // Read meta_kdls file
+            Dictionary<string, string> pageBeginSections = new Dictionary<string, string>();
+            List<string> _lines = File.ReadAllLines(metaFile).ToList();
+            for(var i = 0; i < _lines.Count; i++){
+                string line = _lines[i];
+                if(line.Contains("mdFileName")){
+                    string fileName = Path.GetFileNameWithoutExtension(line.Split(':')[1].Trim().Replace('/', '_'));
+                    string beginSection = string.Join("\n", _lines.GetRange(i + 1, 5));
+                    pageBeginSections[fileName] = beginSection;
+                    // break;
+                }
+            }
+
+            // Find all .page files recursively
+            List<string> pageFiles = Directory.GetFiles(pagesFolder, "*.page", SearchOption.AllDirectories).ToList();
+
+            foreach (string pageFile in pageFiles)
+            {
+                // Get file name without extension and folder path
+                string fileName = Path.GetFileNameWithoutExtension(pageFile);
+                string folderPath = Path.GetDirectoryName(pageFile.Substring(pagesFolder.Length + 1));
+
+                // Find corresponding md file name
+                // string mdFileName = fileName.Replace('_', '/') + ".md";
+                // if (!string.IsNullOrEmpty(folderPath))
+                // {
+                //     mdFileName = Path.Combine(folderPath, mdFileName);
+                // }
+
+                // Check if md file name is present in meta file
+                if (pageBeginSections.TryGetValue(fileName, out string beginSection))
+                {
+                    // Replace page begin section in page file
+                    string[] lines = File.ReadAllLines(pageFile);
+                    int index = Array.FindIndex(lines, line => line.Contains("page_begin_section"));
+                    if (index != -1 && !lines[index].Contains("page_begin_section {"))
+                    {
+                        lines[index] = beginSection;
+                        File.WriteAllLines(pageFile, lines);
+                    }
+                }
+            }
         }
 
         private static void testMDtoKDLParser()
         {
+            string folderPath = "/Users/arohikulkarni/Work/Website Project/Old Website/md files";
+
             // var input = "What is the Purpose of a Control Plan in Quality Management?\n------------------------------------------------------------\n\nA quality control plan aims to establish a framework for preventing defects and non-conformities in a product or service.\n\n* It identifies key characteristics of the process and establishes methods for monitoring and measuring those characteristics.\n* It includes process steps, key process inputs and outputs, critical-to-quality (CTQ) characteristics, control methods, control limits, and corrective actions.\n* It establishes a control plan that ensures consistent production of quality products or services by identifying areas for improvement and reducing the risk of defects and non-conformities.\n\nWhat are the Three Types of Control Plans in Quality Management?\n----------------------------------------------------------------\n\nThree types of control plans are used in quality management:\n\nPrototype Control Plan\n----------------------\n\nThis type of control plan is used in the early stages of development when a product is still in the prototype phase. It outlines the dimensions, materials, and performance tests necessary for developing a prototype. \n\nFor example, a company developing a new smartphone may create a prototype control plan to ensure that the phone’s dimensions, materials, and performance tests meet the desired standards.\n\nPre-Launch Control Plan\n-----------------------\n\nOnce a product prototype is complete, a pre-launch control plan is used to ensure the product is ready for full production. It includes dimension measurements, materials, and performance tests conducted after the prototype phase. \n\nFor example, a company producing a new car may use a pre-launch control plan to test the vehicle’s braking system, acceleration, and fuel efficiency before the car is approved for full production.\n\nProduction Control Plan\n-----------------------\n\nA production control plan is used when a product is in total production. It includes characteristics, process controls, tests, and measurements throughout production. \n\nFor example, a company manufacturing electronic devices may use a production control plan to ensure that the products are consistent in quality, performance, and appearance throughout the production process.\n\nWhat is a Control Plan Format?\n------------------------------\n\nThere is no specific format that a control plan must follow, but generally, it includes the following information:\n\n| Control Plan Information | Description |\n| --- | --- |\n| Header Information | Title of the control plan, date of creation, and revision number |\n| Process Steps | Detailed description of process steps to identify potential quality issues and ensure consistent production. It may include process flow diagrams, process maps, and process descriptions. |\n| Key Process Inputs and Outputs | List of key inputs and outputs for each process step to ensure proper measurement and monitoring. |\n| Critical-to-Quality (CTQ) Characteristics | Identification of the most important characteristics directly affecting customer satisfaction. The control plan outlines acceptable limits and measurements for each CTQ characteristic. |\n| Control Methods | Outline of methods used to ensure the process operates within defined control limits, such as visual inspections, statistical process control, or other monitoring methods. |\n| Control Limits | Identification of acceptable ranges for each key input and output in the control plan. This allows for early detection of issues and timely corrective actions. |\n| Corrective Actions | Plan for corrective actions in case of deviations from the control limits, which may include stopping production, making adjustments to the process, or re-inspecting the product. |\n| Responsibilities | Identify whois responsible for each step of the process and who is responsible for monitoring and controlling the quality of the product or service |";
-            // string inputFilePath = @"/Users/arohikulkarni/Work/Website Project/Old Website/md files/micro_app_store_safety_audit_checklist_app_.md";
-            string inputFilePath = @"/Users/arohikulkarni/Work/Website Project/Old Website/md files/asset_performance_management_software_.md";
-            // string inputFilePath = @"/Users/arohikulkarni/Work/Website Project/Old Website/md files/blog_data_collection_process_.md";
-            // string inputFilePath = @"/Users/arohikulkarni/Work/Website Project/Old Website/md files/mobile_apps_for_manufacturing_industry_.md";
-            var parser = new TextParser();
-            parser.Convert(inputFilePath);
+            List<string> files = new List<string>();
+            // get all md files in the folder and convert them to kdl
+            
+            // string inputFilePath = @"/Users/arohikulkarni/Work/Website Project/Old Website/md files/home.md";
+            // files.Add(inputFilePath);
+            files.Add(@"/Users/arohikulkarni/Work/Website Project/Old Website/md files/micro_app_store_safety_audit_checklist_app_.md");
+            // files.Add(@"/Users/arohikulkarni/Work/Website Project/Old Website/md files/asset_performance_management_software_.md");
+            // files.Add(@"/Users/arohikulkarni/Work/Website Project/Old Website/md files/blog_data_collection_process_.md");
+            // files.Add(@"/Users/arohikulkarni/Work/Website Project/Old Website/md files/mobile_apps_for_manufacturing_industry_.md");
+            // foreach (var file in files)
+            foreach (var file in Directory.GetFiles(folderPath, "*.md"))
+            {
+                var parser = new TextParser();
+                try{
+                    parser.Convert(file);
+                }
+                catch(Exception e){
+                    CommandProcessor.LogJsonParsingError(e, e.Message, file);
+                }
+            }
         }
 
         private static void testPDFFormRender(){
@@ -70,22 +145,38 @@ namespace WebMagic
 
         private static void testCSVAppNameRename()
         {
-            string csvFileName = @"/Users/arohikulkarni/Downloads/Web pages auto generator list - Sheet1.csv";
+            string csvFileName = @"/Users/arohikulkarni/Downloads/all app names with categories and industries reordered - Manufacturing.csv";
             var csv = new CSVProcessor(csvFileName);
-            csv.ProcessCSV();
+            try{
+                csv.ProcessCSV();
+            }
+            catch(Exception e){
+                CommandProcessor.LogJsonParsingError(e, e.Message, csvFileName);
+            }
         }
 
-        private static void testGPTGeneratePrompts()
-        {            
-            var generator = new GPTPromptsGenerator();
-            generator.Generate();
-            testGPTAPICalls();
-        }
-        public static void csvGPTGeneratePrompts(Input input)
+        // private static void testGPTGeneratePrompts()
+        // {
+        //     var generator = new GPTPromptsGenerator();
+        //     generator.Generate();
+        //     testGPTAPICalls();
+        // }
+        public static void generatePrompts(Input input)
         {            
             var generator = new GPTPromptsGenerator();
             generator.Generate(input);
             testGPTAPICalls();
+        }
+        public static void GenerateAndRunAppArtifactPrompts(string artifact)
+        {            
+            var generator = new GPTPromptsGenerator();
+            try{
+                generator.GenerateAppArtifactPrompts(artifact);
+            }
+            catch(Exception e){
+                CommandProcessor.LogJsonParsingError(e, e.Message, artifact);
+            }
+            // testGPTAPICalls();
         }
         static void testGPTAPICalls()
         {
@@ -98,8 +189,17 @@ namespace WebMagic
         static void runOpenAICalls(string inputFilePath, string outputFilePath)
         {
             GPTPromptsRunner.Run(inputFilePath, outputFilePath);
-            testGPTResponseFiletoKDL();
+            
+            // testGPTResponseFiletoKDL();
         }
+
+        // private static void GenerateArtifactPrompts(){
+        //     string inputFilePath = Path.Combine(GlobalPaths.GPTFolder,"GPTPageContent.jsonc");
+        //     var generator = new GPTPromptsGenerator();
+        //     generator.ExtractAppArtifactsList(inputFilePath);
+        //     testGPTAPICalls();
+        // }
+
         private static void testGPTResponseFiletoKDL()
         {
             string inputFilePath = Path.Combine(GlobalPaths.GPTFolder,"GPTPageContentOutput.jsonc");
@@ -118,17 +218,17 @@ namespace WebMagic
         public static void CreatePageFileFromOutputKDL(string outputFilePath = "")
         {
             // Read the contents of the output file
-            string _outputFilePath = outputFilePath == "" ? Path.Combine(GlobalPaths.ProjectFolder,"pages", "new_page.page") : outputFilePath;
+            string _outputFilePath = outputFilePath == "" ? Path.Combine(GlobalPaths.ProjectFolder, "new_page.page") : outputFilePath;
             string contents = File.ReadAllText(_outputFilePath);
             string _fileName = (NewPageName != null && NewPageName != "" ? NewPageName : "new_page").ToLower().Replace(" ", "_");
 
             // Create a new file with the specified name in the project folder
-            string pageFilePath = Path.Combine(GlobalPaths.ProjectFolder,"pages", _fileName+".page");
+            string pageFilePath = Path.Combine(GlobalPaths.ProjectFolder, _fileName+".page");
             File.WriteAllText(pageFilePath, contents);
 
             Console.WriteLine($"New page {_fileName} is created!");
 
-            processor = new ComandProcessor();
+            processor = new CommandProcessor();
             processor.processCommand();
 
             Console.WriteLine($"Hurray!!! Your new page {_fileName} is live now!");
@@ -232,8 +332,13 @@ namespace WebMagic
 
         private static void MainCompilationStart(string[] args)
         {
-            processor = new ComandProcessor(args);
-            processor.processCommand();
+            processor = new CommandProcessor(args);
+            try{
+                processor.processCommand();
+            }
+            catch(Exception e){
+                CommandProcessor.LogJsonParsingError(e, e.Message);
+            }
         }
 
         private static void InitGlobalPaths()

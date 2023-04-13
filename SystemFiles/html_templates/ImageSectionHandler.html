@@ -1,36 +1,43 @@
-{if align != "left":
-<div class="right-image-section-wrapper">
-  <div class="axo-container">
-    <div class="left-right-section flex-col md:flex-row">
-      <div class="descripion-section">
-        <div class="subtitle text-left">{heading}</div>
-        <div class="text text-left">
-          {description} 
+{if heading = null && description = null && img.src != "":
+<div class="separate-image-section">
+  <div class="axo-container flex items-center justify-center">
+    <img src="{img.src}" alt="{img.alt}">
+  </div>
+</div>
+| else:
+  {if align != "left":
+  <div class="right-image-section-wrapper">
+    <div class="axo-container">
+      <div class="left-right-section flex-col md:flex-row">
+        <div class="descripion-section">
+          <div class="subtitle text-left">{heading}</div>
+          <div class="text text-left">
+            {description} 
+          </div>
         </div>
-      </div>
-      <div class="image-section">
-        <img src="{img.src}" alt="{img.alt}">
+        <div class="image-section">
+          <img src="{img.src}" alt="{img.alt}">
+        </div>
       </div>
     </div>
   </div>
-</div>
-    | else:
-    <!----Left Imae section-->
-<div class="left-image-section-wrapper">
-  <div class="axo-container">
-    <div class="left-right-section flex-col-reverse md:flex-row">
-      <div class="image-section">
-        <img src="{img.src}" alt="{img.alt}">
-      </div>
-      <div class="descripion-section">
-        <div class="subtitle text-left">{heading}</div>
-        <div class="text text-left">
-          {description}
+      | else:
+      <!----Left Imae section-->
+  <div class="left-image-section-wrapper">
+    <div class="axo-container">
+      <div class="left-right-section flex-col-reverse md:flex-row">
+        <div class="image-section">
+          <img src="{img.src}" alt="{img.alt}">
         </div>
+        <div class="descripion-section">
+          <div class="subtitle text-left">{heading}</div>
+          <div class="text text-left">
+            {description}
+          </div>
+        </div>
+        
       </div>
-      
-    </div>
-  </div> 
-</div>
+    </div> 
+  </div>
+  }
 }
-  

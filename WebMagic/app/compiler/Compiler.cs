@@ -20,7 +20,7 @@ namespace WebMagic
             RenderKDL(file, outputFileName, errorFileName);
         }
 
-        private void CreateOutputDirectory(string outputFileName)
+        public static void CreateOutputDirectory(string outputFileName)
         {
             string outputDirectory = Path.GetDirectoryName(outputFileName);
             // Create the output directory if it doesn't exist
@@ -55,16 +55,16 @@ namespace WebMagic
             }
 
             // Upload the files in the source directory to S3
-            Console.WriteLine($"Uploading assets...");
-            string key = "";
-            List<string> _sourceFiles = new List<string>();
-            foreach (FileInfo file in sourceFiles)
-            {
-                key = Path.GetRelativePath(GlobalPaths.AssetsFolder,file.DirectoryName);
-                _sourceFiles.Add(file.FullName);
-            }
-            S3Uploader uploader = new S3Uploader("us-west-2", "axonator.co",key=="."?"":key);
-            uploader.uploadFiles(_sourceFiles);
+            // Console.WriteLine($"Uploading assets...");
+            // string key = "";
+            // List<string> _sourceFiles = new List<string>();
+            // foreach (FileInfo file in sourceFiles)
+            // {
+            //     key = Path.GetRelativePath(GlobalPaths.AssetsFolder,file.DirectoryName);
+            //     _sourceFiles.Add(file.FullName);
+            // }
+            // S3Uploader uploader = new S3Uploader("us-west-2", "axonator.co",key=="."?"":key);
+            // uploader.uploadFiles(_sourceFiles);
             
             // Copy the subdirectories in the source directory to the destination directory.
             foreach (DirectoryInfo subDir in sourceSubDirs)
@@ -122,9 +122,13 @@ namespace WebMagic
                 // Find the section in the list of defined sections
                 definedSections.Where(section => section.HandlerName.Value == node.Identifier).ToList().ForEach(section =>
                 {
-                    // Render the section
-                    string value = section.Handler.RenderSection(node);
-                    sw.WriteLine(value);
+                    try {
+                        // Render the section
+                        string value = section.Handler.RenderSection(node);
+                        sw.WriteLine(value);
+                    } catch (Exception e){
+                        CommandProcessor.LogJsonParsingError(e, e.Message, node.ToString());
+                    }
                 });
             }
             // Close the StreamWriter instance

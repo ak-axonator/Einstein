@@ -24,7 +24,7 @@ namespace WebMagic
             this.watcher.Created += new FileSystemEventHandler(this.OnFileChanged);
             this.watcher.Deleted += new FileSystemEventHandler(this.OnFileChanged);
             this.extension = extension;
-            this.integrityChecker = new FileChangesChecker(path);
+            this.integrityChecker = new FileChangesChecker(path,extension);
         }
 
         private void OnFileChanged(object sender, FileSystemEventArgs e)

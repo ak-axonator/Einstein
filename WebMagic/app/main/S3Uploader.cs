@@ -31,21 +31,8 @@ namespace WebMagic
             foreach (string file in files)
             {
                 Console.WriteLine("Uploading " + file + "...");
-                // Determine the S3 key for the file based on the prefix and file name
-                string[] prefixes = new string[] { "app-", "blog-", "customer-success-story-" ,"guide-", "micro-app-store-", "news-", "topic-" };
-                string prefix = "";
-                string fileName = Path.GetFileNameWithoutExtension(file).TrimEnd('_', '-').Replace("_","-");
-                // if the filename starts with any of the prefixes, remove it from file name and join it withing the s3Key
-
-                foreach (string p in prefixes)
-                {
-                    if (fileName.StartsWith(p))
-                    {
-                        prefix = p.TrimEnd('-');
-                        fileName = fileName.Substring(p.Length);
-                        break;
-                    }
-                }
+                string prefix, fileName;
+                GetFileNameAndPrefix(file, out prefix, out fileName);
                 string s3Key = Path.Combine(folderPrefix, prefix, fileName);
                 // UploadFile(file);
 
@@ -62,6 +49,25 @@ namespace WebMagic
             }
         }
 
+        public static void GetFileNameAndPrefix(string file, out string prefix, out string fileName)
+        {
+            // Determine the S3 key for the file based on the prefix and file name
+            string[] prefixes = new string[] { "app-", "blog-", "customer-success-story-", "guide-", "micro-app-store-", "news-", "topic-" };
+            prefix = "";
+            fileName = Path.GetFileNameWithoutExtension(file).TrimEnd('_', '-').Replace("_", "-");
+            // if the filename starts with any of the prefixes, remove it from file name and join it withing the s3Key
+
+            foreach (string p in prefixes)
+            {
+                if (fileName.StartsWith(p))
+                {
+                    prefix = p.TrimEnd('-');
+                    fileName = fileName.Substring(p.Length);
+                    break;
+                }
+            }
+        }
+
         public void deleteFiles(List<String> files)
         {
             foreach (string file in files)
@@ -72,7 +78,7 @@ namespace WebMagic
                 // Create a transfer utility to upload the file to S3
                 TransferUtility transferUtility = new TransferUtility(s3Client);
                 // Create a transfer utility request object for the file to be deleted
-                string _fileName = Path.ChangeExtension(Path.GetRelativePath(Path.Combine(GlobalPaths.ProjectFolder,"pages"),file),"html");
+                string _fileName = Path.ChangeExtension(Path.GetRelativePath(Path.Combine(GlobalPaths.ProjectFolder),file),"html");
                 var request = new DeleteObjectRequest
                 {
                     BucketName = bucketName,

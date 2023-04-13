@@ -1,20 +1,17 @@
 {
-    // "BackgroundContent": "We are building an app for workplace safety audits.",
-    "BackgroundContent": "We are building an app for automobile manufacturing qaulity audit app.",
+    "BackgroundContent": "Axonator is a field workflow automation platform that provides automation of mobile forms, workflows, reports, dashboards, scheduling tasks, integration with third party software in a faster and easier way without coding.",
     //What is the name of your app?
-    "AppName": "Housekeeping HSE Audit",
-    // "AppName": "Quality Audit App",
-    //What is the description of your app?
-    "AppDescription": "Housekeeping HSE Audit is a powerful mobile app designed to help you conduct workplace safety audits with ease. With this app, you can easily assess the safety of your workplace and identify potential hazards that could put your employees at risk. Whether you're a safety manager, an auditor, or a business owner, this app is the perfect tool to help you ensure that your workplace is safe and compliant with all relevant regulations. The Housekeeping HSE Audit app is easy to use and comes with a range of features that make it a must-have for anyone involved in workplace safety. With this app, you can create custom checklists and audit templates, schedule audits, and assign tasks to team members. You can also track audit progress in real-time, generate reports, and share them with stakeholders. The app is designed to be flexible and customizable, so you can tailor it to your specific needs. You can add your own questions, customize the scoring system, and even add photos and comments to your audits. This makes it easy to identify areas that need improvement and take action to address them. With Housekeeping HSE Audit, you can rest assured that your workplace is safe and compliant with all relevant regulations. Download the app today and start conducting workplace safety audits with ease!",
-    // "AppDescription": "The app provides mobile forms to collect audit data on smartphones and tablets and allows quality Workflow automation. ",
+    "AppName": "",
+    //What is the industry of your app?
+    "Industry": "",
+    //What is the category of your app?
+    "Category": "",
     //Please provide a list of keywords related to your app (comma-separated).
-    "Keywords": [
-        "Housekeeping HSE Audit"
-    ],
+    "Keywords": "",
+
     "PageStart":[
         //Page start
          "page_begin_section",
-         "default_navigation_section",
          "navigation_section"
      ],
      "PageEnd":[
@@ -23,162 +20,38 @@
         "page_end_section"
      ],
     "Prompts": [
-        //generate checklist prompt
-        {
-            "Enabled" : false,
-            "Section": "grid_section",
-            "Type": "MultiPointPrompt",
-            "What": "Give checklist for the {Input.Keywords[0]} in json format. Questions should be grouped into categories. Context: {Input.BackgroundContent}.",
-            "AdditionalPrompt": "Give only JSON and no extra text.",
-            "UseOnlyWhat" : true,
-            "ExpectedOnce": [
-                "checklist",
-                "title"
-            ],
-            "ExpectedRepeat": [
-                "category",
-                "question",
-                "options",
-                "options_type"
-            ]
-        },
-        //generate meta description
-        {
-            "Enabled" : false,
-            "Section": "meta_section",
-            "Type": "SinglePointPrompt",
-            "What": "meta description",
-            "ExpectedOnce": [
-                "meta_description"
-            ]
-        },
-        //generate hero section
-        {
-            "Enabled" : false,
-            "Section": "hero_section",
-            "Type": "SinglePointPrompt",
-            "What": "salesy headline and subheadline and image description ",
-            "ExpectedOnce": [
-                "headline",
-                "subheadline",
-                "image_description"
-            ]
-        },
-        //generate challenges section
-        {
-            "Enabled" : false,
-            "Section": "grid_section",
-            "Type": "MultiPointPrompt",
-            "Number": 6,
-            "What": "top challenges",
-            "ExpectedOnce": [
-                "maintitle",
-                "subtitle"
-            ],
-            "ExpectedRepeat": [
-                "title",
-                "description"
-            ]
-        },
-        //generate benefits section
+        //generate app details prompt
         {
             "Enabled" : true,
-            "Section": "auto_align_image_sections",
-            "Type": "MultiPointPrompt",
-            "Number": 3,
-            "What": "benefits",
-            "ExpectedOnce": [
-                "maintitle",
-                "subtitle"
+            "Artifact": "app_details",
+            "GiveContentFor": [
+                {
+                    "JSONKey": "name",
+                    "JSONValue": "same app name with capitalization"
+                },
+                {
+                    "JSONKey": "description",
+                    "JSONValue": "description of the app"
+                },
+                {
+                    "JSONKey": "keywords",
+                    "JSONValue": "array of strings, 5 SEO keywords related to app."
+                },
+                {
+                    "JSONKey": "product_features",
+                    "JSONValue": "array of features of Axonator platform relevant to this subcategory."
+                },
+                {
+                    "JSONKey": "title",
+                    "JSONValue": "title of the feature in 6-8 words in the product_features array"
+                }
             ],
-            "ExpectedRepeat": [
-                "headline",
-                "description",
-                "image_description"
-            ]
-        },
-        //generate who-uses section
-        {
-            "Enabled" : true,
-            "Section": "grid_section",
-            "Type": "MultiPointPrompt",
-            "Number": 6,
-            "What": "users", //who uses
-            "ExpectedOnce": [
-                "maintitle",
-                "subtitle"
-            ],
-            "ExpectedRepeat": [
-                "title",
-                "description"
-            ]
-        },
-        //generate impact section
-        {
-            "Enabled" : false,
-            "Section": "impact_section",
-            "Type": "MultiPointPrompt",
-            "Number": 3,
-            "What": "impact statistics",
-            "AdditionalPrompt": "The description must be very short and only with statistic Numbers. The prefix and suffix could be characters like units and percentage of the statistical value.",
-            "ExpectedOnce": [
-                "maintitle",
-                "subtitle"
-            ],
-            "ExpectedRepeat": [
-                "prefix",
-                "value",
-                "suffix",
-                "description"
-            ]
-        },
-        //generate testimonials
-        {
-            "Enabled" : false,
-            "Section": "grid_section",
-            "Type": "MultiPointPrompt",
-            "Number": 3,
-            "What": "testimonials given by customers",
-            "AdditionalPrompt": "Include random author name and position for the testimonial writer.",
-            "ExpectedOnce": [
-                "maintitle",
-                "subtitle"
-            ],
-            "ExpectedRepeat": [
-                "title",
-                "description",
-                "author_name",
-                "author_position"
-            ]
-        },
-        //generate faq section
-        {
-            "Enabled" : true,
-            "Section": "faq_section",
-            "Type": "MultiPointPrompt",
-            "Number": 10,
-            "What": "faq",
-            "ExpectedOnce": [
-            ],
-            "ExpectedRepeat": [
-                "question",
-                "answer"
-            ]
-        },
-        //generate relevant features section
-        {
-            "Enabled" : false,
-            "Section": "features_section",
-            "Type": "MultiPointPrompt",
-            "Number": 8,
-            "What": "features from the following list of product features that are highly relevant from the feature list",
-            "AdditionalPrompt": "Here is the feature list: Image Capture With Annotation & Notes, QR Code Enabled Forms, Offline Data Collection, Task Scheduler, Dynamic Checklist Configuration, Data Validation, Visual Cues, Task Escalations, Visual Workflow Builder, SLA & Escalations, Algorithmic Task Assignment, Automated Information Routing, Multistep Workflows, Reminders, E-mails & Notifications, Conditional Logic, Visual Report Builder, Automated Export, PDF, Excel, & CSV Format, Consolidated Reports, Whitelabel Reports, Signature Attestation, Image Annotation, Database Integration, Drag & Drop Dashboard Builder, Graphical Charts, Tabular View, Trend & Pattern Identification, CalenderView, Advanced Filters, Deep Analytics, Integrations, Integration Builder, Powerful that connects everyone to everything, API integration, Cloud Integration, On-premise Integration, Single Sign-on, Data Encryption, Third Party Integration, Legacy System Integration, Connectors.",
-            "ExpectedOnce": [
-                "maintitle",
-                "subtitle"
-            ],
-            "ExpectedRepeat": [
-                "title"
+            "MoreInstructions": [
+                "Give list of names in singular form",
+                "JSON top level element should be object",
+                "Only JSON response. No extra text.",
+                "Use exact json key provided. Make Value length 100 words.",
+                "All titles must use title case."
             ]
         }
     ]

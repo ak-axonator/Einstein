@@ -4,54 +4,226 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace WebMagic
 {
     public class GPTPromptsGenerator
     {
-        private string InputFilePath = @"/Users/arohikulkarni/Work/Einstein/SystemFiles/GPTJsonPageGenFiles/GPTInput.jsonc";
+        private string InputFilePath = @"/Users/arohikulkarni/Work/Einstein/SystemFiles/GPTJsonPageGenFiles/ArtifactPrompts/GPTInputAppDetails.jsonc";
         private string OutputFilePath = @"/Users/arohikulkarni/Work/Einstein/SystemFiles/GPTJsonPageGenFiles/GPTPageContent.jsonc";
+        public string BackgroundContent = "Axonator is a field workflow automation platform that provides automation of mobile forms, workflows, reports, dashboards, scheduling tasks, integration with third party software in a faster and easier way without coding.";
         public GPTPromptsGenerator(){
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
             var configuration = builder.Build();
             string gpt_folder = configuration.GetValue<string>("gpt_folder");
-            InputFilePath = Path.Combine(gpt_folder,"GPTInput.jsonc");
-            OutputFilePath = Path.Combine(gpt_folder,"GPTPageContent.jsonc");
+            // InputFilePath = Path.Combine(gpt_folder,"GPTInput.jsonc");
+            // OutputFilePath = Path.Combine(gpt_folder,"GPTPageContent.jsonc");
         }
-
-        public void Generate(Input _input = null)
+        public void Generate(Input _csvInput)
         {
-            Console.WriteLine($"Generating GPT prompts for {InputFilePath}...");
-            var inputJson = File.ReadAllText(InputFilePath);
-            inputJson = Regex.Replace(inputJson, @"^\s*//.*$", "", RegexOptions.Multiline);
-            var input = JsonConvert.DeserializeObject<Input>(inputJson);
-            if(_input != null){
-                input.AppName = _input.AppName;
-                input.AppDescription = _input.AppDescription;
-                input.Keywords = _input.Keywords;
+            // if input.appname is empty or null, then return
+            if (string.IsNullOrEmpty(_csvInput.AppName))
+                return;
+            string outputFilePath = Path.Combine(GlobalPaths.LogFolder, "GPTAppPageContents - " + _csvInput.AppName + ".jsonc");
+            //if outputfile exists, skip it
+            if (File.Exists(outputFilePath))
+                return;
+            Console.WriteLine($"Generating App Details prompt for {_csvInput.AppName}...");
+            var timestamp = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));
+            Console.WriteLine(timestamp);
+            var artifact = "app_details";
+            try{
+                var inputFilePath = Path.Combine(GlobalPaths.GPTFolder, "ArtifactPrompts", "GPTInput" + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(artifact.Replace("_", "")) + ".jsonc");
+                var inputJson = File.ReadAllText(InputFilePath);
+                inputJson = Regex.Replace(inputJson, @"^\s*//.*$", "", RegexOptions.Multiline);
+                var input = JsonConvert.DeserializeObject<Input>(inputJson);
+                if(_csvInput != null){
+                    input.AppName = _csvInput.AppName;
+                    input.Industry = _csvInput.Industry;
+                    input.Category = _csvInput.Category;
+                }
+                var appDetailsPrompt = input.Prompts[0];
+                if (appDetailsPrompt.Enabled == false)
+                    return;
+                Program.NewPageName = input.AppName;
+                string promptString = GetPromptString(appDetailsPrompt, input);
+                Console.WriteLine($"Generated {artifact} prompt for {input.AppName}...");
+                // Console.WriteLine(promptString);
+                GPTPromptsRunner.Run(promptString, outputFilePath);
             }
-            var prompts = input.Prompts;
-            Program.NewPageName = input.AppName;
-            var GPTPromptsFile = new GPTPromptFile();
-            GPTPromptsFile.Prompts = new List<GPTPrompt>();
-
-            foreach (var prompt in prompts)
-            {
-                if (prompt.Enabled == false)
-                    continue;
-                GPTPrompt gPTPrompt = new GPTPrompt();
-                gPTPrompt.Prompt = GetPromptString(prompt, input);
-                gPTPrompt.Section = prompt.Section;
-
-                GPTPromptsFile.Prompts.Add(gPTPrompt);
+            catch(Exception e){
+                CommandProcessor.LogJsonParsingError(e, e.Message, artifact + " -- " + _csvInput.AppName);
             }
-            var outputJson = JsonConvert.SerializeObject(GPTPromptsFile, Formatting.Indented);
-            File.WriteAllText(OutputFilePath, outputJson);
-            Console.WriteLine($"Generated prompts in {outputJson}");
+            // File.WriteAllText(OutputFilePath, outputJson);
+            // File.WriteAllText(LogFilePath, outputJson);
+
+            // var GPTPromptsFile = new GPTPromptFile();
+            // GPTPromptsFile.Prompts = new List<GPTPrompt>();
+            // foreach (var prompt in prompts)
+            // {
+                // GPTPrompt gPTPrompt = new GPTPrompt();
+                // gPTPrompt.Prompt = GetPromptString(prompt, input);
+                // gPTPrompt.Artifact = prompt.Artifact;
+
+                // GPTPromptsFile.Prompts.Add(gPTPrompt);
+            // }
         }
+        public void GenerateAppArtifactPrompts(string artifact)
+        {
+            var GPTOutputFilesPath = GlobalPaths.LogFolder;
+            Console.WriteLine($"Parsing app details from {GPTOutputFilesPath} for {artifact}(s)...");
+            // loop through all files starting wiht "GPTAppPageContents - " and ending with ".jsonc"
+            var files = Directory.GetFiles(GlobalPaths.LogFolder, "GPTAppPageContents - *.jsonc");
+            foreach (var file in files)
+            {
+                var app_details = File.ReadAllText(file);
+                app_details = Regex.Replace(app_details, @"^\s*//.*$", "", RegexOptions.Multiline);
+                var appDetails = JsonConvert.DeserializeObject<AppDetails>(app_details);
+                
+                // generate prompt for each "artifact" in appDetails and run it
+                foreach (var artifact_name in getAppArtifacts(appDetails, artifact))
+                {
+                    try{
+                        Console.WriteLine($"Generating prompt for {artifact_name} {artifact} in {appDetails.Name} app...");
+                        var GPTInputFilePath = Path.Combine(GlobalPaths.GPTFolder, "ArtifactPrompts", "GPTInput" + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(artifact.Replace("_", "")) + ".jsonc");
+                        var GPTInputJson = File.ReadAllText(GPTInputFilePath);
+                        GPTInputJson = Regex.Replace(GPTInputJson, @"^\s*//.*$", "", RegexOptions.Multiline);
+                        var input = JsonConvert.DeserializeObject<Input>(GPTInputJson);
+                        input.AppName = artifact_name;
+                        input.Industry = appDetails.Industry;
+                        input.Category = appDetails.Category;
 
-        private string GetPromptString(Prompt prompt, Input input)
+                        var formPrompt = input.Prompts[0];
+                        if (formPrompt.Enabled == false)
+                            return;
+                        string promptString = GetPromptString(formPrompt, input);
+                        Console.WriteLine($"Generated prompt for {artifact_name} {artifact} in {input.AppName}...");
+                        Console.WriteLine(promptString);
+
+                        // run artifact prompt and store response in the artifact's json file in logfolder
+                        var filePrefix = artifact.ToUpper().Replace("_", "-").Replace(" ", "-");
+                        var fileName = artifact_name.ToLower().Replace("_", "-").Replace(" ", "-");
+                        var outputFilePath = Path.Combine(GlobalPaths.LogFolder, filePrefix + "-" + fileName + getArtifactExtension(artifact));
+                        GPTPromptsRunner.Run(promptString, outputFilePath);
+                    }
+                    catch(Exception e){
+                        CommandProcessor.LogJsonParsingError(e, e.Message, artifact + " -- " + file);
+                    }
+                }
+                // var outputJson = JsonConvert.SerializeObject(GPTResponseFile, Formatting.Indented);
+                // // get app name after "GPTAppPageContents - " and before ".jsonc"
+                // var appName = Path.GetFileNameWithoutExtension(file).Substring(20);
+                // string LogFilePath = Path.Combine(GlobalPaths.LogFolder, appName + " - " + artifact + ".jsonc");
+                // File.WriteAllText(LogFilePath, outputJson);
+                // Console.WriteLine($"Generated prompts in {LogFilePath}");
+            }
+
+        }
+        //get artifact extension using switch case, if report, dashboard, guidelines or standards, then return ".md", else ".jsonc"
+        private string getArtifactExtension(string artifact){
+            string extension = ".jsonc";
+            switch (artifact)
+            {
+                case "report":
+                    extension = ".md";
+                    break;
+                case "dashboard":
+                    extension = ".md";
+                    break;
+                case "guidelines":
+                    extension = ".md";
+                    break;
+                case "standards":
+                    extension = ".md";
+                    break;
+                case "document":
+                    extension = ".md";
+                    break;
+                default:
+                    break;
+            }
+            return extension;
+        }
+        private List<string> getAppArtifacts(AppDetails app_details, string artifact){
+            List<string> artifacts = new List<string>();
+            switch (artifact)
+            {
+                case "form":
+                    artifacts = app_details.Form_Names;
+                    break;
+                case "checklist":
+                    artifacts = app_details.Checklist_Names;
+                    break;
+                case "report":
+                    artifacts = app_details.Report_Names;
+                    break;
+                case "dashboard":
+                    artifacts = app_details.Dashboard_Names;
+                    break;
+                case "workflow":
+                    artifacts = app_details.Workflow_Names;
+                    break;
+                case "audit_checklist":
+                    artifacts = app_details.AuditChecklist_Names;
+                    break;
+                case "guidelines":
+                    artifacts = app_details.Guidelines_Names;
+                    break;
+                case "standards":
+                    artifacts = app_details.Standards_Names;
+                    break;
+                case "document":
+                    artifacts = app_details.Document_Names;
+                    break;
+                default:
+                    break;
+            }
+            return artifacts;
+        }
+        private string GetPromptString(Prompt promptInput, Input input)
+        {
+            // Get prompt string by combining the JSONKey and the JSONValue for each obj in "GiveContentFor" array in the prompt
+            // string promptString = string.Empty;
+            StringBuilder prompt = new StringBuilder();
+
+            // Background
+            prompt.Append("Background: ");
+            prompt.Append(BackgroundContent);
+            prompt.AppendLine();
+
+            // Consider industry and category
+            prompt.Append("Consider industry: ");
+            prompt.Append(input.Industry);
+            prompt.Append(", Consider category: ");
+            prompt.Append(input.Category);
+            prompt.AppendLine();
+
+            // Consider app or give artifact
+            prompt.Append(promptInput.PrefixInstruction);
+            prompt.Append(input.AppName); // or any artifact's name
+            prompt.AppendLine();
+
+            // if length of promptInput.GiveContentFor is more than 0, then add the following
+            if (promptInput.GiveContentFor.Count > 0)
+            {
+                prompt.Append("Give content for:\n");
+                foreach (var item in promptInput.GiveContentFor)
+                {
+                    prompt.AppendLine($"\tJSON Key: {item.JSONKey}, JSON Value: {item.JSONValue}");
+                }
+            }
+            prompt.AppendLine("More Instructions:");
+            foreach (var instruction in promptInput.MoreInstructions)
+            {
+                prompt.AppendLine($"\t{instruction}");
+            }
+
+            return prompt.ToString();
+        }
+        private string GetPromptString_old(Prompt prompt, Input input)
         {
             string numberString = prompt.Number.ToString();
             string keywords = String.Join(", ", input.Keywords.Select(x => x.ToString()).ToArray());
@@ -134,14 +306,22 @@ namespace WebMagic
             }
             return inputString;
         }
+    }
 
+    public class GiveContentFor
+    {
+        public string JSONKey { get; set; }
+        public string JSONValue { get; set; }
     }
 
     public class Input
     {
-        public List<string> Keywords { get; set; }
         public string BackgroundContent { get; set; }
         public string AppName { get; set; }
+        public string ArtifactName { get; set; }
+        public string Industry { get; set; }
+        public string Category { get; set; }
+        public List<string> Keywords { get; set; }
         public string AppDescription { get; set; }
         public List<string> PageStart { get; set; }
         public List<string> PageEnd { get; set; }
@@ -152,9 +332,13 @@ namespace WebMagic
     public class Prompt
     {
         public string Type { get; set; }
+        public string Artifact { get; set; }
+        public string PrefixInstruction { get; set; }
+        public List<GiveContentFor> GiveContentFor { get; set; }
         public int Number { get; set; }
         public string What { get; set; }
         public string AdditionalPrompt { get; set; }
+        public List<string> MoreInstructions { get; set; }
         public List<string> ExpectedOnce { get; set; }
         public List<string> ExpectedRepeat { get; set; }
         public bool Enabled { get; set; }
