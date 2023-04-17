@@ -1,57 +1,41 @@
 @import 'base/typography';
 @import 'component/button';
+@import 'component/accordion';
 @import 'abstracts/mixins';
 @import 'component/card';
-
+@import 'layout/navigation';
+@import 'layout/footer';
+@import 'pages/contact-us';
+*{
+    margin: 0;
+    padding: 0;
+}
 .axo-container{
-    max-width: 1200px;
+    max-width: 75rem;
     margin:0 auto;
     @include respond(tab-land){
         width: 80%;
         max-width: 80%;
     }
-    @include respond(phone){
-        width: 90%;
-        max-width: 90%;
+    @include respond(tab-port){
+        width: 94%;
+        max-width: 94%;
     }
-}
-
-.title{
-    margin-top: 60px;
-    @include textStyle($title-font-size,$hero-font-weight,$font-family,$title-line-height,$text-color);
-    @include titleTabLand;
-}
-.title-white{
-    @include textStyle($title-font-size,$hero-font-weight,$font-family,$title-line-height,$white-color);
-    @include titleTabLand;
-}
-.title-blue{
-    @include textStyle($title-font-size,$hero-font-weight,$font-family,$title-line-height,$primary-color);
-    @include titleTabLand;
-}
-.subtitle{
-    @include textStyle($subtitle-font-size,$hero-font-weight,$font-family,$subtitle-line-height,$text-color);
-    @include titleTabLand;
-}
-.client-logo-title{
-    margin-top: 60px;
-    @include textStyle($client-logo-title-font-size,$hero-font-weight,$font-family,$subtitle-line-height,$text-color);
-    @include titleTabLand;
-    
-}
-.text{
-    @include textStyle($text-font-size,$text-font-weight,$font-family,$text-line-height,$text-color);
-    @include respond(tab-land){
-        font-size: $phone-text-font-size;
-        line-height: $phone-text-line-height;
-    }
-
 }
 
 .hero-section-wrapper{
-    padding: 40px 40px;
+    padding: 2.5rem 2.5rem;
     background-color: $hero-bg-color;
-   
+    .text{
+        text-align: left;
+    }
+    .axo-container{
+        display: flex;
+        gap: 3rem;
+        @include respond(phone){
+            flex-direction: column;
+        }
+    }
     .hero-text-wrapper {
         width: 50%;
         flex: 50%;
@@ -59,17 +43,7 @@
         @include respond(tab-port){
             width: 100%;
             flex: 100%;
-        }
-
-        .hero-title{
-            @include textStyle($hero-title-font-size,$hero-font-weight,$font-family,$hero-title-line-height,$text-color);
-            text-align: left !important;
-            @include respond(tab-land){
-                font-size: $phone-hero-title-font-size;
-                line-height: $phone-hero-title-line-height;
-            }
-
-        }
+        }  
         
     }
     .here-image-wrapper{
@@ -91,22 +65,22 @@
         }
     }
     @include respond(tab-port){
-        padding: 40px 0;
+        padding: 2.5rem 0;
     }
 }
 
 .watch-section{
-    padding: 0 16px;
+    padding: 0 1rem;
     .video-wrapper{
-        margin-top: 40px;
-        @include flexCenter;
+        margin-top: 2.5rem;
+        @include flexCenter($display-flex,$justify-center,$align-center);
         .video{
             position: relative;
             width: fit-content;
             cursor: pointer;
             @include respond(tab-land){
                 video{
-                    max-width: 714px !important;
+                    max-width: 44.625rem !important;
                     width: 70% !important;
                 }
             }
@@ -134,11 +108,11 @@
             background-image: url('../assets/images/Facility-managament-Axonator.jpg');
             .video-play-btn{
                 @include absCenter;
-                height: 100px;
-                width: 100px;
+                height: 6.25rem;
+                width: 6.25rem;
                 .fa-circle-play{
-                    color: #ffffff;
-                    font-size: 99px;
+                    color: $white-color;
+                    font-size: 6.188rem;
                 }
             }
         }
@@ -148,8 +122,8 @@
 }
 .explore-industries{
     .title{
-        max-width: 722px;
-        margin: 60px auto 40px;
+        max-width: 45.125rem;
+        margin: 3.75rem auto 2.5rem;
     }
     .img-link-wrapper {
         position: relative;
@@ -161,7 +135,7 @@
         }
         .image-link-title-wrapper{
             position: absolute;
-            bottom: 15px;
+            bottom: 0.938rem;
             z-index: 99;
             left: 0;
             right: 0;
@@ -170,71 +144,86 @@
             }
             .image-link-title {
                 white-space: nowrap;
-                @include textStyle($image-link-title-size,$card-title,$font-family,$text-line-height,$white-color);
+                @include textStyle($text-xl,$semi-bold,$font-family,$text-line-height,$white-color);
                 @include respond(tab-land){
                     white-space: normal !important;
-                    font-size: $text-font-size;
-                    line-height: 25px;
+                    font-size: $text-lg;
+                    line-height: 1.563rem;
                 }
             }
+        }
+        img{
+            height: 100%;
         }
        
     }
-    .imag-overlay{
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: transparent;
-        background-image: linear-gradient(0deg,#000000 0%,#F2295B00 100%);
-        opacity: .35;
+    .cta-btn{
+        gap:0.5rem
     }
     
 }
-.left-right-section-wrapper{
-    .left-right-section{
-        display: flex;
-        margin-top: 100px;
-        column-gap: 6rem;
-        row-gap: 3rem;
-        .left-right-section-content{
-            width: 50%;
-            flex: 50%;
-            align-self: center;
-            text-align: left !important;
-            @include respond(tab-port){
-                width: 100%;
-                flex: 100%;
-                .subtitle, .text{
-                    text-align: center !important;
-                }
-            }
-        }
-        .left-right-section-image{
-            width: 50%;
-            flex: 50%;
-            align-self: center;
-            @include respond(tab-port){
-                width: 100%;
-                flex: 100%;
-            }
+.imag-overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    background-image: linear-gradient(0deg,$black-color 0%,$linear-gradient-color 100%);
+    border-radius: 5px;
+    opacity: .35;
+}
+.left-right-section{
+    display: flex;
+    margin-top: 4.375rem;
+    column-gap: 1rem;
+    row-gap: 2rem;
+    align-items: center;
+    @include respond(tab-port){
+        flex-direction: column;
+    }
+    .descripion-section{
+        width: 50%;
+        flex: 50%;
+        align-self: center;
+        .subtitle, .text{
+            text-align: left;
         }
         @include respond(tab-port){
-            margin-top: 60px;
+            width: 100%;
+            flex: 100%;
+            .subtitle, .text{
+                text-align: center !important;
+            }
         }
     }
-    
+    .image-section{
+        width: 50%;
+        flex: 50%;
+        align-self: center;
+        @include respond(tab-port){
+            width: 100%;
+            flex: 100%;
+        }
+    }
+    @include respond(tab-port){
+        margin-top: 3.75rem;
+    }
 }
-
+.left-image-section-wrapper{
+    .left-right-section {
+        @include respond(tab-port){
+            flex-direction: column-reverse !important;
+        }
+    }
+}
 //Call to action 1
 .call-to-action-wrapper{
-    background-color: #e5e0ff;
+    background-color: $call-to-action-bg;
     padding-top: 10px;
-    margin-bottom: 40px;
     .call-to-action-inner-wrapper{
         display: flex;
-        margin-top: 40px;
+        margin-top: 2.5rem;
         row-gap: 1rem;
         .call-to-action-content{
             width: 50%;
@@ -273,100 +262,113 @@
             }
         }
         @include respond(tab-port){
-            margin-top: 40px;
+            margin-top: 2.5rem;
             flex-direction: column;
         }
 
     }
+    .btn-wrapper{
+        margin-top: 0.5rem;
+        .cta-btn-2{
+            gap:0.5rem;
+        }
+    }
     @include respond(tab-land){
         margin-top: 20px;
+        // .btn-wrapper{
+        //     justify-content: left;
+        // }
     }
     
 }
 .call-to-action-2-wrapper{
+    position: relative;
     background-color: $primary-color;
-    padding: 40px;
+    padding: 2.5rem;
     @include respond(tab-port){
-        padding: 40px 0;
+        padding: 2.5rem 0;
+        
     }
     @include respond(phone){
         padding: 28px 0;
     }
     .call-to-action-content{
         background-color: $white-color;
-        padding: 40px 40px 0;
+        padding: 2.5rem 2.5rem 0;
         border-radius: 10px;
+        display: flex;
+        row-gap: 1rem;
+        .call-to-action-text{
+            padding-left: 3.5rem;
+            text-align: left;
+            width: 50%;
+            align-self: center;
+            @include respond(tab-port){
+                align-self: center;
+                text-align: center;
+                width: 100%;
+                padding-left: 0;
+            }
+        }
         .text{
             text-align: left !important;
         }
         .call-to-action-image{
+            display: flex;
+            justify-content: end;
+            width: 50%;
+            @include respond(tab-port){
+                width: 100%;
+                justify-content: center;
+            }
             img{
                 width: 70%;
             }
         }
+        .primary-btn{
+            margin-bottom: 2rem;
+        }
         @include respond(tab-port){
-            padding: 40px;
+            padding: 2.5rem;
+            flex-direction: column-reverse;
             .text{
                 text-align: center !important;
             }
             .call-to-title{
                 text-align: center !important;
             }
+            .primary-btn{
+                margin: 0 auto;
+            }
         }
         @include respond(phone){
-            padding: 28px 0;
+            padding: 28px;
         }
         
     }
 }
 .benifit-section{
     background-color: $hero-bg-color;
-    padding: 20px 0 70px;
+    padding: 20px 0 4.375rem;
 }
 
-.footer{
-    background-color: $footer-bg-color;
-    .footer-row {
+.client-logo-section {
+    padding-bottom: 4rem;
+    .client-logos {
         display: flex;
-        .footer-title{
-            text-transform: uppercase;
-            text-align: left !important;
-            margin-bottom: 5px !important;
-            @include textStyle($footer-font-size,$footer-font-weight,$font-family,$footer-line-height,$white-color);
-            @include respond(tab-land){
-                font-size: $phone-text-font-size;
-                line-height: $phone-text-line-height;
-            }
-        }
-        .footer-link, .footer-text{
-            text-align: left !important;
-            @include textStyle($footer-font-size,$text-font-weight,$font-family,$footer-line-height,$footer-link-color);
-            @include respond(tab-land){
-                font-size: $phone-text-font-size;
-                line-height: $phone-text-line-height;
-            }
-        }
-        .social-media-icon{
-            color: #CBCBCB;
-            border-style: solid;
-            border-width: 1px;
-            border-color: #CBCBCB;
-            border-radius: 50%;
-            height: 32px;
-            width: 32px;
-            @include flexCenter;
-        }
+        justify-content: space-around;
+        align-items: center;
     }
 }
+
 
 
 /* Slider */
 
 .slick-slide {
     margin: 0px 20px;
-    height: 100px !important;
-    // width: 185px !important;
-    @include flexCenter;
+    height: 6.25rem !important;
+    @include flexCenter($display-flex,$justify-center,$align-center);
 }
 
 .slick-slide img {
@@ -480,4 +482,1256 @@
 .slick-arrow.slick-hidden {
     display: none;
 }
+.client-logo-section{
+    .slide{
+        @include respond(tab-land){
+            &:last-child{
+                display: none;
+            }
+        }
+        @include respond(tab-port){
+            &:nth-child(5){
+                display: none;
+            }
+        }
+        @include respond(phone){
+            &:nth-child(5){
+                display: none;
+            }
+        }
+    }
+}
 
+
+//////////////// Testimonial css//////////////
+.testimonial-wrapper{
+    padding: 4.375rem 0;
+    .testmonial-inner-wrapper{
+        display: flex;
+        gap:2.25rem;
+        @include respond(medium-tab-port){
+            gap:0;
+            flex-direction: column;
+        }
+    }
+    .text{
+        text-align: left !important;
+    }
+    .carousel{
+        padding: 50px 3.75rem 30px 3.75rem;
+        border-radius: 10px 10px 10px 10px;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    }
+    .testimoinal-content{
+        position: relative;
+        width: 50%;
+        .testimonial-title-wrapper{
+            padding-right: 3rem;
+            margin-bottom: 0.75rem;
+        }
+        .text{
+            padding-right: 0.75rem;
+        }
+        @include respond(medium-tab-port){
+            width: 100%;
+        }
+        .carousel-control-next, .carousel-control-prev {
+            position: relative !important;
+        }
+    }
+    .testimonial-outer-btn{
+        display: flex;
+        gap:1rem;
+        @include respond(medium-tab-port){
+           display: none;
+        }
+    }
+    .testimonial{
+        position: relative;
+        width: 50%;
+        @include respond(medium-tab-port){
+            width: 100%;
+        }
+        .carousel-control-prev {
+            position: absolute;
+            left: 26px !important;
+            transform: translate(-50%, -50%) !important;
+            top: 50% !important;
+        }
+        .carousel-control-next {
+            position: absolute;
+            right: -4px !important;
+            transform: translate(-50%, -50%) !important;
+            top: 50% !important;
+        }
+        .testimonial-inner-btn{
+            display: none;
+            @include respond(medium-tab-port){
+               display: block;
+            }
+        }
+    }
+      .carousel-control-next, .carousel-control-prev {
+        color: $black-color !important;
+        text-align: center;
+        opacity: 0.5;
+        transition: opacity 0.15s ease;
+        border: 1px solid;
+        width: 32px;
+        height: 32px;
+        border-radius: 1rem;
+    }
+    .carousel-item{
+        min-width: 100%;
+    }
+    .testimonial-footer {
+        display: flex;
+        column-gap: 1.3rem;
+        .testimoinal-footer-title{
+            margin:0 !important;
+            text-align: left !important;
+            @include textStyle($text-lg,$medium,$font-family,$text-line-height,$text-color);
+            @include respond(tab-land){
+                font-size: $text-xs;
+                line-height: $phone-text-line-height;
+            }
+           
+        }
+        .testimoinal-footer-text{
+            @include textStyle($text-sm,$medium,$font-family,$text-line-height,$testimonial-footer-text-color);
+            @include respond(tab-land){
+                font-size: $text-xs;
+                line-height: $phone-text-line-height;
+            }
+        }
+    }
+    .testimonial-image{
+        height: 3.5rem;
+        width: 3.5rem;
+    }
+}
+
+//Impact section css
+
+.impact-section{
+    background-color: $counter-bg;
+    padding: 1px 0 3.75rem 0;
+    .counter-card{
+        background-color: $white-color;
+        box-shadow: 0 5px 10px -3px rgba(0,0,0,.5);
+        padding: 30px 20px;
+        display: flex;
+        gap:2rem;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0;
+        .counter-title{
+            display: flex;
+            margin-bottom: 0;
+        }
+        @include respond(medium-tab-port){
+            gap:1rem;
+        }
+    }
+}
+
+//FAQ section css
+.faq-section{
+    margin-bottom: 3rem;    
+    .active+.accordion-body{
+        display: block;
+    }
+}
+
+.challenges-section{
+    background-color: $challenges-bg;
+    padding: 5px 0 3.75rem 0;
+    .challenges-background-image{
+        min-height: 580px;
+        background-color: $challenges-bg;
+        background-image: url('../assets/images/Disparate-System-Safety-scaled.webp');
+        background-position: right 50% bottom 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        @include respond(big-desktop){
+            background-position: right 60% bottom 50%;
+        }
+        @include respond(tab-land){
+            background-position: right 80% bottom 50%;
+        }
+        @include respond(tab-port){
+            background-size: contain;
+            background-image: url('../assets/images/Disparate-System-Safety-scaled-mobile.svg');
+            background-position: right 50% bottom 50%;
+        }
+        @include respond(medium-phone) {
+            min-height: 400px;
+        }
+        @include respond(extra-small-phone) {
+            min-height: 300px;
+        }
+    }
+}
+
+.no-code-plateform-section{
+    .no-code-plateform-content{
+        display: flex;
+        @include respond(tab-port){
+            flex-direction: column;
+        }
+        .no-code-plateform-text{
+            flex-direction: column;
+            display: flex;
+            row-gap: 1rem;
+            width: 57%;
+            max-width: 57%;
+            .text-arrow{
+                display: flex;
+            }
+            @include respond(tab-port){
+                width: 100%;
+                max-width: 100%;
+            }
+            .text{
+                width: 72%;
+                max-width: 72%;
+                margin-bottom: 0 !important;
+                text-align: left !important;
+                @include respond(tab-port){
+                    width: 100%;
+                    max-width: 100%;
+                    text-align: center !important;
+                }
+            }
+            .no-code-plateform-text-arrow{
+                justify-content: center;
+                align-items: center;
+                width: 28%;
+                max-width: 28%;
+            }
+        }
+        .no-code-plateform-image{
+            @include flexCenter($display-flex,$justify-center,$align-center);
+            width: 43%;
+            max-width: 43%;
+            @include respond(tab-port){
+                width: 100%;
+                max-width: 100%;
+                margin-top: 32px;
+            }
+            img{
+                max-height: 296px;
+            }
+        }
+    }
+    
+}
+.customer-feedback-section{
+    background-color: $light-blue-color;
+    padding-top: 2rem;
+    margin-top: 1rem;
+    .axo-container{
+        display: flex;
+        align-items: center;
+        @include respond(phone){
+            flex-direction: column;
+        }
+    }
+    .content{
+        width: 62%;
+        @include respond(tab-port){
+            width: 100%;
+        }
+        .text, .client-logo-title{
+            text-align: left !important;
+            margin: 0;
+        }
+        @include respond(tab-port){
+            .text, .client-logo-title{
+                text-align: center !important;
+            }
+        }
+        img{
+            width: 32px;
+            height: 27px;
+            margin-bottom: 1rem;
+            @include respond(tab-port){
+                display: none;
+            }
+        }
+        .customer-disignation{
+            font-size: $text-sm;
+            text-align: left;
+            margin-bottom: 0;
+            @include respond(tab-port){
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+        }
+    }
+    .image{
+        width: 38%;
+        @include respond(tab-port){
+            width: 100%;
+        }
+    }
+    .divider{
+        border-top: 1px solid $divider-color;
+        width: 24%;
+        margin: 1.5rem 0 0.8rem 0;
+        @include respond(tab-port){
+            margin: 1.5rem auto 0.8rem auto;
+        }
+    }
+}
+
+.featured-section{
+    position: relative;
+    background-image: url('../assets/images/Configure-your-forms-for-your-professional-needs-scaled1.webp');
+    background-position: right 50% bottom 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 90px 0;
+    @include respond(tab-port){
+        padding: 2.5rem 0;
+    }
+    .text{
+        color: $white-color;
+        max-width: 47.5rem;
+        margin: 0 auto 20px auto;
+        position: relative;
+        z-index: 9;
+        margin-bottom: 2rem;
+    }
+    .title-white {
+        max-width: 37.5rem;
+        margin: 0 auto 20px auto;
+        position: relative;
+        z-index: 9;
+        margin-bottom: 2rem;
+    }
+    .feature-item{
+        display: flex;
+        background: $white-color;
+        border-radius: 4px;
+        padding: 7px 10px;
+        gap: 8px;
+        text-align: center;
+        position: relative;
+        z-index: 9;
+        .feature-icon{
+           color: $feature-icon-color;
+           display: flex;
+           align-items: center;
+        }
+        .text{
+            color: $text-color;
+            font-size: $text-xs;
+            font-weight: $semi-bold;
+            margin: 0;
+        }
+
+    }
+    
+}
+.call-to-expert{
+    padding: 50px 0;
+    @include respond(tab-land){
+        .axo-container {
+            width: 98%;
+            max-width: 98%;
+        }
+    }
+    
+    .call-to-expert-content{
+        background-color: $challenges-bg;
+        display: flex;
+        align-items: center;
+        box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.15);
+        border-radius: 10px;
+        @include respond(tab-port){
+            flex-direction: column-reverse;
+        }
+        .content{
+            width: 56%;
+            padding-left: 6.25rem;
+            @include respond(tab-port){
+                width: 100%;
+                padding: 0 0 20px 0;
+                .primary-btn{
+                    margin: 0 auto;
+                }
+            }
+        }
+        .image{
+            width: 44%;
+            background-color: #CBC1FF;
+            background-image: url("../assets/images/Dot-persona.png");
+            background-position: 21.875rem 0px;
+            background-repeat: no-repeat;
+            background-size: auto;
+            border-radius: 10px;
+            @include respond(tab-land){
+                background-position: 6.25rem 0px;
+            }
+            @include respond(tab-port){
+               background-image: none !important;
+               width: 90%;
+               img{
+                margin: 0 auto;
+                max-height: 500;
+            }
+            }
+            img{
+                max-height: 338px;
+            }
+        }
+        .title{
+            text-align: left !important;
+            @include respond(tab-port){
+                text-align: center !important;
+                margin-top: 20px;
+            }
+        }
+    }
+}
+.image-card-section{
+    position: relative;
+    .primary-btn, .card-text,.card-title{
+        position: relative;
+        z-index: 9;
+    }
+    .primary-btn{
+        margin: 0 auto;
+    }
+}
+.rated-best-in-class{
+    padding-bottom: 50px;
+    .text{
+        max-width: 920px;
+        margin:0 auto
+    }
+    .rated-wrapper{
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap:0;
+        @include respond(tab-land){
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            row-gap: 2rem;
+        }
+        @include respond(phone){
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        @include respond(extra-small-phone){
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+        .rated-item{
+            @include flexCenter($display-flex, $justify-center, $align-center);
+            gap:8px;
+            flex-direction: column;
+            img{
+                height: 163px;
+                width: 163px;
+            }
+            .star-wrapper {
+                @include flexCenter($display-flex, $justify-center, $align-center);
+                column-gap: 0.4rem;
+                width: 100%;
+                svg.star {
+                    height: 24px;
+                    width: 24px;
+                }
+                
+            }
+            
+        }
+    }
+}
+.schedule-your-demo{
+    background-color: $faq-bg;
+    padding: 6.25rem 0;
+    .axo-container{
+        display:flex;
+        @include respond(tab-port){
+            flex-direction: column;
+        }
+    }
+    .schedule-content{
+        width: 50%;
+        .text, .title{
+            text-align: left !important;
+            margin-top: 0 !important;
+        }
+    }
+
+    @include respond(tab-port){
+        padding: 2.5rem 0 !important;
+        .schedule-content{
+            width: 100%;
+        }
+    }
+    @include respond(tab-land){
+        padding: 2.5rem 0 !important;
+        .primary-btn{
+            width: 100% !important;
+        }
+    }
+    ul{
+        list-style: none;
+    }
+    
+}
+.schedule-form{
+    width: 50%;
+    .form-row{
+        display: flex;
+        .form-group{
+            width: 50%;
+            &:first-child{
+                padding-right: 0.4rem;
+            }
+            &:last-child{
+                padding-left: 0.4rem;
+            }
+        }
+    }
+    .form-group{
+        margin-bottom: 0.8rem;
+        .input-field{
+            padding: 0.938rem 1.125rem;
+            background-color: $white-color !important;
+            border: 1px solid $white-color;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 100%;
+            background-color: transparent;
+            color: #373a3c;
+            vertical-align: middle;
+            flex-grow: 1;
+            box-sizing: border-box;
+            min-height: 40px;
+            &:focus-visible{
+                border: 1px solid #bac1c757 !important;
+                outline: none;
+            }
+        }
+    }
+   
+    @include respond(tab-port){
+        margin-top: 1rem;
+        width: 100%;
+        .schedule-form, .schedule-content{
+            width: 100%;
+        }
+        .schedule-form{
+            margin-top: 1rem;
+        }
+    }
+    @include respond(phone){
+        .form-row{
+            flex-direction: column;
+            .form-group{
+                width: 100% !important;
+                &:first-child{
+                    padding-right: 0 !important;
+                }
+                &:last-child{
+                    padding-left: 0 !important;
+                }
+            }
+        }
+    }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+.resources-section{
+    padding-bottom: 2.5rem;
+    .secondary-btn{
+        font-size: $text-xl;
+        transition: all .4s ease;
+        margin: 50px auto 0 auto;
+        &:hover{
+            background-color: $primary-color;
+            color: $white-color !important;
+        }
+    }
+    @include respond(tab-land){
+        .axo-container {
+            width: 96% !important;
+            max-width: 96% !important;
+        }
+    }
+}
+.humnan-error{
+    display: flex;
+    align-items: center;
+    padding-bottom: 50px;
+    .image-section{
+        width: 58%;
+    }
+    .content-section{
+        width: 42%;
+        .title, .text{
+            text-align: left !important;
+        }
+        .title{
+            margin-top: 0 !important;
+        }
+        .text{
+            max-width: 761px;
+        }
+        .counter-wrapper{
+            display: flex;
+            gap: 1.5rem;
+            @include respond(phone){
+                width: 100% !important;
+                flex-direction: column;
+            }
+            .counter-card{
+                width: 28%;
+                height: 181px;
+                background-color: $primary-color;
+                @include flexCenter($display-flex, $justify-center, $align-center);
+                flex-direction: column;
+                @include respond(phone){
+                    width: 100% !important;
+                    height: 6rem !important;
+                }
+                .client-logo-title{
+                    display: flex;
+                    color: $white-color;
+                    margin: 0 !important;
+                }
+                .counter-text{
+                    text-align: center !important;
+                    color: $white-color;
+                    font-size: $text-sm;
+                }
+            }
+        }
+        
+        
+    }
+    
+    @include respond(big-desktop){
+        .counter-card{
+            height: 12.5rem !important;
+
+        }
+    }
+    @include respond(tab-land){
+        .counter-wrapper{
+            gap: 1rem !important;
+            .counter-card{
+                width: 30% !important;
+            }
+        }
+        
+    }
+    @include respond(medium-tab-port){
+        .image-section{
+            display: none;
+        }
+        .content-section{
+            width: 96% !important;
+            margin: 0 auto;
+            .title, .text{
+                text-align: center !important;
+            }
+            .counter-wrapper{
+                justify-content: center;
+            }
+        }
+        
+    }
+}
+.facility-management{
+    position: relative;
+    padding-top: 52px;
+    .content-section{
+        width: 60%;
+        max-width: 60%;
+        padding-bottom: 3rem;
+        position: relative;
+        z-index: 9;
+        .title{
+            margin-top: 0 !important;
+            text-align: left;
+        }
+        .client-logo-title{
+            margin: 0 !important;
+            text-align: left;
+            font-weight: $medium;
+        }
+        .text{
+            text-align: left;
+        }
+        .card-parent{
+            display: flex;
+            flex-direction: column;
+        }
+    }
+    .rate-card-wrapper {
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+        max-width: 34.375rem;
+        .rate-card{
+            width: 12.5rem;
+            min-width: 12.5rem;
+            .text{
+                font-size: $text-md !important;
+                font-weight: $medium !important;
+                line-height: $normal-line-height !important;
+                margin: 0 !important;
+                text-align: center !important;
+            }
+            img{
+                height: 4rem;
+                width: 4rem;
+                margin: 0 auto;
+            }
+        }
+    }
+    .cta-btn-2{
+        font-size: $text-xl;
+        font-weight: $normal
+    }
+    .background-image{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        top: 0;
+        .image{
+            width: 40%;
+            height: 100%;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            img{
+                height: 100%;
+                width: 100%;
+            }
+        }
+        .empty-section{
+            width: 60%;
+        }
+    }
+    @include respond(big-desktop){
+        .content-section{
+            width: 50% !important;
+            max-width: 50% !important;
+        }
+        .image{
+            width: 50% !important;
+        }
+    }
+    @include respond(tab-land){
+        .axo-container {
+            width: 96% !important;
+            max-width: 96% !important;
+        }
+        .empty-section{
+            width: 50% !important;
+        }
+    }
+    @include respond(tab-port){
+        .content-section {
+            .card-parent{
+                flex-direction: column !important;
+                justify-content: center !important;
+                row-gap: 2rem;
+                .rate-card-wrapper{
+                    justify-content: center;
+                    gap: 2rem !important;
+                    .rate-card {
+                        width: 40% !important;
+                    }
+                }
+                
+            }
+
+        }
+        
+    }
+    @include respond(medium-phone){
+        .text{
+            font-size: $text-sm !important;
+        }
+    }
+    @include respond(medium-tab-port){
+        .title, .text, .client-logo-title{
+            text-align: center !important;
+        }
+        .content-section {
+            width: 96% !important;
+            max-width: 96% !important;
+            margin: 0 auto;
+            .card-parent{
+                flex-direction: row;
+                column-gap: 1rem;
+                justify-content: center;
+                .rate-card-wrapper {
+                    margin-top: 0 !important;
+                    gap:1rem;
+                    .rate-card {
+                        width: 10.625rem;
+                    }
+                }
+            }
+        }
+        .background-image{
+            position: relative;
+            .image {
+                width: 100% !important;
+                position: relative;
+                bottom: 50px;
+            }
+            .empty-section{
+                display: none;
+            }
+        }
+        .cta-btn-2{
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    }
+    .cta-btn-2{
+        gap:0.5rem;
+        margin-top: 2rem;
+    }
+    
+
+   
+}
+.schedule-demo{
+    background-image: url("../assets/images/schedule-bg-scaled.webp");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 50px 0;
+    .title-white{
+        margin-top: 0 !important;
+    }
+    .text{
+        color: $white-color !important;
+        max-width: 70%;
+        margin:0 auto
+    }
+    .schedule-form{
+        width: 830px;
+        margin:32px auto 0 auto;
+        .form-group{
+            background: #fff;
+            padding: 6px;
+            border-radius: 3px;
+            display: flex;
+            .input-field{
+                padding: 0 10px !important;
+                border-radius: 5px 0 0 5px !important;
+            }
+            .primary-btn{
+                padding: 10px 34px !important;
+                white-space: nowrap;
+            }
+        }
+    }
+    
+    @include respond(tab-land){
+        .schedule-form{
+            width: 70%;
+        }
+    }
+    @include respond(medium-tab-port){
+        .text, .schedule-form{
+            width: 94%;
+            max-width: 94%;
+        }
+    }
+    @include respond(phone){
+        .text, .schedule-form{
+            width: 94%;
+            max-width: 94%;
+        }
+        .form-group{
+            flex-direction: column;
+            .primary-btn{
+                width: 100%;
+            }
+        }
+    }
+
+}
+.one-plateform-five-component{
+    .call-to-action-2-wrapper{
+        margin-top: 7rem;
+        background: linear-gradient(180deg,#8B75FF 0%,#634DD1 100%) !important;
+        .one-plateform-five-component-card-wrapper{
+            max-width: 75rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 0 1rem 0 1rem;
+            margin: -7rem auto 0 auto;
+        }
+    }
+    .call-to-action-content{
+        margin-top:4rem;
+    }
+    @include respond(tab-land){
+        .one-plateform-five-component-card-wrapper{
+            padding: 0;
+            gap:1rem !important;
+            max-width: 100% !important;
+            margin: -7rem auto 0 auto !important;
+        }
+    }
+    @include respond(medium-tab-port){
+        .one-plateform-five-component-card-wrapper{
+            flex-wrap: wrap;
+        }
+    }
+    @include respond(tab-port){
+        .one-plateform-five-component-card-wrapper{
+            margin: 0 auto !important;
+        }
+    }
+    
+}
+.vertical-tab-section{
+    .tab-buttons{
+        display: flex;
+        justify-content: space-between;
+        padding-left: 0px;
+        flex-wrap: wrap;
+        list-style-type: none;
+        margin-bottom: 1.25rem;
+        @include respond(tab-land){
+            justify-content: center;
+        }
+    }
+    .tab-sections{
+        margin-bottom: 1.5rem;
+        .active{
+            display:block !important;
+        }
+        .tab-content{
+            transition-timing-function: linear;
+            transition-duration: 150ms;
+            opacity: 1;
+            display:none;
+        }
+    }
+    .primary-btn, .light-blue-btn{
+        min-width: 220px !important;
+        font-weight: $medium !important;
+        border: none;
+    }
+    .cta-btn{
+        margin:2rem auto;
+        gap:0.5rem;
+    }
+    .left-right-section {
+        .descripion-section, .image-section{
+            padding: 0 2.5rem;
+            @include respond(tab-land){
+                padding: 0 !important;
+            }
+        }
+    }
+
+}
+
+.horizontal-tab{
+    background-color: $hero-bg-color;
+    padding: 1.563rem 0;
+    .desktop-tab{
+        display: flex;
+        align-items: start;
+        margin-top: 4rem;
+        li{
+            text-align: center;
+            flex-grow: 1;
+        }
+        @include respond(medium-tab-port){
+            display: none;
+        }
+    }
+    .mobile-tab{
+        display:none;
+        @include respond(medium-tab-port){
+            display: block;
+        }
+        .btn-arrow{
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 200ms;
+            transition-property: transform;
+            flex-shrink: 0;
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-left: auto;
+            margin-right: -0.25rem;
+        }
+        .tab-content{
+            display: none;
+            visibility: visible !important;
+        }
+    }
+    .tab-buttons{
+        display: flex;
+        padding-left: 0px;
+        flex-wrap: wrap;
+        flex-direction: column;
+        list-style-type: none;
+        width: 50%;
+        margin-right: 1rem;
+    }
+    .tab-sections{
+        margin-bottom: 1.5rem;
+        .active{
+            display:block !important;
+        }
+        .tab-content{
+            transition-timing-function: linear;
+            transition-duration: 150ms;
+            opacity: 1;
+            display:none;
+        }
+    }
+    .cta-btn-2, .cta-btn{
+        justify-content: space-between !important;
+        width: 100%;
+        font-size: $text-lg;
+    }
+    li, h2{
+        border-top:1px solid #b6b4c345;
+        padding:1.313rem 0 1.313rem 1rem;
+        
+    }
+    .left-right-section{
+        margin-top: 0;
+        .image-section{
+            img{
+                max-width: 29.875rem;
+                margin:0 auto;
+            }
+        }
+    }
+    .accordion{
+        .left-right-section ,h2{
+            border:1px solid #b6b4c345;
+            border-bottom: none;
+            padding: 1.5rem;
+        }
+    }
+    @include respond(medium-tab-port){
+        .axo-container{
+            width: 96%;
+            max-width: 96%;
+        }
+    }
+    @include respond(phone){
+        .left-right-section{
+            margin-top: 0;
+            .image-section{
+                img{
+                    max-width: 100% !important;
+                    margin:0 auto;
+                }
+            }
+        }
+    }
+}
+.blog-meta-description{
+    margin-top: 4rem;
+    .bolg-author{
+        padding: 0 1rem;
+        border-right: 1px solid #ddd;
+    }
+    .bolg-date{
+        margin: 0 1rem;
+    }
+   
+}
+.blog-image{
+    margin-top:2rem;
+}
+.divider{
+    border:1px solid $primary-color;
+    margin:0.5rem 0;
+}
+.blog-subtitle-wrapper{
+    .subtitle{
+        text-align: left !important;
+        margin-top: 2rem;
+    }
+}
+.blog-paragraph-wrapper{
+    .text{
+        text-align: left;
+        margin-bottom: 0.725rem !important;
+    }
+}
+.blog-list-wrapper{
+    .list-disc{
+        margin-left: 2.5rem;
+    }
+    .text{
+        text-align: left;
+        margin-bottom: 0.725rem !important;
+    }
+}
+.integration-section{
+    .client-logo-title{
+        margin: 0 0 12px 0;
+        text-align: left;
+        font-weight: $normal;
+    }
+    .title{
+        margin: 0;
+    }
+    .title, .text{
+        text-align: left;
+    }
+    @include respond(tab-port){
+        .client-logo-title,.title{
+            text-align: center !important;
+        }
+        .cta-btn-2{
+            margin:0 auto;
+        }
+    }
+}
+
+.error{
+    color:$red-color;
+}
+.call-to-action-3{
+    background-image: url("../assets/images/warehouse-worker-checking-inventory-his-tablet-while-walking-large-storage-department-with-shelves-packages-background-1.jpg");
+    background-position: right 50% bottom 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: overlay;
+    min-height: 654px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    .axo-container{
+        position: relative;
+        z-index: 9;
+    }
+    .text,.hero-title{
+        text-align: center !important;
+        color: $white-color !important;
+    }
+    .primary-btn{
+        margin: 0  auto;
+    }
+    @include respond(tab-land){
+        min-height: 520px;
+    }
+    @include respond(medium-tab-port){
+        min-height: 400px;
+    }
+    @include respond(tab-port){
+        min-height: 312px;
+    }
+}
+.call-to-actions-imag-overlay{
+    background-color: #010101;
+    opacity: 0.5;
+    transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+.separate-image-section{
+    padding: 40px 0;
+    .axo-container{
+        @include flexCenter($display-flex,$justify-center,$align-center);
+    }
+    img{
+        max-width: 75%;
+    }
+}
+.btn-wrapper{
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+}
+.axo-grid{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap:1.6rem;
+    @include respond(tab-port){
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+.heading-and-description{
+    .title{
+        padding: 0 16rem;
+        @include respond(tab-land){
+            padding: 0 4rem;
+        }
+        @include respond(medium-tab-port){
+            padding: 0;
+        }
+    }
+}
+.card-grid{
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    .axo-card{
+        width: calc(33.33% - 24px);
+        min-width: calc(33.33% - 24px);
+        max-width: calc(33.33% - 24px);
+        flex: calc(33.33% - 24px);
+
+    }
+    @include respond(tab-port){
+        .axo-card{
+            width: calc(50% - 24px);
+            min-width: calc(50% - 24px);
+            max-width: calc(50% - 24px);
+            flex: calc(50% - 24px);
+    
+        }
+    }
+    @include respond(phone){
+        .axo-card{
+            width: 100%;
+            min-width: 100%;
+            max-width: 100%;
+            flex: 100%;
+    
+        }
+    }
+}
+.star-svg{
+    width: 1.25rem;
+    height: 1.25rem;
+    color: rgb(250 204 21 / 1);
+}
+.gray-star-svg{
+    width: 1.25rem;
+    height: 1.25rem;
+    color: rgb(209 213 219 / 1);
+}
+a{
+    text-decoration: none;
+}
+img{
+    max-width: 100%;
+}

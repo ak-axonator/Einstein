@@ -1,48 +1,91 @@
+@import '../abstracts/variables';
 
-@mixin btn {
-    font-size: $btn-font-size;
+@mixin btnCommonStyle{
+    padding: 0 !important;
+    line-height: 19.44px;
+    border-style: none;
+}
+.btn{
+    font-family: $font-family;
+    font-weight: $semi-bold;
     padding: 10px 15px;
     border-radius: 4px;
-    font-family: $font-family;
-    font-weight: $btn-font-weight;
+    width: fit-content;
+    transition: all .4s ease;
+}
+@mixin btn($value){
+    
+    @extend .btn;
+    @include flexCenter($display-flex,$justify-center,$align-center);
+
     @media only screen and (max-width: 1050px) {
-        font-size: $phone-btn-font-size;
+        font-size: $text-md;
     }
-  }
 
-  .primary-btn{
-    color:$primary-btn-color;
-    background-color: $primary-color;
-    @include btn;
+    @if $value == primaryBtn{
+        font-size: $text-sm;
+        color:$white-color;
+        background-color: $primary-color !important;
+    }
+    @else if $value == secondaryBtn{
+        font-size: $text-sm;
+        color:$primary-color;
+        background-color: $transparent-color;
+    }
+    @else if $value == ctaBtn{
+        font-size: $text-lg;
+        color:$cta-btn-color;
+        background-color: $cta-btn-bg-color;
+    }
+    @else if $value == linkBtn{
+        font-size: $text-md;
+        color:$primary-color;
+        background-color: $cta-btn-bg-color;
+    }
+    @else if $value == lightBlueBtn{
+        font-size: $text-md;
+        color:$black-color;
+        background-color: $hero-bg-color !important;
+        &:hover{
+            color:$white-color;
+            background-color: $primary-color !important;
+        }
+    }
+    @content;
 }
-
+.primary-btn{
+    @include btn(primaryBtn);
+    border: 1px solid $primary-color;
+    white-space: nowrap;
+}
+.secondary-btn{
+    @include btn(secondaryBtn);
+    border: 1px solid $primary-color;
+    white-space: nowrap;
+}
+.light-blue-btn{
+    @include btn(lightBlueBtn);
+}
 .cta-btn{
-    padding: 0;
-    font-family: $font-family;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 19.44px;
-    color: #303030;
-    background-color: #ffffff00;
-    border-style: none;
-    display: flex;
-    justify-content: center;
-    transition: all .4s ease;
+    @include btn(ctaBtn);
+    @include btnCommonStyle;
     &:hover{
-        color: #6c52ed;
+        color: $primary-color;
     }
+    
 }
-
 .cta-btn-2{
-    padding: 0;
-    font-family: $font-family;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 19.44px;
-    color: #6c52ed;
-    background-color: #ffffff00;
-    border-style: none;
-    display: flex;
-    justify-content: center;
-    transition: all .4s ease;
+    @include btn(linkBtn);
+    @include btnCommonStyle;
+    gap: 0.5rem;
+   
+}
+.nav-menu-btn{
+    @include btn(linkBtn);
+    @include btnCommonStyle;
+}
+.nav-menu-footer-btn{
+    @include btn(linkBtn);
+    @include btnCommonStyle;
+
 }

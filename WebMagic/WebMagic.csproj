@@ -6,8 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PublishSingleFile>true</PublishSingleFile>
-    <!-- <SelfContained>true</SelfContained> -->
-    <!-- <RuntimeIdentifier>win-x64</RuntimeIdentifier> -->
+    <!-- <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>osx-x64</RuntimeIdentifier> -->
   </PropertyGroup>
   <ItemGroup>
     <!-- <PackageReference Include="itext7" Version="7.2.5" /> -->

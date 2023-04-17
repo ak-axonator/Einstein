@@ -1,1 +1,77 @@
-@import 'ty'
+//font colors
+$text-color:#121212;
+$primary-color:#6C52ED;
+$white-color:#ffffff;
+$black-color:#000000;
+$call-to-action-bg:#e5e0ff;
+$footer-bg-color:#353547;
+$footer-link-color: #CBCBCB;
+$testimonial-footer-text-color:#6d6d6d;
+$counter-bg:#DFD9FF;
+$faq-bg:#f2f7fa;
+$challenges-bg: #CBC1FF;
+$hero-bg-color: #F0F5FF;
+$mega-menu-main-title-color:#1c304b;
+$mega-menu-title-color:#7f7f7f;
+$cta-btn-color:#303030;
+$cta-btn-bg-color:#ffffff00;
+$accordion-border-color:#eee;
+$linear-gradient-color:#F2295B00;
+$mega-menu-border-color:#e8e8e8;
+$transparent-color:transparent;
+$light-blue-color:#D2CAFF;
+$divider-color:#7c6ccc;
+$feature-icon-color:#3BB14A;
+$card-subtitle-color:#00000080;
+$border-color:#ddd;
+$red-color:#ff0000;
+$green-color:#00ff00;
+$input-border-color: #D0DBFA;
+$input-border-focus-color:#B3B3B3;
+$border-separater:#90909059;
+
+//font size
+$text-mini:10px;
+$text-xs:12px;
+$text-sm:14px;
+$text-md:16px;
+$text-lg:18px;
+$text-xl:20px;
+$text-3xl:22px;
+$text-4xl:24px;
+$text-6xl:28px;
+$text-8xl:34px;
+$text-13xl:44px;
+
+
+//font family
+$font-family:"Inter";
+
+//font weight
+$normal:400;
+$medium:500;
+$semi-bold:600;
+$bold:700;
+
+
+
+//line height
+$hero-title-line-height: 54px;
+$title-line-height:40px;
+$subtitle-line-height:32px;
+$text-line-height: 28px;
+$footer-line-height:24px;
+$normal-line-height:normal;
+
+//line-height for mobile
+$phone-hero-title-line-height: 28px;
+$phone-text-line-height: 20px;
+
+
+//flex center variable
+
+$display-flex:flex;
+$justify-center:center;
+$align-center:center;
+
+$timing: 0.4s;

@@ -37,7 +37,7 @@ namespace WebMagic
             var artifact = "app_details";
             try{
                 var inputFilePath = Path.Combine(GlobalPaths.GPTFolder, "ArtifactPrompts", "GPTInput" + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(artifact.Replace("_", "")) + ".jsonc");
-                var inputJson = File.ReadAllText(InputFilePath);
+                var inputJson = File.ReadAllText(inputFilePath);
                 inputJson = Regex.Replace(inputJson, @"^\s*//.*$", "", RegexOptions.Multiline);
                 var input = JsonConvert.DeserializeObject<Input>(inputJson);
                 if(_csvInput != null){
@@ -88,6 +88,13 @@ namespace WebMagic
                 {
                     try{
                         Console.WriteLine($"Generating prompt for {artifact_name} {artifact} in {appDetails.Name} app...");
+                        // var currentPath = Directory.GetCurrentDirectory();
+                        // run artifact prompt and store response in the artifact's json file in logfolder
+                        var filePrefix = artifact.ToUpper().Replace("_", "-").Replace(" ", "-");
+                        var fileName = artifact_name.ToLower().Replace("_", "-").Replace(" ", "-");
+                        var outputFilePath = Path.Combine(GlobalPaths.LogFolder, filePrefix + "-" + fileName + getArtifactExtension(artifact));
+                        if (File.Exists(outputFilePath))
+                            continue;
                         var GPTInputFilePath = Path.Combine(GlobalPaths.GPTFolder, "ArtifactPrompts", "GPTInput" + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(artifact.Replace("_", "")) + ".jsonc");
                         var GPTInputJson = File.ReadAllText(GPTInputFilePath);
                         GPTInputJson = Regex.Replace(GPTInputJson, @"^\s*//.*$", "", RegexOptions.Multiline);
@@ -103,10 +110,6 @@ namespace WebMagic
                         Console.WriteLine($"Generated prompt for {artifact_name} {artifact} in {input.AppName}...");
                         Console.WriteLine(promptString);
 
-                        // run artifact prompt and store response in the artifact's json file in logfolder
-                        var filePrefix = artifact.ToUpper().Replace("_", "-").Replace(" ", "-");
-                        var fileName = artifact_name.ToLower().Replace("_", "-").Replace(" ", "-");
-                        var outputFilePath = Path.Combine(GlobalPaths.LogFolder, filePrefix + "-" + fileName + getArtifactExtension(artifact));
                         GPTPromptsRunner.Run(promptString, outputFilePath);
                     }
                     catch(Exception e){

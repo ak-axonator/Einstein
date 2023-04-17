@@ -1,0 +1,157 @@
+@import '../abstracts/mixins';
+.footer{
+    background-color: $footer-bg-color;
+    .footer-row {
+        display: flex;
+        .footer-title{
+            text-transform: uppercase;
+            text-align: left !important;
+            margin-bottom: 5px !important;
+            @include textStyle($text-sm,$semi-bold,$font-family,$footer-line-height,$white-color);
+            @include respond(tab-land){
+                font-size: $text-xs;
+                line-height: $phone-text-line-height;
+            }
+        }
+        .footer-link, .footer-text{
+            text-align: left !important;
+            @include textStyle($text-sm,$normal,$font-family,$footer-line-height,$footer-link-color);
+            @include respond(tab-land){
+                font-size: $text-xs;
+                line-height: $phone-text-line-height;
+            }
+        }
+        .social-media-icon{
+            color: $footer-link-color;
+            border-style: solid;
+            border-width: 1px;
+            border-color: $footer-link-color;
+            border-radius: 50%;
+            height: 32px;
+            width: 32px;
+            margin-right: 1rem;
+            @include flexCenter($display-flex,$justify-center,$align-center);
+        }
+    }
+    .link-row{
+        padding-top: 2rem;
+        @include respond(phone){
+            flex-direction: column;
+        }
+        .link-row-col{
+            width: 75%;
+            max-width: 75%;
+            @include respond(phone){
+                width: 100%;
+                max-width: 100%;
+            }
+            &:last-child{
+                width: 25%;
+                max-width: 25%;
+                margin-top: 0;
+                @include respond(phone){
+                    margin-top: 1rem;
+                }
+            }
+            .child-col{
+                width: 33.33%;
+                max-width: 33.33%;
+            }
+            .footer-row{
+                &:last-child{
+                    padding-top: 1.25rem;
+                }
+            }
+        }
+    }
+    .middle-row{
+        padding-top: 2rem;
+        @include respond(phone){
+            padding-top: 1.25rem;
+        }
+        @include respond(tab-port){
+            flex-direction: column;
+        }
+        .middle-row-col{
+            width: 50%;
+            max-width: 50%;
+            @include respond(tab-port){
+                width: 100%;
+            }
+            .footer-row{
+                // margin-top: 2rem;
+                @include respond(phone){
+                    margin-top: 0;
+                }
+                .social-link{
+                    display: flex;
+                    margin-top: 1rem;
+                    margin-bottom: 1rem;
+                    justify-content: flex-start;
+                }
+                .footer-col{
+                    width: 50%;
+                    li{
+                        display: flex;
+                        .footer-text{
+                            white-space: nowrap;
+                        }
+                        &:first-child{
+                            margin-top: 1rem;
+                        }
+                    }
+                    @include respond(tab-port){
+                        width: 100%;
+                        ul{
+                            display: flex;
+                            flex-direction: column;
+                            li{
+                                gap:0;
+                                margin-top: 1rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .seprator {
+        border-top: 1px solid $border-separater;
+    }
+    .footer-bottom-row{
+        padding-top:2rem;
+        align-items: center;
+        justify-content: space-between;
+        @include respond(medium-tab-port){
+           flex-direction: column-reverse;
+        }
+        .footer-contact{
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            column-gap: 1.25rem;
+             .footer-text{
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                white-space: nowrap;
+
+             }
+        }
+    }
+    .footer-description{
+        margin-top:1.5rem;
+        margin-bottom: 1.5rem;
+        @include respond(tab-port){
+            margin-top:1rem;
+            margin-bottom: 0.5rem;
+         }
+    }
+    ul {
+        list-style: none;
+    }
+    .country-flag{
+        height: 1.75rem;
+        width: 3rem;
+    }
+}

@@ -10,8 +10,10 @@ namespace WebMagic
         public string Industry { get; set; }
         public string Category { get; set; }
         public string Description { get; set; }
+        public string Icon { get; set; }
         public List<string> Keywords { get; set; }
-        public List<ProductFeature> ProductFeatures { get; set; }
+        public List<Benefit> Product_Benefits { get; set; }
+        public List<Feature> Product_Features { get; set; }
         public List<string> Document_Names { get; set; }
         public List<AppDocument> Documents { get; set; }
         public List<string> Form_Names { get; set; }
@@ -31,6 +33,8 @@ namespace WebMagic
         public List<Dashboard> Dashboards { get; set; }
         public List<string> AuditChecklist_Names { get; set; }
         public List<AuditChecklist> AuditChecklists { get; set; }
+        public List<string> Integration_Names { get; set; }
+        public List<Integration> Integrations { get; set; }
     }
 
     public class ProductFeature
@@ -50,55 +54,45 @@ namespace WebMagic
 
     public class Form
     {
-        public string FormTitle { get; set; }
-        public string FormDescription { get; set; }
+        public string Form_Title { get; set; }
+        public string Form_Description { get; set; }
         public List<string> Users { get; set; }
-        public string BenefitsTitle { get; set; }
-        public string BenefitsDescription { get; set; }
-        public List<string> Benefits { get; set; }
-        public string FeaturesTitle { get; set; }
-        public string FeaturesDescription { get; set; }
-        public List<string> Features { get; set; }
-        public string Use { get; set; }
+        public List<Benefit> Benefits { get; set; }
+        public List<Feature> Features { get; set; }
+        public List<string> Use { get; set; }
         public List<FAQ> Faqs { get; set; }
-        public List<FormField> FormFields { get; set; }
+        public List<FormField> Form_Fields { get; set; }
     }
 
     public class FormField
     {
-        public string FieldType { get; set; }
+        public string Form_Field { get; set; }
+        public string Field_Type { get; set; }
         public string Description { get; set; }
         public List<string> Options { get; set; }
         public string Validation { get; set; }
+        public string Hint { get; set; }
     }
 
     public class Checklist
     {
-        public string ChecklistTitle { get; set; }
-        public string ChecklistDescription { get; set; }
+        public string Checklist_Title { get; set; }
+        public string Checklist_Description { get; set; }
         public List<string> Users { get; set; }
-        public string BenefitsTitle { get; set; }
-        public string BenefitsDescription { get; set; }
-        public List<string> Benefits { get; set; }
-        public string FeaturesTitle { get; set; }
-        public string FeaturesDescription { get; set; }
-        public List<string> Features { get; set; }
-        public string Use { get; set; }
+        public List<Benefit> Benefits { get; set; }
+        public List<Feature> Features { get; set; }
+        public List<string> Use { get; set; }
         public List<FAQ> Faqs { get; set; }
-        public List<Checkpoint> Checkpoints { get; set; }
+        public List<ChecklistPoint> Checkpoints { get; set; }
     }
 
     public class Workflow
     {
-        public string WorkflowTitle { get; set; }
-        public string WorkflowDescription { get; set; }
+        public string Workflow_Title { get; set; }
+        public string Workflow_Description { get; set; }
         public List<string> Users { get; set; }
-        public string BenefitsTitle { get; set; }
-        public string BenefitsDescription { get; set; }
-        public List<string> Benefits { get; set; }
-        public string FeaturesTitle { get; set; }
-        public string FeaturesDescription { get; set; }
-        public List<string> Features { get; set; }
+        public List<Benefit> Benefits { get; set; }
+        public List<Feature> Features { get; set; }
         public string Use { get; set; }
         public List<FAQ> Faqs { get; set; }
         public List<Step> Steps { get; set; }
@@ -106,21 +100,19 @@ namespace WebMagic
 
     public class AuditChecklist
     {
-        public string AuditChecklistTitle { get; set; }
-        public string AuditChecklistDescription { get; set; }
+        public string Audit_Checklist_Title { get; set; }
+        public string Audit_Checklist_Description { get; set; }
         public List<string> Users { get; set; }
-        public string Benefits { get; set; }
-        public string BenefitsTitle { get; set; }
-        public string BenefitsDescription { get; set; }
+        public List<Benefit> Benefits { get; set; }
         public List<Feature> Features { get; set; }
-        public string Use { get; set; }
+        public List<string> Use { get; set; }
         public List<FAQ> Faqs { get; set; }
-        public List<Checkpoint> Checkpoints { get; set; }
+        public List<ChecklistPoint> Checkpoints { get; set; }
     }
     public class Feature
     {
-        public string Title { get; set; }
-        public string Description { get; set; }
+        public string Features_Title { get; set; }
+        public string Features_Description { get; set; }
     }
     public class FAQ
     {
@@ -129,15 +121,17 @@ namespace WebMagic
     }
     public class Step
     {
-        public string StepTitle { get; set; }
-        public string StepDescription { get; set; }
-        public string StepType { get; set; }
+        public string Step_Title { get; set; }
+        public string Step_Description { get; set; }
+        public string Step_Type { get; set; }
     }
 
-    public class Checkpoint
+    public class ChecklistPoint
     {
-        public string Title { get; set; }
+        public string Checkpoint { get; set; }
+        public List<string> Options { get; set; }
         public string Hint { get; set; }
+        public string Validation { get; set; }
     }
 
     public class Report
@@ -164,5 +158,15 @@ namespace WebMagic
         public string Description { get; set; }
         public string Contents { get; set; } //markdown
     }
-
+    public class Integration
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+    }
+    public class Artifact
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Type { get; set; }
+    }
 }

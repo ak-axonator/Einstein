@@ -17,10 +17,10 @@ using ImageMagic;
 
 namespace WebMagic
 {
-    class Benefit
+    public class Benefit
     {
-        public string Title { get; set; }
-        public string Description { get; set; }
+        public string Benefits_Title { get; set; }
+        public string Benefits_Description { get; set; }
     }
     class Program
     {
@@ -35,7 +35,8 @@ namespace WebMagic
             //task.Wait();
             // initGlobalPaths();
             // testGPTResponseFiletoKDL();
-            testCSVAppNameRename();
+            // testCSVAppNameRename();
+            // GenerateAndRunAppArtifactPrompts(args[0]);
             // GenerateAndRunAppArtifactPrompts("form");
             // GenerateAndRunAppArtifactPrompts("report");
             // GenerateAndRunAppArtifactPrompts("checklist");
@@ -55,6 +56,7 @@ namespace WebMagic
             //testS3Uploading();
             // CreatePageFileFromOutputKDL();
             // testMDtoKDLParser();
+            ConvertToKDL();
             // ReplacePageBeginSections();
 
         }
@@ -107,6 +109,10 @@ namespace WebMagic
             }
         }
 
+        private static void ConvertToKDL(){
+            ArtifactParser.ConvertToKDL();
+        }
+
         private static void testMDtoKDLParser()
         {
             string folderPath = "/Users/arohikulkarni/Work/Website Project/Old Website/md files";
@@ -145,7 +151,7 @@ namespace WebMagic
 
         private static void testCSVAppNameRename()
         {
-            string csvFileName = @"/Users/arohikulkarni/Downloads/all app names with categories and industries reordered - Manufacturing.csv";
+            string csvFileName = @"/Users/arohikulkarni/Downloads/all app names with categories and industries reordered - First 100.csv";
             var csv = new CSVProcessor(csvFileName);
             try{
                 csv.ProcessCSV();
@@ -269,8 +275,8 @@ namespace WebMagic
             var benefits = ParseBullets(benefitsText);
             foreach (var benefit in benefits)
             {
-                Console.WriteLine("Title: " + benefit.Title);
-                Console.WriteLine("Description: " + benefit.Description);
+                Console.WriteLine("Title: " + benefit.Benefits_Title);
+                Console.WriteLine("Description: " + benefit.Benefits_Description);
                 Console.WriteLine();
             }
         }
@@ -303,8 +309,8 @@ namespace WebMagic
                 }
                 benefits.Add(new Benefit
                 {
-                    Title = parts[0].TrimStart().TrimEnd('.'),
-                    Description = parts[1].TrimStart(),
+                    Benefits_Title = parts[0].TrimStart().TrimEnd('.'),
+                    Benefits_Description = parts[1].TrimStart(),
                 });
             }
             return benefits;

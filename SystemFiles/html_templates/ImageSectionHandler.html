@@ -1,6 +1,6 @@
 {if heading = null && description = null && img.src != "":
 <div class="separate-image-section">
-  <div class="axo-container flex items-center justify-center">
+  <div class="axo-container">
     <img src="{img.src}" alt="{img.alt}">
   </div>
 </div>
@@ -8,10 +8,10 @@
   {if align != "left":
   <div class="right-image-section-wrapper">
     <div class="axo-container">
-      <div class="left-right-section flex-col md:flex-row">
+      <div class="left-right-section">
         <div class="descripion-section">
-          <div class="subtitle text-left">{heading}</div>
-          <div class="text text-left">
+          <div class="subtitle">{heading}</div>
+          <div class="text">
             {description} 
           </div>
         </div>
@@ -25,13 +25,13 @@
       <!----Left Imae section-->
   <div class="left-image-section-wrapper">
     <div class="axo-container">
-      <div class="left-right-section flex-col-reverse md:flex-row">
+      <div class="left-right-section">
         <div class="image-section">
           <img src="{img.src}" alt="{img.alt}">
         </div>
         <div class="descripion-section">
-          <div class="subtitle text-left">{heading}</div>
-          <div class="text text-left">
+          <div class="subtitle">{heading}</div>
+          <div class="text">
             {description}
           </div>
         </div>

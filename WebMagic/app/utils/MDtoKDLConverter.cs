@@ -696,7 +696,7 @@ namespace WebMagic
             }
         }
 
-        public void Convert(string inputFilePath)
+        public void Convert(string inputFilePath, string outputFilePath = "")
         {
             var sections = Parse(inputFilePath);
             var kdl_lines = new List<string>();
@@ -826,33 +826,45 @@ namespace WebMagic
                         break;
                 }
             }
-            
-            string prefix, fileName;
-            S3Uploader.GetFileNameAndPrefix(inputFilePath, out prefix, out fileName); //filename will contain hyphens, so not used here
-            prefix = prefix.Replace("-", " ").ToLower();
-            char[] trimChars = { '_', '-' };
-            string outputFilePath = Path.Combine(GlobalPaths.ProjectFolder, prefix, Path.GetFileNameWithoutExtension(inputFilePath).TrimStart(trimChars).TrimEnd(trimChars) + ".page");
-            Compiler.CreateOutputDirectory(outputFilePath);
-            using (StreamWriter writer = new StreamWriter(outputFilePath))
+            if(outputFilePath == "")
             {
-                // prepend Page start lines to kdl_lines
-                kdl_lines.InsertRange(0, new string[] {
-                    "//Page start",
-                    "page_begin_section",
-                    "navigation_section"
-                });
-                // append Page end lines to kdl_lines
-                kdl_lines.AddRange(new string[] {
-                    "cta_section",
-                    "default_footer_section",
-                    "page_end_section"
-                });
-                foreach (string line in kdl_lines)
+                string prefix, fileName;
+                S3Uploader.GetFileNameAndPrefix(inputFilePath, out prefix, out fileName); //filename will contain hyphens, so not used here
+                prefix = prefix.Replace("-", " ").ToLower();
+                char[] trimChars = { '_', '-' };
+                outputFilePath = Path.Combine(GlobalPaths.ProjectFolder, prefix, Path.GetFileNameWithoutExtension(inputFilePath).TrimStart(trimChars).TrimEnd(trimChars) + ".page");
+                Compiler.CreateOutputDirectory(outputFilePath);
+                using (StreamWriter writer = new StreamWriter(outputFilePath))
                 {
-                    Console.WriteLine(line);
-                    writer.WriteLine(line.Replace("https://axonator.com/", "/"));
+                    // prepend Page start lines to kdl_lines
+                    kdl_lines.InsertRange(0, new string[] {
+                        "//Page start",
+                        "page_begin_section",
+                        "navigation_section"
+                    });
+                    // append Page end lines to kdl_lines
+                    kdl_lines.AddRange(new string[] {
+                        "cta_section",
+                        "default_footer_section",
+                        "page_end_section"
+                    });
+                    foreach (string line in kdl_lines)
+                    {
+                        Console.WriteLine(line);
+                        writer.WriteLine(line.Replace("https://axonator.com/", "/"));
+                    }
+                    VerifyAndCorrectKdlFile(outputFilePath);
                 }
-                VerifyAndCorrectKdlFile(outputFilePath);
+            }
+            else{
+                using (StreamWriter writer = new StreamWriter(outputFilePath))
+                {
+                    foreach (string line in kdl_lines)
+                    {
+                        Console.WriteLine(line);
+                        writer.WriteLine(line.Replace("https://axonator.com/", "/"));
+                    }
+                }
             }
         }
 

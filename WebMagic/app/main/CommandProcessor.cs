@@ -10,7 +10,7 @@ namespace WebMagic
     {
         private string _folderPath;
         private bool _compile = true;
-        private bool _upload = true;
+        private bool _upload = false;
         private bool _compileAndWatch = true;
         private bool _uploadAndWatch = false;
         DirectoryObserver observer;
@@ -67,6 +67,7 @@ namespace WebMagic
             var configuration = builder.Build();
             string system_folder = configuration.GetValue<string>("system_folder");
             string log_folder = configuration.GetValue<string>("log_folder");
+            string gpt_folder = configuration.GetValue<string>("gpt_folder");
             string output_folder = Path.Combine(Directory.GetParent(project_folder).FullName, "Axonator Website");
 
             GlobalPaths.SystemFolder = system_folder;
@@ -74,7 +75,7 @@ namespace WebMagic
             GlobalPaths.OutputFolder = output_folder;
             GlobalPaths.LogFolder = log_folder;
             GlobalPaths.AssetsFolder = Path.Combine(GlobalPaths.SystemFolder, "assets_to_copy");
-            GlobalPaths.GPTFolder = Path.Combine(GlobalPaths.SystemFolder, "GPTJsonPageGenFiles");
+            GlobalPaths.GPTFolder = gpt_folder;
         }
 
         public static void LogJsonParsingError(Exception ex, string error_msg, string fileName = "")
@@ -83,6 +84,10 @@ namespace WebMagic
 
             string logMessage = $"An error occurred while parsing the following JSON: {error_msg}\n\nError details:\n{ex}";
 
+            var timestamp = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));
+            
+            File.AppendAllText(logFilePath, "\n\n ----------------------------- \n\n");
+            File.AppendAllText(logFilePath, timestamp + "\n");
             File.AppendAllText(logFilePath, fileName + "\n");
             File.AppendAllText(logFilePath, logMessage);
             File.AppendAllText(logFilePath, "\n\n ----------------------------- \n\n");
@@ -111,7 +116,7 @@ namespace WebMagic
             var (updatedFiles, deletedFiles) = getFileChanges();
             List<string> compiledFiles = compileFileChanges(updatedFiles);
             uploadChanges(compiledFiles);
-            deleteFiles(deletedFiles);
+            // deleteFiles(deletedFiles);
         }
 
         private (List<string>, List<string>) getFileChanges()

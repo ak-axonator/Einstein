@@ -57,15 +57,9 @@ namespace WebMagic
             fileName = Path.GetFileNameWithoutExtension(file).TrimEnd('_', '-').Replace("_", "-");
             // if the filename starts with any of the prefixes, remove it from file name and join it withing the s3Key
 
-            foreach (string p in prefixes)
-            {
-                if (fileName.StartsWith(p))
-                {
-                    prefix = p.TrimEnd('-');
-                    fileName = fileName.Substring(p.Length);
-                    break;
-                }
-            }
+            var relativePath = Path.GetRelativePath(GlobalPaths.OutputFolder, file);
+            prefix = Path.GetDirectoryName(relativePath).Replace("\\", "/");
+
         }
 
         public void deleteFiles(List<String> files)

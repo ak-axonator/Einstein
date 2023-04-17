@@ -1,5 +1,52 @@
 <script>
     $(document).ready(function()\{
+      $(".accordion > .accordion-header").on("click", function() \{
+          if ($(this).hasClass("active")) \{
+            $(this).removeClass("active");
+            $(this)
+              .siblings(".accordion-body")
+              .slideUp(200);
+            $(".accordion > .accordion-header i")
+              .removeClass("fa-minus")
+              .addClass("fa-plus");
+          \} else \{
+            $(".accordion > .accordion-header i")
+              .removeClass("fa-minus")
+              .addClass("fa-plus");
+            $(this)
+              .find("i")
+              .removeClass("fa-plus")
+              .addClass("fa-minus");
+            $(".accordion > .accordion-header").removeClass("active");
+            $(this).addClass("active");
+            $(".accordion-body").slideUp(200);
+            $(this)
+              .siblings(".accordion-body")
+              .slideDown(200);
+          \}
+        \});
+      $(function()\{
+        $btnToggle = $('.btn--toggle');
+        $submenuTrigger = $('.submenu--trigger');
+        $thirdSubmenuTrigger = $('.third-submenu--trigger');
+        
+        $btnToggle.on('click', function(e) \{
+          let $target = $( $(e.currentTarget).attr('data-target') );
+          $target.toggleClass('showing');
+        \});
+        
+        
+        $submenuTrigger.on('click', function(e) \{
+          e.stopPropagation();
+          $(this).toggleClass('active').siblings().removeClass('active');
+        \});
+        
+        
+        $thirdSubmenuTrigger.on('click', function(e) \{
+          e.stopPropagation();
+          $(this).toggleClass('active').siblings().removeClass('active');
+        \})
+      \}); 
       $('.client-logos').slick(\{
           slidesToShow: 5,
           slidesToScroll: 1,
@@ -53,6 +100,15 @@
 
     gtag('config', 'UA-113696666-1');
     </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y9RYMWHEHZ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag()\{dataLayer.push(arguments);\}
+      gtag('js', new Date());
+      gtag('config', 'G-Y9RYMWHEHZ');
+    </script>
+
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
         var Tawk_API;

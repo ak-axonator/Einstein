@@ -2,6 +2,7 @@
 @import 'button';
 @import '../abstracts/mixins';
 
+
 .axo-card{
     display: flex;
     flex-direction: column;
@@ -10,22 +11,148 @@
     background-color: #fff;
     border-radius: 10px 10px 10px 10px;
     gap:1rem;
+    box-sizing: border-box;
     .card-title{
         text-align: left !important;
         margin: 0 !important;
-        @include textStyle($card-title-font-size,$hero-font-weight,$font-family,$subtitle-line-height,$text-color);
+        @include textStyle($text-3xl,$bold,$font-family,$subtitle-line-height,$text-color);
         @include respond(tab-land){
-            font-size: $phone-hero-title-font-size;
+            font-size: $text-4xl;
             line-height: $phone-hero-title-line-height;
         }
     }
     .card-text{
         text-align: left !important;
         margin: 0 !important;
-        @include textStyle($text-font-size,$text-font-weight,$font-family,$text-line-height,$text-color);
+        @include textStyle($text-lg,$normal,$font-family,$text-line-height,$text-color);
         @include respond(tab-land){
-            font-size: $phone-text-font-size;
+            font-size: $text-xs;
             line-height: $phone-text-line-height;
         }
+    }
+}
+.bg-image-card{
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    gap:1rem;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    border-radius: 0;
+    .card-title{
+        text-align: center !important;
+        margin: 0 !important;
+        @include textStyle($text-3xl,$bold,$font-family,$subtitle-line-height,$white-color);
+        @include respond(tab-land){
+            font-size: $text-4xl;
+            line-height: $phone-hero-title-line-height;
+        }
+    }
+    .card-text{
+        text-align: center !important;
+        margin: 0 !important;
+        @include textStyle($text-lg,$normal,$font-family,$text-line-height,$white-color);
+        @include respond(tab-land){
+            font-size: $text-xs;
+            line-height: $phone-text-line-height;
+        }
+    }
+}
+
+.axo-resource-card{
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border: 1px solid #ededed;
+    width: calc(25% - 2rem);
+    max-width: calc(25% - 2rem);
+    @include respond(medium-tab-port){
+        width: calc(50% - 2rem);
+        max-width: calc(50% - 2rem);
+    }
+    @include respond(small-phone){
+        width: 100%;
+        max-width: 100%;
+    }
+    .text-wrapper{
+        padding: 0.75rem;
+    }
+    &:hover{
+        box-shadow: 0 0 10px 0 rgba(0,0,0,.15);
+    }
+    .card-subtitle{
+        text-align: left !important;
+        margin: 0 !important;
+        @include textStyle($text-sm,$normal,$font-family,$text-line-height,$card-subtitle-color);
+        @include respond(tab-land){
+            font-size: $text-xs;
+            line-height: $phone-text-line-height;
+        }
+    }
+    .card-title{
+        text-align: left !important;
+        margin: 0 !important;
+        @include textStyle($text-lg,$bold,$font-family,$subtitle-line-height,$text-color);
+        @include respond(tab-land){
+            font-size: $text-4xl;
+            line-height: $phone-hero-title-line-height;
+        }
+    }
+    .card-text{
+        text-align: left !important;
+        margin: 0 !important;
+        @include textStyle($text-sm,$normal,$font-family,$text-line-height,$text-color);
+        @include respond(tab-land){
+            font-size: $text-xs;
+            line-height: $phone-text-line-height;
+        }
+    }
+}
+.rate-card{
+    display: flex;
+    flex-direction: column;
+    padding: 1.875rem 1.5rem;
+    gap:1rem; 
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
+    border-radius: 15px;
+}
+
+.one-plateform-five-component-card{
+    @include flexCenter($display-flex,$justify-center,$align-center);
+    flex-direction: column;
+    padding: 30px 15px 15px 15px;
+    gap:0.5rem; 
+    box-shadow: 0 0 10px 0 rgba(.017349243164081683,.017349243164081683,.017349243164081683,.15);
+    border-radius: 15px;
+    background-color: $white-color;
+    transition: margin .2s;
+    min-width: 206px;
+    &:hover{
+        margin-top:-5px;
+    }
+    .card-title{
+        margin: 0 !important;
+        @include textStyle($text-md,$bold,$font-family,$normal-line-height,$mega-menu-main-title-color);
+        @include respond(tab-land){
+            font-size: $text-sm;
+        }
+    }
+    .card-arrow-btn{
+        img{
+            height: 40px;
+            width: 40px;
+            &:hover{
+                transform: scale(1.1);
+            }
+        }
+    }
+    @include respond(tab-land){
+        min-width: 170px !important;
+        max-width: 18% !important;
+    }
+    @include respond(phone){
+        min-width: 160px !important;
     }
 }

@@ -2,9 +2,9 @@
     <div class="axo-container">
       <div class="title">{heading}</div>
       <div class="text">{subheading}</div>
-      <div class="counter-wrapper grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 xl:mt-16 mt-12">
+      <div class="counter-wrapper card-grid">
         {for card in cards:
-          <div class="counter-card">
+          <div class="counter-card axo-card">
             <div class="hero-title counter-title">
               <div class="counter-prefix">{card.prefix}</div>
               <div class="counter-number">{card.value}</div>
