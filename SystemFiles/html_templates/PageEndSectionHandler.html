@@ -1,30 +1,25 @@
 <script>
     $(document).ready(function()\{
-      $(".accordion > .accordion-header").on("click", function() \{
-          if ($(this).hasClass("active")) \{
-            $(this).removeClass("active");
-            $(this)
-              .siblings(".accordion-body")
-              .slideUp(200);
-            $(".accordion > .accordion-header i")
-              .removeClass("fa-minus")
-              .addClass("fa-plus");
+        $(".accordion > .accordion-header").on("click", function() \{
+          if ($(this).hasClass("active icon-rotate")) \{
+            $(this).removeClass("active icon-rotate");
+            $(this).siblings(".accordion-body").slideUp(200);
           \} else \{
-            $(".accordion > .accordion-header i")
-              .removeClass("fa-minus")
-              .addClass("fa-plus");
-            $(this)
-              .find("i")
-              .removeClass("fa-plus")
-              .addClass("fa-minus");
-            $(".accordion > .accordion-header").removeClass("active");
-            $(this).addClass("active");
+            $(".accordion > .accordion-header").removeClass("active icon-rotate");
+            $(this).addClass("active icon-rotate");
             $(".accordion-body").slideUp(200);
-            $(this)
-              .siblings(".accordion-body")
-              .slideDown(200);
+            $(this).siblings(".accordion-body").slideDown(200);
           \}
         \});
+      if(document.getElementById('play') != null) \{
+        document.getElementById('play').onclick = function ()\{
+              
+              let playbtn=document.getElementById('video').play();
+              if(playbtn)\{
+                $(this).addClass("dnone");
+              \}
+          \};
+        \};
       $(function()\{
         $btnToggle = $('.btn--toggle');
         $submenuTrigger = $('.submenu--trigger');
@@ -47,26 +42,6 @@
           $(this).toggleClass('active').siblings().removeClass('active');
         \})
       \}); 
-      $('.client-logos').slick(\{
-          slidesToShow: 5,
-          slidesToScroll: 1,
-          autoplay: true,
-          autoplaySpeed: 1500,
-          arrows: false,
-          dots: false,
-          pauseOnHover: false,
-          responsive: [\{
-              breakpoint: 768,
-              settings: \{
-                  slidesToShow: 4
-              \}
-          \}, \{
-              breakpoint: 520,
-              settings: \{
-                  slidesToShow: 3
-              \}
-          \}]
-      \});
   
       $('.client-testomonials').slick(\{
           slidesToShow: 1,
@@ -99,14 +74,6 @@
     gtag('js', new Date());
 
     gtag('config', 'UA-113696666-1');
-    </script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y9RYMWHEHZ"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag()\{dataLayer.push(arguments);\}
-      gtag('js', new Date());
-      gtag('config', 'G-Y9RYMWHEHZ');
     </script>
 
     <!--Start of Tawk.to Script-->

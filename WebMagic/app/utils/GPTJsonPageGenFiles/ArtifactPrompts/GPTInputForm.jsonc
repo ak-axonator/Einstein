@@ -18,35 +18,43 @@
             },
             {
                 "JSONKey": "users",
-                "JSONValue": "users array of strings"
+                "JSONValue": "4 users array of strings"
             },
             {
                 "JSONKey": "benefits",
-                "JSONValue": "array of 6 benefits with benefits_title and benefits_description"
+                "JSONValue": "4 benefits array of benefit_title and benefit_description"
             },
             {
-                "JSONKey": "benefits_title",
+                "JSONKey": "benefit_title",
                 "JSONValue": "title in 6 to 8 words in the benefits array"
             },
             {
-                "JSONKey": "benefits_description",
-                "JSONValue": "description in 35 words in the benefits array"
+                "JSONKey": "benefit_description",
+                "JSONValue": "description in 35 words  in the benefits array"
             },
             {
                 "JSONKey": "features",
-                "JSONValue": "array of 6 features with features_title and features_description"
+                "JSONValue": "4 features array of feature_title and feature_description"
             },
             {
-                "JSONKey": "features_title",
+                "JSONKey": "feature_title",
                 "JSONValue": "title in 6 to 8 words in the features array"
             },
             {
-                "JSONKey": "features_description",
+                "JSONKey": "feature_description",
                 "JSONValue": "description in 35 words in the features array"
             },
             {
                 "JSONKey": "use",
-                "JSONValue": "array of how to use this form with and without Axonator"
+                "JSONValue": "json of how to use this form with and without Axonator"
+            },
+            {
+                "JSONKey": "use_with_axonator",
+                "JSONValue": "description in 10 to 15 words on how to use this form with Axonator"
+            },
+            {
+                "JSONKey": "use_without_axonator",
+                "JSONValue": "description in 10 to 15 words on how to use this form without Axonator"
             },
             {
                 "JSONKey": "faqs",
@@ -54,15 +62,23 @@
             },
             {
                 "JSONKey": "form_fields",
-                "JSONValue": "fields list array"
+                "JSONValue": "25 fields list array"
             },
             {
                 "JSONKey": "form_field",
-                "JSONValue": "form field name in the form_fields array"
+                "JSONValue": "unique form field name in the form_fields array separated by underscores"
             },
             {
                 "JSONKey": "field_type",
-                "JSONValue": "field type in the form_fields array"
+                "JSONValue": "form field type should be one of: [Textbox], [Choice List], [Date Picker], [Time Picker], [Photo Upload], [Documen Upload], [GPS Location], [Audio Upload], [Video Upload], [Textarea], [Number], [Group Header], [Sign]"
+            },
+            {
+                "JSONKey": "field_title",
+                "JSONValue": "form field title in 3 to 5 words in the form_fields array"
+            },
+            {
+                "JSONKey": "placeholder",
+                "JSONValue": "placeholder for field in the form_fields array"
             },
             {
                 "JSONKey": "description",
@@ -70,18 +86,17 @@
             },
             {
                 "JSONKey": "options",
-                "JSONValue": "options for dropdown selection in the form_fields array"
+                "JSONValue": "array of strings for options in choice list dropdown selection in the form_fields array"
             },
             {
-                "JSONKey": "validation",
-                "JSONValue": "form field value validation rules in the form_fields array"
+                "JSONKey": "validations",
+                "JSONValue": "json of form field value validation rules in the form_fields array, json keys should be in: [required]: true/false, [min_length]: number, [max_length]: number, [min_value]: number, [max_value]: number"
             }
             ],
             "MoreInstructions": [
+                "Use only one or two textarea fields, group the form fields using Group Header type field",
                 "JSON top level element should be object",
                 "Use exact json keys provided. Make JSON Value length 100 words. All titles must use title case.",
-                "Include fields of types like picture upload, gps location, audio capture, video capture, textbox, choices, date picker, number, textarea, time picker, file upload.",
-                "Give 15 fields",
                 "Only JSON response. No extra text."
             ]
             }

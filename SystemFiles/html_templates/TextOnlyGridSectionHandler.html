@@ -1,0 +1,16 @@
+<div class="benifit-section">
+    <div class="axo-container">
+      <div class="heading-and-description">
+        <div class="title">{heading}</div>
+      </div>
+      <div class="card-grid">
+        {for card in cards:
+          <div class="axo-card">
+            <div class="card-icon"><img src="/assets/images/check-icon-IA.svg"></div>
+            <div class="card-title">{card.title}</div>
+            <div class="card-text">{card.description}</div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>

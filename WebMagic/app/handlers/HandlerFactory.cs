@@ -13,7 +13,9 @@ namespace WebMagic
                 case "DefaultNavigationSection":
                     return new DefaultNavigationSectionHandler(); 
                 case "HeroSection":
-                    return new HeroSectionHandler(); 
+                    return new HeroSectionHandler();
+                case "ArtifactHeroSection":
+                    return new ArtifactHeroSectionHandler();
                 case "ClientLogosSection":
                     return new ClientLogosSection(); 
                 case "GroupHeader":
@@ -48,6 +50,14 @@ namespace WebMagic
                     return new FAQSectionHandler();
                 case "FeaturesSection":
                     return new FeaturesSectionHandler();
+                case "PersonaSection":
+                    return new PersonaSectionHandler();
+                case "HowToUseArtifactSection":
+                    return new HowToUseArtifactSectionHandler();
+                case "ArtifactPreviewSection":
+                    return new ArtifactPreviewSectionHandler();
+                case "AppSummarySection":
+                    return new AppSummarySectionHandler();
                 case "RatingSection":
                     return new RatingSectionHandler();
                 case "RelatedResourcesSection":
@@ -59,7 +69,7 @@ namespace WebMagic
                 case "InfinitePosibilitiesSection":
                     return new InfinitePosibilitiesSectionHandler();
                 case "AppsForIndustrySection":
-                    return new AppsForIndustrySectionHandler();
+                    return new PersonaSectionHandler();
                 case "GetQuoteSection":
                     return new GetQuoteSectionHandler();
                 case "SubHeadingSection":

@@ -59,19 +59,34 @@ namespace WebMagic
         public List<string> Users { get; set; }
         public List<Benefit> Benefits { get; set; }
         public List<Feature> Features { get; set; }
-        public List<string> Use { get; set; }
+        public Use Use { get; set; }
         public List<FAQ> Faqs { get; set; }
         public List<FormField> Form_Fields { get; set; }
+    }
+    public class Use
+    {
+        public string Use_With_Axonator { get; set; }
+        public string Use_Without_Axonator { get; set; }
     }
 
     public class FormField
     {
         public string Form_Field { get; set; }
         public string Field_Type { get; set; }
+        public string Field_Title { get; set; }
         public string Description { get; set; }
+        public string Placeholder { get; set; }
         public List<string> Options { get; set; }
-        public string Validation { get; set; }
-        public string Hint { get; set; }
+        public Form_Validation Validations { get; set; }
+    }
+
+    public class Form_Validation
+    {
+        public bool Required { get; set; }
+        public string Min_Length { get; set; }
+        public string Max_Length { get; set; }
+        public string Min_Value { get; set; }
+        public string Max_Value { get; set; }
     }
 
     public class Checklist
@@ -81,7 +96,7 @@ namespace WebMagic
         public List<string> Users { get; set; }
         public List<Benefit> Benefits { get; set; }
         public List<Feature> Features { get; set; }
-        public List<string> Use { get; set; }
+        public Use Use { get; set; }
         public List<FAQ> Faqs { get; set; }
         public List<ChecklistPoint> Checkpoints { get; set; }
     }
@@ -93,7 +108,7 @@ namespace WebMagic
         public List<string> Users { get; set; }
         public List<Benefit> Benefits { get; set; }
         public List<Feature> Features { get; set; }
-        public string Use { get; set; }
+        public Use Use { get; set; }
         public List<FAQ> Faqs { get; set; }
         public List<Step> Steps { get; set; }
     }
@@ -105,14 +120,14 @@ namespace WebMagic
         public List<string> Users { get; set; }
         public List<Benefit> Benefits { get; set; }
         public List<Feature> Features { get; set; }
-        public List<string> Use { get; set; }
+        public Use Use { get; set; }
         public List<FAQ> Faqs { get; set; }
         public List<ChecklistPoint> Checkpoints { get; set; }
     }
     public class Feature
     {
-        public string Features_Title { get; set; }
-        public string Features_Description { get; set; }
+        public string Feature_Title { get; set; }
+        public string Feature_Description { get; set; }
     }
     public class FAQ
     {

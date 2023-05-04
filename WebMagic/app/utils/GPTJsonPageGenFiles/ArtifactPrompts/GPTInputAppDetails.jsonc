@@ -47,64 +47,92 @@
                     "JSONValue": "array of strings, 5 SEO keywords related to app."
                 },
                 {
+                    "JSONKey": "icon",
+                    "JSONValue": "Give the app icon image description for this app in 20 words, the format should comma separated nouns and adjectives to describe the image, Use the works like app icon in the description, Only give the comma separated list and nothing else in your response."
+                },
+                {
                     "JSONKey": "product_features",
-                    "JSONValue": "array of 6 features of Axonator platform relevant to this subcategory."
+                    "JSONValue": "json of two keys: features_description in 8 to 10 words and features array of json {feature_title, feature_description} for 6 features of Axonator platform"
                 },
                 {
-                    "JSONKey": "features_title",
-                    "JSONValue": "title of the feature in 6-8 words in the product_features array"
+                    "JSONKey": "feature_title",
+                    "JSONValue": "title of the feature in 6-8 words in the features array"
                 },
                 {
-                    "JSONKey": "features_description",
-                    "JSONValue": "description of the feature in 40 words in the product_features array"
+                    "JSONKey": "feature_description",
+                    "JSONValue": "description of the feature in 40 words in the features array"
                 },
                 {
                     "JSONKey": "product_benefits",
-                    "JSONValue": "array of 6 benefits of Axonator platform relevant to this subcategory."
+                    "JSONValue": "json of two keys: benefits_description in 8 to 10 words and benefits array of json {benefit_title, benefit_description} for 6 benefits of Axonator platform"
                 },
                 {
-                    "JSONKey": "benefits_title",
-                    "JSONValue": "title of the benefit in 6-8 words in the product_benefits array"
+                    "JSONKey": "benefit_title",
+                    "JSONValue": "title of the benefit in 6-8 words in the benefits array"
                 },
                 {
-                    "JSONKey": "benefits_description",
-                    "JSONValue": "description of the benefit in 40 words in the product_benefits array"
+                    "JSONKey": "benefit_description",
+                    "JSONValue": "description of the benefit in 40 words in the benefits array"
                 },
                 {
                     "JSONKey": "document_names",
-                    "JSONValue": "array of 5 documents involved in subcategory. give only names."
+                    "JSONValue": "array of 4 documents involved in subcategory. give only names."
                 },
                 {
                     "JSONKey": "form_names",
-                    "JSONValue": "array of 5 forms involved in subcategory. give only names."
+                    "JSONValue": "array of 4 forms involved in subcategory. give only names."
+                },
+                {
+                    "JSONKey": "forms_description",
+                    "JSONValue": "description of forms involved in the app in this subcategory. give in 18 to 20 words."
                 },
                 {
                     "JSONKey": "checklist_names",
-                    "JSONValue": "array of 5 checklists involved in subcategory. give only names."
+                    "JSONValue": "array of 4 checklists involved in subcategory. give only names."
                 },
                 {
                     "JSONKey": "report_names",
-                    "JSONValue": "array of 5 reports involved in subcategory. give only names."
+                    "JSONValue": "array of 4 reports involved in subcategory. give only names."
+                },
+                {
+                    "JSONKey": "reports_description",
+                    "JSONValue": "description of the reports involved in the app in this subcategory. give in 18 to 20 words."
                 },
                 {
                     "JSONKey": "dashboard_names",
-                    "JSONValue": "array of dashboards involved in subcategory. give only names."
+                    "JSONValue": "array of 4 dashboards involved in subcategory. give only names."
+                },
+                {
+                    "JSONKey": "dashboards_description",
+                    "JSONValue": "description of the dashboards involved in the app in this subcategory. give in 18 to 20 words."
                 },
                 {
                     "JSONKey": "workflow_names",
-                    "JSONValue": "array of 5 workflows involved in subcategory. give only names."
+                    "JSONValue": "array of 4 workflows involved in subcategory. give only names."
+                },
+                {
+                    "JSONKey": "workflows_description",
+                    "JSONValue": "description of the workflows involved in the app in this subcategory. give in 18 to 20 words."
                 },
                 {
                     "JSONKey": "auditchecklist_names",
-                    "JSONValue": "array of audits involved in subcategory. give only names."
+                    "JSONValue": "array of 4 audits involved in subcategory. give only names."
                 },
                 {
                     "JSONKey": "standards_names",
                     "JSONValue": "array of standards involved in subcategory. give only names."
                 },
                 {
+                    "JSONKey": "standards_description",
+                    "JSONValue": "description of the standards involved in the app in this subcategory. give in 18 to 20 words."
+                },
+                {
                     "JSONKey": "guidelines_names",
                     "JSONValue": "array of guidelines involved in subcategory. give only names."
+                },
+                {
+                    "JSONKey": "guidelines_description",
+                    "JSONValue": "description of the guidelines involved in the app in this subcategory. give in 18 to 20 words."
                 },
                 {
                     "JSONKey": "integration_names",

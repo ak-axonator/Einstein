@@ -52,7 +52,7 @@ namespace WebMagic
         public static void GetFileNameAndPrefix(string file, out string prefix, out string fileName)
         {
             // Determine the S3 key for the file based on the prefix and file name
-            string[] prefixes = new string[] { "app-", "blog-", "customer-success-story-", "guide-", "micro-app-store-", "news-", "topic-" };
+            string[] prefixes = new string[] { "app-", "blog-", "customer-success-story-", "guide-", "micro-app-store-", "news-", "topic-", "webinars-" };
             prefix = "";
             fileName = Path.GetFileNameWithoutExtension(file).TrimEnd('_', '-').Replace("_", "-");
             // if the filename starts with any of the prefixes, remove it from file name and join it withing the s3Key

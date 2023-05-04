@@ -12,8 +12,8 @@ namespace WebMagic
 {
     public class GPTPromptsGenerator
     {
-        private string InputFilePath = @"/Users/arohikulkarni/Work/Einstein/SystemFiles/GPTJsonPageGenFiles/ArtifactPrompts/GPTInputAppDetails.jsonc";
-        private string OutputFilePath = @"/Users/arohikulkarni/Work/Einstein/SystemFiles/GPTJsonPageGenFiles/GPTPageContent.jsonc";
+        private string InputFilePath = Path.Combine(GlobalPaths.GPTFolder,"ArtifactPrompts","GPTInputAppDetails.jsonc");
+        private string OutputFilePath = Path.Combine(GlobalPaths.GPTFolder,"GPTPageContent.jsonc");
         public string BackgroundContent = "Axonator is a field workflow automation platform that provides automation of mobile forms, workflows, reports, dashboards, scheduling tasks, integration with third party software in a faster and easier way without coding.";
         public GPTPromptsGenerator(){
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
@@ -30,7 +30,10 @@ namespace WebMagic
             string outputFilePath = Path.Combine(GlobalPaths.LogFolder, "GPTAppPageContents - " + _csvInput.AppName + ".jsonc");
             //if outputfile exists, skip it
             if (File.Exists(outputFilePath))
+            {
+                Console.WriteLine($"Skipping {outputFilePath}...");
                 return;
+            }
             Console.WriteLine($"Generating App Details prompt for {_csvInput.AppName}...");
             var timestamp = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));
             Console.WriteLine(timestamp);
@@ -108,7 +111,7 @@ namespace WebMagic
                             return;
                         string promptString = GetPromptString(formPrompt, input);
                         Console.WriteLine($"Generated prompt for {artifact_name} {artifact} in {input.AppName}...");
-                        Console.WriteLine(promptString);
+                        // Console.WriteLine(promptString);
 
                         GPTPromptsRunner.Run(promptString, outputFilePath);
                     }
