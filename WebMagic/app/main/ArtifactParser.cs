@@ -83,11 +83,11 @@ namespace WebMagic
                         kdl_lines.Add($"\tform3 \"{appDetails.Form_Names[2]}\"");
                         kdl_lines.Add($"\treport \"{appDetails.Report_Names[0]}\"");
                         kdl_lines.Add($"\tdashboard \"{appDetails.Dashboard_Names[0]}\"");
-                        if (appDetails.Integration_Names != null && appDetails.Integration_Names.Count > 0)
+                        if (appDetails.Integrations.Integrations != null && appDetails.Integrations.Integrations.Count > 0)
                         {
-                            kdl_lines.Add($"\tintegration1 \"{appDetails.Integration_Names[0]}\"");
-                            kdl_lines.Add($"\tintegration2 \"{appDetails.Integration_Names[1]}\"");
-                            kdl_lines.Add($"\tintegration3 \"{appDetails.Integration_Names[2]}\"");
+                            kdl_lines.Add($"\tintegration1 \"{appDetails.Integrations.Integrations[0].Title}\"");
+                            kdl_lines.Add($"\tintegration2 \"{appDetails.Integrations.Integrations[1].Title}\"");
+                            kdl_lines.Add($"\tintegration3 \"{appDetails.Integrations.Integrations[2].Title}\"");
                         }
                         else
                         {
@@ -98,11 +98,11 @@ namespace WebMagic
                         kdl_lines.Add("}");
 
                         // add 6 features grid with title and description for each feature
-                        AddFeaturesSection(kdl_lines, appDetails.Product_Features);
+                        AddFeaturesSection(kdl_lines, appDetails.Features_Section);
                         // add 6 benefits grid with title and description for each benefit
-                        AddBenefitsSection(kdl_lines, appDetails.Product_Benefits);
+                        AddBenefitsSection(kdl_lines, appDetails.Benefits_Section);
                         // add 4 users persona section
-                        // AddPersonaSection(kdl_lines, appDetails.Users);
+                        // AddPersonaSection(kdl_lines, appDetails.Users_Section);
                         
                         kdl_lines.Add("app_forms_section {");
                         kdl_lines.Add($"\tdescription \"{appDetails.Description}\"");
@@ -164,17 +164,17 @@ namespace WebMagic
                         }
 
                         //Workflows preview SVGs in preview_section when available
-                        if (appDetails.Workflow_Names != null && appDetails.Workflow_Names.Count > 0)
+                        if (appDetails.Workflows.Workflows != null && appDetails.Workflows.Workflows.Count > 0)
                         {
                             kdl_lines.Add("preview_section {");
                             kdl_lines.Add("\theading \"Workflows\"");
                             kdl_lines.Add("\tsub_heading \"Workflows\"");
                             kdl_lines.Add("\ttype \"img\"");
-                            for (int i = 0; i < appDetails.Workflow_Names.Count; i++)
+                            for (int i = 0; i < appDetails.Workflows.Workflows.Count; i++)
                             {
-                                string workflow_preview_img_url = Path.Combine("/assets","images", appDetails.Workflow_Names[i].Replace(" ","-")+"-preview.svg");
+                                string workflow_preview_img_url = Path.Combine("/assets","images", appDetails.Workflows.Workflows[i].Workflow_Title.Replace(" ","-")+"-preview.svg");
                                 kdl_lines.Add ("\tcard {");
-                                kdl_lines.Add($"\t\ttitle \"{appDetails.Workflow_Names[i]}\"");
+                                kdl_lines.Add($"\t\ttitle \"{appDetails.Workflows.Workflows[i]}\"");
                                 kdl_lines.Add($"\t\tpreview_url \"{workflow_preview_img_url}\"");
                                 kdl_lines.Add("\t\tDownload_button {");
                                 kdl_lines.Add($"\t\t\tlabel \"Download\"");
@@ -225,11 +225,11 @@ namespace WebMagic
                                 kdl_lines.Add("}");
 
                                 // add 6 features grid with title and description for each feature
-                                AddFeaturesSection(kdl_lines, form.Features);
+                                AddFeaturesSection(kdl_lines, form.Features_Section);
                                 // add 6 benefits grid with title and description for each benefit
-                                AddBenefitsSection(kdl_lines, form.Benefits);
+                                AddBenefitsSection(kdl_lines, form.Benefits_Section);
                                 // add 4 users persona section
-                                AddPersonaSection(kdl_lines, form.Users);
+                                AddPersonaSection(kdl_lines, form.Users_Section);
                                 AddUseSection(kdl_lines, form.Use);
                                 
                                 GeneratePreviewFile(outputDocsPath, jsonFile, kdl_lines, "form");
@@ -253,11 +253,11 @@ namespace WebMagic
                                 kdl_lines.Add("}");
 
                                 // add 6 features grid with title and description for each feature
-                                AddFeaturesSection(kdl_lines, checklist.Features);
+                                AddFeaturesSection(kdl_lines, checklist.Features_Section);
                                 // add 6 benefits grid with title and description for each benefit
-                                AddBenefitsSection(kdl_lines, checklist.Benefits);
+                                AddBenefitsSection(kdl_lines, checklist.Benefits_Section);
                                 // add 4 users persona section
-                                AddPersonaSection(kdl_lines, checklist.Users);
+                                AddPersonaSection(kdl_lines, checklist.Users_Section);
                                 
                                 GeneratePreviewFile(outputDocsPath, jsonFile, kdl_lines, "checklist");
                                 
@@ -280,11 +280,11 @@ namespace WebMagic
                                 kdl_lines.Add("}");
 
                                 // add 6 features grid with title and description for each feature
-                                AddFeaturesSection(kdl_lines, checklist.Features);
+                                AddFeaturesSection(kdl_lines, checklist.Features_Section);
                                 // add 6 benefits grid with title and description for each benefit
-                                AddBenefitsSection(kdl_lines, checklist.Benefits);
+                                AddBenefitsSection(kdl_lines, checklist.Benefits_Section);
                                 // add 4 users persona section
-                                AddPersonaSection(kdl_lines, checklist.Users);
+                                AddPersonaSection(kdl_lines, checklist.Users_Section);
                                 AddUseSection(kdl_lines, checklist.Use);
                                 
                                 GeneratePreviewFile(outputDocsPath, jsonFile, kdl_lines, "checklist");
@@ -349,8 +349,9 @@ namespace WebMagic
             }
             kdl_lines.Add("}");
         }
-        private static void AddPersonaSection(List<string> kdl_lines, List<string> users)
+        private static void AddPersonaSection(List<string> kdl_lines, UsersSection user_section)
         {
+            var users = user_section.Users;
             kdl_lines.Add("persona_section {");
             for (int i = 0; i < 4; i++)
             {
@@ -374,12 +375,13 @@ namespace WebMagic
                 kdl_lines.Add($"\tuse_without_axonator \"{use.Use_Without_Axonator}\"");
             kdl_lines.Add("}");
         }
-        private static void AddFeaturesSection(List<string> kdl_lines, List<Feature> features)
+        private static void AddFeaturesSection(List<string> kdl_lines, FeaturesSection feature_section)
         {
             kdl_lines.Add("grid_section {");
             kdl_lines.Add("\theading \"Features\"");
             kdl_lines.Add("\ttheme \"abstract\"");
             kdl_lines.Add("\tcolumns \"4\"");
+            var features = feature_section.Features;
             for (int i = 0; i < 4; i++)
             {
                 if (i < features.Count)
@@ -400,12 +402,13 @@ namespace WebMagic
             kdl_lines.Add("\tcard {}");
             kdl_lines.Add("}");
         }
-        private static void AddBenefitsSection(List<string> kdl_lines, List<Benefit> benefits)
+        private static void AddBenefitsSection(List<string> kdl_lines, BenefitsSection benefit_section)
         {
             kdl_lines.Add("grid_section {");
             kdl_lines.Add("\theading \"Benefits\"");
             kdl_lines.Add("\ttheme \"abstract\"");
             kdl_lines.Add("\tcolumns \"4\"");
+            var benefits = benefit_section.Benefits;
             for (int i = 0; i < 4; i++)
             {
                 if (i < benefits.Count)
@@ -487,7 +490,7 @@ namespace WebMagic
                 //if field type is groupheader, dont add label
                 if (field.Field_Type.ToLower() != "group header")
                 {
-                    lines.Add($"<label for=\"{field.Form_Field.Replace(" ", "")}\">{field.Field_Title}</label>");
+                    lines.Add($"<label for=\"{field.Field_Identifier.Replace(" ", "")}\">{field.Field_Title}</label>");
                 }
                 if (!string.IsNullOrEmpty(field.Description))
                 {
@@ -499,10 +502,10 @@ namespace WebMagic
                 switch (field.Field_Type.ToLower())
                 {
                     case "textbox": case "[textbox]":
-                        lines.Add($"<input type=\"text\" class=\"form-control\" id=\"{field.Form_Field.Replace(" ", "")}\" placeholder=\"{field.Placeholder}\" {validations}>");
+                        lines.Add($"<input type=\"text\" class=\"form-control\" id=\"{field.Field_Identifier.Replace(" ", "")}\" placeholder=\"{field.Placeholder}\" {validations}>");
                         break;
                     case "choice list": case "[choice list]":
-                        lines.Add("<select class=\"form-control\" id=\"" + field.Form_Field.Replace(" ", "") + "\" " + validations + ">");
+                        lines.Add("<select class=\"form-control\" id=\"" + field.Field_Identifier.Replace(" ", "") + "\" " + validations + ">");
                         foreach (string option in field.Options)
                         {
                             lines.Add("<option value=\"" + option + "\">" + option + "</option>");
@@ -510,40 +513,40 @@ namespace WebMagic
                         lines.Add("</select>");
                         break;
                     case "number": case "[number]":
-                        lines.Add($"<input type=\"number\" class=\"form-control\" id=\"{field.Form_Field.Replace(" ", "")}\" placeholder=\"{field.Placeholder}\" {validations}>");
+                        lines.Add($"<input type=\"number\" class=\"form-control\" id=\"{field.Field_Identifier.Replace(" ", "")}\" placeholder=\"{field.Placeholder}\" {validations}>");
                         break;
                     case "date picker": case "[date picker]":
-                        lines.Add($"<input type=\"date\" class=\"form-control\" id=\"{field.Form_Field.Replace(" ", "")}\" {validations}>");
+                        lines.Add($"<input type=\"date\" class=\"form-control\" id=\"{field.Field_Identifier.Replace(" ", "")}\" {validations}>");
                         break;
                     case "time picker": case "[time picker]":
-                        lines.Add($"<input type=\"time\" class=\"form-control\" id=\"{field.Form_Field.Replace(" ", "")}\" {validations}>");
+                        lines.Add($"<input type=\"time\" class=\"form-control\" id=\"{field.Field_Identifier.Replace(" ", "")}\" {validations}>");
                         break;
                     case "textarea": case "[textarea]":
-                        lines.Add($"<textarea class=\"form-control\" id=\"{field.Form_Field.Replace(" ", "")}\" rows=\"3\" placeholder=\"{field.Description}\" {validations}></textarea>");
+                        lines.Add($"<textarea class=\"form-control\" id=\"{field.Field_Identifier.Replace(" ", "")}\" rows=\"3\" placeholder=\"{field.Description}\" {validations}></textarea>");
                         break;
                     case "photo upload": case "[photo upload]":
-                        lines.Add($"<input type=\"file\" class=\"form-control-file\" id=\"{field.Form_Field.Replace(" ", "")}\">");
+                        lines.Add($"<input type=\"file\" class=\"form-control-file\" id=\"{field.Field_Identifier.Replace(" ", "")}\">");
                         break;
                     case "video upload": case "[video upload]":
-                        lines.Add($"<input type=\"file\" accept=\"video/*\" capture=\"camera\" class=\"form-control-file\" id=\"{field.Form_Field.Replace(" ", "")}\" {validations}>");
+                        lines.Add($"<input type=\"file\" accept=\"video/*\" capture=\"camera\" class=\"form-control-file\" id=\"{field.Field_Identifier.Replace(" ", "")}\" {validations}>");
                         break;
                     case "audio upload": case "[audio upload]":
-                        lines.Add($"<input type=\"file\" accept=\"audio/*\" capture=\"microphone\" class=\"form-control-file\" id=\"{field.Form_Field.Replace(" ", "")}\" {validations}>");
+                        lines.Add($"<input type=\"file\" accept=\"audio/*\" capture=\"microphone\" class=\"form-control-file\" id=\"{field.Field_Identifier.Replace(" ", "")}\" {validations}>");
                         break;
                     case "gps location": case "[gps location]":
-                        lines.Add($"<input type=\"text\" class=\"form-control\" id=\"{field.Form_Field.Replace(" ", "")}\" placeholder=\"{field.Description}\" {validations}>");
+                        lines.Add($"<input type=\"text\" class=\"form-control\" id=\"{field.Field_Identifier.Replace(" ", "")}\" placeholder=\"{field.Description}\" {validations}>");
                         break;
                     case "document upload": case "[document upload]":
-                        lines.Add($"<input type=\"file\" class=\"form-control-file\" id=\"{field.Form_Field.Replace(" ", "")}\" {validations}>");
+                        lines.Add($"<input type=\"file\" class=\"form-control-file\" id=\"{field.Field_Identifier.Replace(" ", "")}\" {validations}>");
                         break;
                     case "group header": case "[group header]":
                         lines.Add($"<h3>{field.Field_Title}</h3>");
                         break;
                     case "sign": case "[sign]":
-                        lines.Add($"<input type=\"sign\" class=\"form-control\" id=\"{field.Form_Field.Replace(" ", "")}\" {validations}>");
+                        lines.Add($"<input type=\"sign\" class=\"form-control\" id=\"{field.Field_Identifier.Replace(" ", "")}\" {validations}>");
                         break;
                     case "default":
-                        lines.Add($"<input type=\"text\" class=\"form-control\" id=\"{field.Form_Field.Replace(" ", "")}\" placeholder=\"{field.Description}\" {validations}>");
+                        lines.Add($"<input type=\"text\" class=\"form-control\" id=\"{field.Field_Identifier.Replace(" ", "")}\" placeholder=\"{field.Description}\" {validations}>");
                         break;
                 }
                 lines.Add("</div>");
@@ -616,12 +619,9 @@ namespace WebMagic
                 var required_flag = false;
                 // if field.Validation is string and is equal to "Required" or if field.Validation is json and contains "required" : true
                 try{
-                    if(checkpoint.Validation != null)
+                    if(checkpoint.Required != null)
                     {
-                        if (checkpoint.Validation.Contains("Required") || checkpoint.Validation.Contains("Mandatory") || checkpoint.Validation.Contains("required"))
-                        {
-                            required_flag = true;
-                        }
+                        required_flag = checkpoint.Required;
                     }
                 }
                 catch (Exception e)

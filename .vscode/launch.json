@@ -12,7 +12,7 @@
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/WebMagic/bin/Debug/net7.0/WebMagic.dll",
             // "args": ["report", "/Users/arohikulkarni/Work/Website Project/SourceFiles/WebsiteSourceProject","-c"],
-            "args": ["/Users/arohikulkarni/Work/Website Project/SourceFiles/WebsiteSourceProject","-c"],
+            "args": ["/Users/arohikulkarni/Work/Website Project/SourceFiles/WebsiteSourceProject","-c","-u"],
             "cwd": "${workspaceFolder}/WebMagic",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",

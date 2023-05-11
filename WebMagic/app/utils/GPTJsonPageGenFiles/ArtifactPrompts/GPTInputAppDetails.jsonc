@@ -47,32 +47,20 @@
                     "JSONValue": "array of strings, 5 SEO keywords related to app."
                 },
                 {
-                    "JSONKey": "icon",
-                    "JSONValue": "Give the app icon image description for this app in 20 words, the format should comma separated nouns and adjectives to describe the image, Use the works like app icon in the description, Only give the comma separated list and nothing else in your response."
+                    "JSONKey": "relevant_object",
+                    "JSONValue": "give one relevant object related to this app, give in 3 words and singular term only"
                 },
                 {
-                    "JSONKey": "product_features",
-                    "JSONValue": "json of two keys: features_description in 8 to 10 words and features array of json {feature_title, feature_description} for 6 features of Axonator platform"
+                    "JSONKey": "users",
+                    "JSONValue": "array of 4 users of the app in this subcategory"
                 },
                 {
-                    "JSONKey": "feature_title",
-                    "JSONValue": "title of the feature in 6-8 words in the features array"
+                    "JSONKey": "user_description",
+                    "JSONValue": "description of the users involved in the app in this subcategory in 30 words"
                 },
                 {
-                    "JSONKey": "feature_description",
-                    "JSONValue": "description of the feature in 40 words in the features array"
-                },
-                {
-                    "JSONKey": "product_benefits",
-                    "JSONValue": "json of two keys: benefits_description in 8 to 10 words and benefits array of json {benefit_title, benefit_description} for 6 benefits of Axonator platform"
-                },
-                {
-                    "JSONKey": "benefit_title",
-                    "JSONValue": "title of the benefit in 6-8 words in the benefits array"
-                },
-                {
-                    "JSONKey": "benefit_description",
-                    "JSONValue": "description of the benefit in 40 words in the benefits array"
+                    "JSONKey": "product_sheet_image_prompt",
+                    "JSONValue": "Give image description for this subcategory in 20 words. It should have some human. the format should comma separated nouns and adjectives to describe the image. Only give the comma separated list and nothing else in your response."
                 },
                 {
                     "JSONKey": "document_names",
@@ -84,7 +72,7 @@
                 },
                 {
                     "JSONKey": "forms_description",
-                    "JSONValue": "description of forms involved in the app in this subcategory. give in 18 to 20 words."
+                    "JSONValue": "description of forms involved in the app in this subcategory. give in 30 to 35 words."
                 },
                 {
                     "JSONKey": "checklist_names",
@@ -107,20 +95,24 @@
                     "JSONValue": "description of the dashboards involved in the app in this subcategory. give in 18 to 20 words."
                 },
                 {
-                    "JSONKey": "workflow_names",
-                    "JSONValue": "array of 4 workflows involved in subcategory. give only names."
+                    "JSONKey": "workflows",
+                    "JSONValue": "json of two keys: workflows_description of the workflows involved in the app in this subcategory in 18 to 20 words, and workflows array of json {workflow_title, workflow_description} for 4 workflows involved in this subcategory"
                 },
                 {
-                    "JSONKey": "workflows_description",
-                    "JSONValue": "description of the workflows involved in the app in this subcategory. give in 18 to 20 words."
+                    "JSONKey": "faqs",
+                    "JSONValue": "10 faqs array of this app with question and answer, Make the FAQs relevant to Axonator platform, mobile forms, workflows, reports, scheduler, dashboards and integration with third party software"
                 },
                 {
                     "JSONKey": "auditchecklist_names",
                     "JSONValue": "array of 4 audits involved in subcategory. give only names."
                 },
                 {
+                    "JSONKey": "auditchecklists_description",
+                    "JSONValue": "description of the audit checklists involved in the app in this subcategory. give in 18 to 20 words."
+                },
+                {
                     "JSONKey": "standards_names",
-                    "JSONValue": "array of standards involved in subcategory. give only names."
+                    "JSONValue": "array of 4 standards involved in subcategory. give only names."
                 },
                 {
                     "JSONKey": "standards_description",
@@ -128,15 +120,15 @@
                 },
                 {
                     "JSONKey": "guidelines_names",
-                    "JSONValue": "array of guidelines involved in subcategory. give only names."
+                    "JSONValue": "array of 4 guidelines involved in subcategory. give only names."
                 },
                 {
                     "JSONKey": "guidelines_description",
                     "JSONValue": "description of the guidelines involved in the app in this subcategory. give in 18 to 20 words."
                 },
                 {
-                    "JSONKey": "integration_names",
-                    "JSONValue": "array of 3 specific third-party system integrations involved in subcategory. give only names."
+                    "JSONKey": "integrations",
+                    "JSONValue": "json of two keys: integration_description of the integrations involved in the app in this subcategory in 18 to 20 words, and integrations array of json {title, description} for 4 relevant integrations involved in this subcategory"
                 }
             ],
             "MoreInstructions": [

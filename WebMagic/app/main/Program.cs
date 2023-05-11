@@ -31,13 +31,13 @@ namespace WebMagic
             processor = new CommandProcessor();
             processor.initGlobalPaths();
             //testChatGPTAPI();
-            MainCompilationStart(args);
+            // MainCompilationStart(args);
             //task.Wait();
             // initGlobalPaths();
             // testGPTResponseFiletoKDL();
             // testCSVAppNameRename();
             // GenerateAndRunAppArtifactPrompts(args[0]);
-            // GenerateAndRunAppArtifactPrompts("form");
+            GenerateAndRunAppArtifactPrompts("form");
             // GenerateAndRunAppArtifactPrompts("report");
             // GenerateAndRunAppArtifactPrompts("checklist");
             // GenerateAndRunAppArtifactPrompts("dashboard");

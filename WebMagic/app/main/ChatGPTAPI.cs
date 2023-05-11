@@ -39,7 +39,7 @@ namespace WebMagic
         {
             var timestamp = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));
             Console.WriteLine("Running prompt " + timestamp);
-            var model = "gpt-3.5-turbo"; // Use the latest model here
+            var model = "gpt-3.5-turbo-0301"; // Use the latest model here
             var messages = new[]
             {
                 new
