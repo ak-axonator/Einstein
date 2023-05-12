@@ -5,17 +5,75 @@
         //generate report prompt
         {
             "Enabled" : true,
-            "PrefixInstruction": "Give report template: ",
+            "PrefixInstruction": "Give document content: ",
             "Artifact": "report",
-            "GiveContentFor": [],
+            "GiveContentFor": [
+                {
+                    "JSONKey": "document_heading",
+                    "JSONValue": "document main title"
+                },
+                {
+                    "JSONKey": "objective",
+                    "JSONValue": "objective of the document"
+                },
+                {
+                    "JSONKey": "users",
+                    "JSONValue": "array of 4 users of the report in this subcategory"
+                },
+                {
+                    "JSONKey": "user_description",
+                    "JSONValue": "description of the users involved in the app in this subcategory in 30 words"
+                },
+                {
+                    "JSONKey": "actual_contents",
+                    "JSONValue": "contents of this document divided in 7 paragraphs, give in array of json with keys paragraph_heading and paragraph_contents"
+                },
+                {
+                    "JSONKey": "paragraph_heading",
+                    "JSONValue": "heading of the paragraph in the contents array"
+                },
+                {
+                    "JSONKey": "paragraph_contents",
+                    "JSONValue": "contents of the paragraph in the contents array. don't give template or description, give actual textual content"
+                },
+                {
+                    "JSONKey": "example",
+                    "JSONValue": "give examples in array of json with keys column_heading and row_value, give 5 columns and 2 rows"
+                },
+                {
+                    "JSONKey": "column_heading",
+                    "JSONValue": "heading of each column in the emaple table"
+                },
+                {
+                    "JSONKey": "row1_value",
+                    "JSONValue": "value of the first row in the example table"
+                },
+                {
+                    "JSONKey": "row2_value",
+                    "JSONValue": "different value of the second row in the example table"
+                },
+                {
+                    "JSONKey": "faqs",
+                    "JSONValue": "10 faqs array of this report with question and answer, Make the FAQs relevant to Axonator platform, mobile forms, workflows, reports, scheduler, dashboards and integration with third party software"
+                },
+                {
+                    "JSONKey": "importance_and_impact",
+                    "JSONValue": "array of Importance and Impacts of the document"
+                },
+                {
+                    "JSONKey": "disclaimers_and_notes",
+                    "JSONValue": "array of Disclaimers and Notes"
+                },
+                {
+                    "JSONKey": "sources_and_references",
+                    "JSONValue": "array of Sources and References"
+                }
+            ],
             "MoreInstructions": [
-                "Write section \"Objective\"",
-                "Write section \"Who should use this report template?\"",
-                "Write report template with a heading and description in a tabular format",
-                "Write section \"Benefits and Impact\"",
-                "Write section \"Disclaimers and Notes\"",
-                "Write section \"Sources and References\"",
-                "Give response in markdown syntax"
+                "JSON top level element should be an object",
+                "Use exact json keys provided. Make JSON Value length 100 words.",
+                "All titles must use title case.",
+                "Only JSON response. No extra text."
             ]
         }
     ]

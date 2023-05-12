@@ -38,11 +38,11 @@
                 },
                 {
                     "JSONKey": "faqs",
-                    "JSONValue": "10 faqs array of this checklist with question and answer, Make the FAQs relevant to Axonator platform, mobile forms, workflows, reports, scheduler, dashboards and integration with third party software"
+                    "JSONValue": "10 faqs array of this form with question and answer, Make the FAQs relevant to Axonator platform, mobile forms, workflows, reports, scheduler, dashboards and integration with third party software"
                 },
                 {
                     "JSONKey": "form_fields",
-                    "JSONValue": "25 fields list array"
+                    "JSONValue": "array of 25 fields in the form, group the fields using the Gruop Header field"
                 },
                 {
                     "JSONKey": "field_type",
@@ -70,7 +70,7 @@
                 }
             ],
             "MoreInstructions": [
-                "Use only one or two textarea fields, group the form fields using Group Header type field",
+                "Use only one or two textarea fields, group the fields using the Gruop Header field",
                 "JSON top level element should be object",
                 "Use exact json keys provided. Make JSON Value length 100 words. All titles must use title case.",
                 "Only JSON response. No extra text."

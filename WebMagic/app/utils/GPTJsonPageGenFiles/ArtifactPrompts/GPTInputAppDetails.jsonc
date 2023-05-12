@@ -128,7 +128,15 @@
                 },
                 {
                     "JSONKey": "integrations",
-                    "JSONValue": "json of two keys: integration_description of the integrations involved in the app in this subcategory in 18 to 20 words, and integrations array of json {title, description} for 4 relevant integrations involved in this subcategory"
+                    "JSONValue": "json of two keys: integration_description of the integrations involved in the app in this subcategory in 18 to 20 words, and integrations array of json {integration_title, integration_description} for 4 relevant integrations involved in this subcategory"
+                },
+                {
+                    "JSONKey": "integration_title",
+                    "JSONValue": "most relevant integration name from the list [\"Salesforce\",\"Microsoft Dynamics 365\",\"SAP\",\"IMB Meximo\",\"Oracle\",\"QuickBooks\",\"ServiceNow\",\"SharePoint\",\"Dropbox\",\"Google Drive\",\"Box\",\"Slack\",\"Trello\",\"Jira\",\"Zendesk\",\"Twilio\",\"Zapier\",\"Mailchimp\",\"HubSpot\",\"Shopify\",\"WooCommerce\",\"Magento\",\"Shopify Plus\",\"Stripe\",\"PayPal\",\"Square\"] in the integrations array"
+                },
+                {
+                    "JSONKey": "integration_description",
+                    "JSONValue": "description of the integration in the integrations array in 18 to 20 words"
                 }
             ],
             "MoreInstructions": [

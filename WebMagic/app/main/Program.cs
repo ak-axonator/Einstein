@@ -37,9 +37,9 @@ namespace WebMagic
             // testGPTResponseFiletoKDL();
             // testCSVAppNameRename();
             // GenerateAndRunAppArtifactPrompts(args[0]);
-            GenerateAndRunAppArtifactPrompts("form");
+            // GenerateAndRunAppArtifactPrompts("form");
             // GenerateAndRunAppArtifactPrompts("report");
-            // GenerateAndRunAppArtifactPrompts("checklist");
+            GenerateAndRunAppArtifactPrompts("checklist");
             // GenerateAndRunAppArtifactPrompts("dashboard");
             // GenerateAndRunAppArtifactPrompts("audit_checklist");
             // GenerateAndRunAppArtifactPrompts("workflow");

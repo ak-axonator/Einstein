@@ -141,7 +141,8 @@ namespace WebMagic
                             // run artifact prompt and store response in the artifact's json file in logfolder
                             var filePrefix = artifact.ToUpper().Replace("_", "-").Replace(" ", "-");
                             var fileName = artifact_name.ToLower().Replace("_", "-").Replace(" ", "-");
-                            var outputFilePath = Path.Combine(GlobalPaths.LogFolder, filePrefix + "-" + fileName + getArtifactExtension(artifact));
+                            var appName = appDetails.Name.ToLower().Replace("_", "-").Replace(" ", "-");
+                            var outputFilePath = Path.Combine(GlobalPaths.LogFolder, filePrefix + "-" + "appname-" + appName + "-artifactname-" + fileName + getArtifactExtension(artifact));
                             if (File.Exists(outputFilePath)){
                                 Console.WriteLine($"Skipping {artifact_name} {artifact} in {appDetails.Name}...");
                                 continue;
