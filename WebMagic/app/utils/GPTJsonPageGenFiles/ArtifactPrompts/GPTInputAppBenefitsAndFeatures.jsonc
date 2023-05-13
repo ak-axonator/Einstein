@@ -1,0 +1,87 @@
+{
+    "BackgroundContent": "",
+    //What is the name of your app?
+    "AppName": "",
+    //What is the industry of your app?
+    "Industry": "",
+    //What is the category of your app?
+    "Category": "",
+    //Please provide a list of keywords related to your app (comma-separated).
+    "Keywords": "",
+
+    "PageStart":[
+        //Page start
+         "page_begin_section",
+         "navigation_section"
+     ],
+     "PageEnd":[
+        //Page end
+        "default_footer_section",
+        "page_end_section"
+     ],
+    "Prompts": [
+        //generate app benefits prompt
+        {
+            "Enabled" : true,
+            "Artifact": "benefits_and_features",
+            "PrefixInstruction": "Consider {artifact_name}: ",
+            "GiveContentFor": [
+                {
+                    "JSONKey": "benefits_title",
+                    "JSONValue": "give salesy benefits headline in 7 words"
+                },
+                {
+                    "JSONKey": "benefits_description",
+                    "JSONValue": "15 word sub title for the benefits of this app"
+                },
+                {
+                    "JSONKey": "industry_specific_benefits",
+                    "JSONValue": "industry and {artifact_name} specific benefits array of json. Convert generic benefits to the context of this industry. Make highly specific to the context and only 5 words each. Use industry jargon in each. Give only 8 most relevant benefits with industry_specific_benefit, industry_specific_benefit_description and original_benefit."
+                },
+                {
+                    "JSONKey": "industry_specific_benefit",
+                    "JSONValue": "industry and {artifact_name} specific benefit in the industry_specific_benefits array"
+                },
+                {
+                    "JSONKey": "industry_specific_benefit_description",
+                    "JSONValue": "industry and {artifact_name} specific benefit description in 20 words in the industry_specific_benefits array"
+                },
+                {
+                    "JSONKey": "original_benefit",
+                    "JSONValue": "exact original benefit in the industry_specific_benefits array, give from the Original_benefits array provided below"
+                },
+                {
+                    "JSONKey": "features_title",
+                    "JSONValue": "give salesy features headline in 7 words"
+                },
+                {
+                    "JSONKey": "features_description",
+                    "JSONValue": "15 word sub title for the features of this app"
+                },
+                {
+                    "JSONKey": "industry_specific_features",
+                    "JSONValue": "industry and {artifact_name} specific features array of json. Convert generic features to the context of this industry. Make highly specific to the context and only 5 words each. Use industry jargon in each. Give only 8 most relevant features with industry_specific_feature, industry_specific_feature_description and original_feature."
+                },
+                {
+                    "JSONKey": "industry_specific_feature",
+                    "JSONValue": "industry and {artifact_name} specific feature in the industry_specific_features array"
+                },
+                {
+                    "JSONKey": "industry_specific_feature_description",
+                    "JSONValue": "industry and {artifact_name} specific feature description in 20 words in the industry_specific_features array"
+                },
+                {
+                    "JSONKey": "original_feature",
+                    "JSONValue": "exact original feature in the industry_specific_features array, give from the Original_features array provided below"
+                }
+            ],
+            "MoreInstructions": [
+                "Give list of names in singular form",
+                "JSON top level element should be object",
+                "Only JSON response. No extra text.",
+                "Use exact json key provided. Make Value length 100 words.",
+                "All titles must use title case."
+            ]
+        }
+    ]
+}

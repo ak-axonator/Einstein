@@ -6,76 +6,67 @@
         {
             "Enabled": true,
             "PrefixInstruction": "Give an audit checklist: ",
-            "Artifact": "audit_checklist",
+            "Artifact": "audit checklist",
             "GiveContentFor": [
             {
                 "JSONKey": "audit_checklist_title",
-                "JSONValue": "audit_checklist main title"
+                "JSONValue": "Audit Checklist Main Title"
             },
             {
                 "JSONKey": "audit_checklist_description",
-                "JSONValue": "audit_checklist description in 200 words"
+                "JSONValue": "Audit Checklist description in 200 words"
             },
             {
                 "JSONKey": "users",
-                "JSONValue": "users array of strings"
+                "JSONValue": "array of 4 users of the audit checklist in this subcategory"
             },
             {
-                "JSONKey": "benefits",
-                "JSONValue": "6 benefits array of benefits_title and benefits_description"
-            },
-            {
-                "JSONKey": "benefits_title",
-                "JSONValue": "title in 6 to 8 words"
-            },
-            {
-                "JSONKey": "benefits_description",
-                "JSONValue": "description in 35 words"
-            },
-            {
-                "JSONKey": "features",
-                "JSONValue": "6 features array of features_title and features_description"
-            },
-            {
-                "JSONKey": "features_title",
-                "JSONValue": "title in 6 to 8 words"
-            },
-            {
-                "JSONKey": "features_description",
-                "JSONValue": "description in 35 words"
+                "JSONKey": "user_description",
+                "JSONValue": "description of the users involved in the app in this subcategory in 30 words"
             },
             {
                 "JSONKey": "use",
-                "JSONValue": "array of how to use this audit_checklist with and without Axonator"
+                "JSONValue": "json of how to use this checklist with and without Axonator"
+            },
+            {
+                "JSONKey": "use_with_axonator",
+                "JSONValue": "description in 10 to 15 words on how to use this checklist with Axonator"
+            },
+            {
+                "JSONKey": "use_without_axonator",
+                "JSONValue": "description in 10 to 15 words on how to use this checklist without Axonator"
             },
             {
                 "JSONKey": "faqs",
-                "JSONValue": "10 faqs array of this audit_checklist with question and answer"
+                "JSONValue": "give 10 faqs array of this checklist with question and answer, Make the FAQs relevant to Axonator platform, mobile forms, workflows, reports, scheduler, dashboards and integration with third party software"
             },
             {
                 "JSONKey": "checkpoints",
-                "JSONValue": "checkpoints list array"
+                "JSONValue": "give 25 checkpoints list array"
             },
             {
                 "JSONKey": "checkpoint",
-                "JSONValue": "checkpoint"
+                "JSONValue": "checkpoint in the checkpoints array"
             },
             {
                 "JSONKey": "options",
-                "JSONValue": "options for dropdown selection in the checkpoints array"
+                "JSONValue": "array of strings as options for checkpoint in the checkpoints array"
+            },
+            {
+                "JSONKey": "required",
+                "JSONValue": "true/false for each checkpoint in the checkpoints array"
             },
             {
                 "JSONKey": "hint",
-                "JSONValue": "Hint for user in the checkpoints array"
+                "JSONValue": "hint of checkpoint for user in the checkpoints array"
             }
             ],
             "MoreInstructions": [
                 "JSON top level element should be object",
-                "Use exact json keys provided. Make JSON Value length 100 words.",
-                "All titles must use title case.",
-                "Give 15 checkpoints",
+                "Use exact json keys provided. Make JSON Value length 100 words. All titles must use title case.",
+                "Give 25 checkpoints",
                 "Only JSON response. No extra text."
             ]
-        }            
+        }
     ]
 }

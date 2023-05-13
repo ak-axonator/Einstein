@@ -618,7 +618,7 @@ namespace WebMagic
                 section_obj.type = "question";
                 section_obj.contents = lines[i].TrimStart(trimChars).TrimEnd(trimChars);
             }
-            else if(lines[i].Length > 100){
+            else if(lines[i].Length > 70){
                 // paragraph section
                 section_obj.type = "paragraph";
                 section_obj.contents = lines[i].TrimStart(trimChars).TrimEnd(trimChars);
@@ -767,6 +767,7 @@ namespace WebMagic
                             kdl_lines.Add($"\t\tcontents \"{bullet.Trim()}\"\n");
                             kdl_lines.Add($"\t}}\n");
                         }
+                        kdl_lines.Add("\tbullet {}");
                         kdl_lines.Add("\n}");
                         break;
                     case TableSection ts:
@@ -808,6 +809,7 @@ namespace WebMagic
                             kdl_lines.Add($"\n\t\tanswer \"{qa.Answer.Trim()}\"");
                             kdl_lines.Add("\n\t}");
                         }
+                        kdl_lines.Add("\n\tquestion_answer {}");
                         kdl_lines.Add("\n}");
                         break;
                     case MDAppsForIndustrySection afis:
@@ -822,6 +824,7 @@ namespace WebMagic
                             kdl_lines.Add($"\t\turl \"{app.Url.Trim()}\"");
                             kdl_lines.Add("\t}");
                         }
+                        kdl_lines.Add("\tapp {}");
                         kdl_lines.Add("}");
                         break;
                 }

@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 using Cottle;
 using KdlDotNet;
+using System.Web;
 
 namespace WebMagic
 {
@@ -54,8 +55,10 @@ namespace WebMagic
                     if(kdlValue.IsNumber)
                         valueDict[item.Key] = kdlValue.AsNumber().ToString();
                     else
-                    if(kdlValue.IsString)
-                        valueDict[item.Key] = ReplaceHyperlinks(kdlValue.AsString().Value); 
+                    if(kdlValue.IsString){
+                        string kdl_val = HttpUtility.HtmlEncode(kdlValue.AsString().Value);
+                        valueDict[item.Key] = ReplaceNewLines(ReplaceHyperlinks(kdl_val));
+                    }
                     else if(kdlValue.IsBoolean)
                         valueDict[item.Key] = kdlValue.AsBoolean().Value;
 
@@ -79,7 +82,12 @@ namespace WebMagic
             
             return output;
         }
-
+        private static string ReplaceNewLines(string input)
+        {
+            var output = input;
+            output = output.Replace("\n", "<br>");
+            return output;
+        }
 
         private Dictionary<string, object> ConvertKDLNodes2Dictionary(IReadOnlyList<KDLNode> nodes)
         {

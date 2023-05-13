@@ -7,14 +7,18 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace WebMagic
 {
     public class GPTPromptsGenerator
     {
-        private string InputFilePath = @"/Users/arohikulkarni/Work/Einstein/SystemFiles/GPTJsonPageGenFiles/ArtifactPrompts/GPTInputAppDetails.jsonc";
-        private string OutputFilePath = @"/Users/arohikulkarni/Work/Einstein/SystemFiles/GPTJsonPageGenFiles/GPTPageContent.jsonc";
+        private string InputFilePath = Path.Combine(GlobalPaths.GPTFolder,"ArtifactPrompts","GPTInputAppDetails.jsonc");
+        private string OutputFilePath = Path.Combine(GlobalPaths.GPTFolder,"GPTPageContent.jsonc");
         public string BackgroundContent = "Axonator is a field workflow automation platform that provides automation of mobile forms, workflows, reports, dashboards, scheduling tasks, integration with third party software in a faster and easier way without coding.";
+        public string AxoBenefits = "{\"Original_benefits\": [\"Tailor forms to specific needs\", \"Streamline data collection process\", \"Streamline checklist process\", \"Access forms without connectivity\", \"Ensure accuracy and completeness\", \"Collect multimedia information easily\", \"Keep data up-to-date\", \"Enhanced communication within team\", \"Record important conversations easily\", \"Visual information for better understanding\", \"Dynamic, error-free, user-friendly forms\", \"Identify issues, improve compliance\", \"Efficient and accurate record-keeping\", \"Clear record of agreement/consent\", \"Simplified, faster and accurate access to forms\", \"Perform SOPs, reduce field user training\", \"Create unique business processes\", \"Efficiently manage approval processes\", \"Receive instant workflow status updates\", \"Automate complex business processes\", \"Customize workflows for specific needs\", \"Automate and customize workflows dynamically\", \"Collaborate and improve performance with shared reports\", \"Visualize and optimize business processes\", \"Create custom workflows for specific tasks\", \"Ensure timely completion of tasks\", \"Track progress and identify issues\", \"Streamline task assignment process\", \"Assign tasks as needed\", \"Ensure timely completion of forms\", \"View tasks in one place\", \"Tailor reports to specific needs\", \"Save time and reduce errors\", \"Improve efficiency and accuracy\", \"Reinforce brand identity\", \"Analyze data easily\", \"Improve communication between teams\", \"Customized reporting for your business\", \"Digitally automated reports\", \"Get the data you need\", \"Improve business outcomes\", \"Track progress and identify trends\", \"Relevant information at-a-glance\", \"Make informed decisions easily\", \"Understand data quickly\", \"Streamline data sharing process\", \"Connect apps and data sources\", \"Tailor integrations to specific needs\", \"Get the integrations you need\", \"Streamline data management\", \"Find information quickly\", \"Share data easily\", \"Save time and reduce errors\", \"Modify data easily\", \"Access data from anywhere\", \"Create custom mobile apps\", \"Create custom forms easily\", \"Streamline complex business processes\", \"Generate custom reports quickly\", \"Manage tasks efficiently\", \"Monitor important tasks easily\", \"Create custom floor plans\", \"Design floor plans easily\", \"Locate assets quickly\", \"Navigate with ease\", \"Easily locate specific assets\", \"View asset details efficiently\"]}";
+        public string AxoFeatures = "{\"Original_features\": [\"Build custom forms\", \"Convert paper forms into mobile apps\", \"Convert paper checklists into mobile apps\", \"Work offline\", \"Validate data\", \"Capture rich data\", \"Auto sync\", \"Annotate captured pictures\", \"Capture Audio \", \"Capture videos\", \"Advanced form scripting to control form behavior\", \"A person using audit, inspection form\", \"A person capturing data\", \"Capture person's signature\", \"Scan QR code to open form\", \"Fill checklist\", \"Build custom workflows\", \"Build approval workflows\", \"Send notifications\", \"Automate multi-step multi-user workflows\", \"Add custom processing steps to  workflows\", \"Advanced workflow scripting to control workflow behavior\", \"Share reports with teams\", \"Workflow concept\", \"Specific workflow\", \"Schedule regular tasks\", \"Monitor tasks performed\", \"Automatically assign tasks\", \"Manually assign tasks\", \"Set reminders for form completion\", \"Calendar integration\", \"Build custom reports\", \"Send reports automaticallly\", \"Generate and share reports automatically\", \"Brand your reports\", \"Person checking report\", \"Generate annotated picture reports\", \"Specific reports\", \"Reports concept\", \"Build custom dashboards\", \"Make data-driven decisions\", \"Generate performance dashboards\", \"Specific dashboard\", \"Person with dashboard\", \"Analyze and visualize data\", \"Send data to third party apps\", \"integrations concept\", \"custom integrations\", \"specific integrations\", \"Centralized data in one place\", \"Search data\", \"Export data\", \"Import data\", \"Edit data\", \"Person using web app\", \"App Builder\", \"Form Builder\", \"Workflow Builder\", \"Report Builder\", \"Scheduler\", \"Watcher\", \"Floor map builder\", \"Person using floor map builder\", \"Find assets on floor map\", \"Find location using floor map\", \"Search assets on floor map\", \"Select assets and check properties\"]}";
         public GPTPromptsGenerator(){
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
             var configuration = builder.Build();
@@ -30,7 +34,10 @@ namespace WebMagic
             string outputFilePath = Path.Combine(GlobalPaths.LogFolder, "GPTAppPageContents - " + _csvInput.AppName + ".jsonc");
             //if outputfile exists, skip it
             if (File.Exists(outputFilePath))
+            {
+                Console.WriteLine($"Skipping {outputFilePath}...");
                 return;
+            }
             Console.WriteLine($"Generating App Details prompt for {_csvInput.AppName}...");
             var timestamp = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));
             Console.WriteLine(timestamp);
@@ -53,6 +60,14 @@ namespace WebMagic
                 Console.WriteLine($"Generated {artifact} prompt for {input.AppName}...");
                 // Console.WriteLine(promptString);
                 GPTPromptsRunner.Run(promptString, outputFilePath);
+
+
+                // generate and benefits prompt, and add the benefits to the app details json file
+                
+
+
+                GenerateAndAddBenefitsAndFeatures(_csvInput,outputFilePath);
+
             }
             catch(Exception e){
                 CommandProcessor.LogJsonParsingError(e, e.Message, artifact + " -- " + _csvInput.AppName);
@@ -71,12 +86,66 @@ namespace WebMagic
                 // GPTPromptsFile.Prompts.Add(gPTPrompt);
             // }
         }
+        public void GenerateAndAddBenefitsAndFeatures(Input _input, string outputFilePath){
+            var inputFilePath = Path.Combine(GlobalPaths.GPTFolder, "ArtifactPrompts", "GPTInputAppBenefitsAndFeatures.jsonc");
+            var inputJson = File.ReadAllText(inputFilePath);
+            inputJson = Regex.Replace(inputJson, @"^\s*//.*$", "", RegexOptions.Multiline);
+            var input = JsonConvert.DeserializeObject<Input>(inputJson);
+            if(_input != null){
+                input.AppName = _input.AppName;
+                input.Industry = _input.Industry;
+                input.Category = _input.Category;
+                input.ArtifactName = _input.ArtifactName;
+            }
+            var benefitsPrompt = input.Prompts[0];
+            if (benefitsPrompt.Enabled == false)
+                return;
+            string promptString = GetPromptString(benefitsPrompt, input);
+            Console.WriteLine($"Generated benefits prompt for {input.AppName}...");
+
+            // Read the original JSON file
+            JObject originalJson = JObject.Parse(File.ReadAllText(outputFilePath));
+
+            // Call GPTPromptsRunner.Run(promptString, outputFilePath) here
+            GPTPromptsRunner.Run(promptString, outputFilePath);
+
+            // Read the updated JSON file after calling GPTPromptsRunner.Run
+            JObject updatedJson = JObject.Parse(File.ReadAllText(outputFilePath));
+
+            // Update the original JSON with the combined contents
+            originalJson.Merge(updatedJson);
+
+            // Save the updated JSON to the output file
+            File.WriteAllText(outputFilePath, originalJson.ToString());
+        }
+        public void GenerateSamplePreviewMD (Input _input, string inputFilePath, string outputFilePath)
+        {
+            var inputJson = File.ReadAllText(inputFilePath);
+            inputJson = Regex.Replace(inputJson, @"^\s*//.*$", "", RegexOptions.Multiline);
+            var input = JsonConvert.DeserializeObject<Input>(inputJson);
+            if(_input != null){
+                input.AppName = _input.AppName;
+                input.Industry = _input.Industry;
+                input.Category = _input.Category;
+                input.ArtifactName = _input.ArtifactName;
+            }
+            var sampleDocPrompt = input.Prompts[0];
+            if (sampleDocPrompt.Enabled == false)
+                return;
+            string promptString = GetPromptString(sampleDocPrompt, input);
+            Console.WriteLine($"Generated sample doc prompt for {input.AppName}...");
+
+            // Call GPTPromptsRunner.Run(promptString, outputFilePath) here
+            GPTPromptsRunner.Run(promptString, outputFilePath);
+
+        }
         public void GenerateAppArtifactPrompts(string artifact)
         {
             var GPTOutputFilesPath = GlobalPaths.LogFolder;
             Console.WriteLine($"Parsing app details from {GPTOutputFilesPath} for {artifact}(s)...");
             // loop through all files starting wiht "GPTAppPageContents - " and ending with ".jsonc"
-            var files = Directory.GetFiles(GlobalPaths.LogFolder, "GPTAppPageContents - *.jsonc");
+            // var files = Directory.GetFiles(GlobalPaths.LogFolder, "GPTAppPageContents - *.jsonc");
+            var files = Directory.GetFiles(GlobalPaths.LogFolder, "GPTAppPageContents - Drill bit manufacture process tracking.jsonc");
             foreach (var file in files)
             {
                 var app_details = File.ReadAllText(file);
@@ -84,36 +153,52 @@ namespace WebMagic
                 var appDetails = JsonConvert.DeserializeObject<AppDetails>(app_details);
                 
                 // generate prompt for each "artifact" in appDetails and run it
-                foreach (var artifact_name in getAppArtifacts(appDetails, artifact))
+                if (artifact != "workflow")
                 {
-                    try{
-                        Console.WriteLine($"Generating prompt for {artifact_name} {artifact} in {appDetails.Name} app...");
-                        // var currentPath = Directory.GetCurrentDirectory();
-                        // run artifact prompt and store response in the artifact's json file in logfolder
-                        var filePrefix = artifact.ToUpper().Replace("_", "-").Replace(" ", "-");
-                        var fileName = artifact_name.ToLower().Replace("_", "-").Replace(" ", "-");
-                        var outputFilePath = Path.Combine(GlobalPaths.LogFolder, filePrefix + "-" + fileName + getArtifactExtension(artifact));
-                        if (File.Exists(outputFilePath))
-                            continue;
-                        var GPTInputFilePath = Path.Combine(GlobalPaths.GPTFolder, "ArtifactPrompts", "GPTInput" + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(artifact.Replace("_", "")) + ".jsonc");
-                        var GPTInputJson = File.ReadAllText(GPTInputFilePath);
-                        GPTInputJson = Regex.Replace(GPTInputJson, @"^\s*//.*$", "", RegexOptions.Multiline);
-                        var input = JsonConvert.DeserializeObject<Input>(GPTInputJson);
-                        input.AppName = artifact_name;
-                        input.Industry = appDetails.Industry;
-                        input.Category = appDetails.Category;
+                    foreach (var artifact_name in getAppArtifacts(appDetails, artifact))
+                    {
+                        try{
+                            // var currentPath = Directory.GetCurrentDirectory();
+                            // run artifact prompt and store response in the artifact's json file in logfolder
+                            var filePrefix = artifact.ToUpper().Replace("_", "-").Replace(" ", "-");
+                            var fileName = artifact_name.ToLower().Replace("_", "-").Replace(" ", "-");
+                            var appName = appDetails.Name.ToLower().Replace("_", "-").Replace(" ", "-");
+                            var outputFilePath = Path.Combine(GlobalPaths.LogFolder, filePrefix + "-" + "appname-" + appName + "-artifactname-" + fileName + getArtifactExtension(artifact));
+                            var outputPreviewFilePath = Path.Combine(GlobalPaths.LogFolder, filePrefix + "-" + "appname-" + appName + "-artifactname-" + fileName + ".md");
+                            if (File.Exists(outputFilePath)){
+                                Console.WriteLine($"Skipping {artifact_name} {artifact} in {appDetails.Name}...");
+                                continue;
+                            }
+                            Console.WriteLine($"Generating prompt for {artifact_name} {artifact} in {appDetails.Name} app...");
+                            var GPTInputFilePath = Path.Combine(GlobalPaths.GPTFolder, "ArtifactPrompts", "GPTInput" + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(artifact.Replace("_", "")) + ".jsonc");
+                            var GPTInputSampleFilePath = Path.Combine(GlobalPaths.GPTFolder, "ArtifactPrompts", "GPTInput" + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(artifact.Replace("_", "")) + "Sample.jsonc");
+                            var GPTInputJson = File.ReadAllText(GPTInputFilePath);
+                            GPTInputJson = Regex.Replace(GPTInputJson, @"^\s*//.*$", "", RegexOptions.Multiline);
+                            var input = JsonConvert.DeserializeObject<Input>(GPTInputJson);
+                            input.AppName = artifact_name;
+                            input.Industry = appDetails.Industry;
+                            input.Category = appDetails.Category;
+                            input.ArtifactName = artifact;
 
-                        var formPrompt = input.Prompts[0];
-                        if (formPrompt.Enabled == false)
-                            return;
-                        string promptString = GetPromptString(formPrompt, input);
-                        Console.WriteLine($"Generated prompt for {artifact_name} {artifact} in {input.AppName}...");
-                        Console.WriteLine(promptString);
+                            var formPrompt = input.Prompts[0];
+                            if (formPrompt.Enabled == false)
+                                return;
+                            string promptString = GetPromptString(formPrompt, input);
+                            Console.WriteLine($"Generated prompt for {artifact_name} {artifact} in {input.AppName}...");
+                            // Console.WriteLine(promptString);
 
-                        GPTPromptsRunner.Run(promptString, outputFilePath);
-                    }
-                    catch(Exception e){
-                        CommandProcessor.LogJsonParsingError(e, e.Message, artifact + " -- " + file);
+                            GPTPromptsRunner.Run(promptString, outputFilePath);
+                            if(artifact == "form" || artifact == "workflow" || artifact == "checklist" || artifact == "audit_checklist" || artifact == "dashboard" || artifact == "report"){
+                                GenerateAndAddBenefitsAndFeatures(input,outputFilePath);
+                            }
+                            //generate md files for sample preview for media artifacts
+                            if(artifact == "report" || artifact == "dashboard" || artifact == "guidelines" || artifact == "standards" || artifact == "document"){
+                                GenerateSamplePreviewMD(input,GPTInputSampleFilePath,outputPreviewFilePath);
+                            }
+                        }
+                        catch(Exception e){
+                            CommandProcessor.LogJsonParsingError(e, e.Message, artifact + " -- " + file);
+                        }
                     }
                 }
                 // var outputJson = JsonConvert.SerializeObject(GPTResponseFile, Formatting.Indented);
@@ -128,26 +213,26 @@ namespace WebMagic
         //get artifact extension using switch case, if report, dashboard, guidelines or standards, then return ".md", else ".jsonc"
         private string getArtifactExtension(string artifact){
             string extension = ".jsonc";
-            switch (artifact)
-            {
-                case "report":
-                    extension = ".md";
-                    break;
-                case "dashboard":
-                    extension = ".md";
-                    break;
-                case "guidelines":
-                    extension = ".md";
-                    break;
-                case "standards":
-                    extension = ".md";
-                    break;
-                case "document":
-                    extension = ".md";
-                    break;
-                default:
-                    break;
-            }
+            // switch (artifact)
+            // {
+            //     case "report":
+            //         extension = ".md";
+            //         break;
+            //     case "dashboard":
+            //         extension = ".md";
+            //         break;
+            //     case "guidelines":
+            //         extension = ".md";
+            //         break;
+            //     case "standards":
+            //         extension = ".md";
+            //         break;
+            //     case "document":
+            //         extension = ".md";
+            //         break;
+            //     default:
+            //         break;
+            // }
             return extension;
         }
         private List<string> getAppArtifacts(AppDetails app_details, string artifact){
@@ -166,8 +251,8 @@ namespace WebMagic
                 case "dashboard":
                     artifacts = app_details.Dashboard_Names;
                     break;
-                case "workflow":
-                    artifacts = app_details.Workflow_Names;
+                // case "workflow":
+                    // artifacts = app_details.Workflows;
                     break;
                 case "audit_checklist":
                     artifacts = app_details.AuditChecklist_Names;
@@ -212,7 +297,6 @@ namespace WebMagic
             // if length of promptInput.GiveContentFor is more than 0, then add the following
             if (promptInput.GiveContentFor.Count > 0)
             {
-                prompt.Append("Give content for:\n");
                 foreach (var item in promptInput.GiveContentFor)
                 {
                     prompt.AppendLine($"\tJSON Key: {item.JSONKey}, JSON Value: {item.JSONValue}");
@@ -223,7 +307,17 @@ namespace WebMagic
             {
                 prompt.AppendLine($"\t{instruction}");
             }
-
+            if (prompt.ToString().Contains("industry_specific_features")){
+                if (input.ArtifactName == "form" || input.ArtifactName == "workflow" || input.ArtifactName == "checklist" || input.ArtifactName == "audit_checklist"){
+                    prompt.Replace("{artifact_name}", input.ArtifactName);
+                }
+                else{
+                    prompt.Replace("{artifact_name}", "app");
+                }
+                prompt.AppendLine(AxoFeatures);
+            }
+            // if (prompt.ToString().Contains("industry_specific_benefits"))
+            //     prompt.AppendLine(AxoBenefits);
             return prompt.ToString();
         }
         private string GetPromptString_old(Prompt prompt, Input input)

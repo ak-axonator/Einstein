@@ -47,68 +47,96 @@
                     "JSONValue": "array of strings, 5 SEO keywords related to app."
                 },
                 {
-                    "JSONKey": "product_features",
-                    "JSONValue": "array of 6 features of Axonator platform relevant to this subcategory."
+                    "JSONKey": "relevant_object",
+                    "JSONValue": "give one relevant object related to this app, give in 3 words and singular term only"
                 },
                 {
-                    "JSONKey": "features_title",
-                    "JSONValue": "title of the feature in 6-8 words in the product_features array"
+                    "JSONKey": "users",
+                    "JSONValue": "array of 4 users of the app in this subcategory"
                 },
                 {
-                    "JSONKey": "features_description",
-                    "JSONValue": "description of the feature in 40 words in the product_features array"
+                    "JSONKey": "user_description",
+                    "JSONValue": "description of the users involved in the app in this subcategory in 30 words"
                 },
                 {
-                    "JSONKey": "product_benefits",
-                    "JSONValue": "array of 6 benefits of Axonator platform relevant to this subcategory."
-                },
-                {
-                    "JSONKey": "benefits_title",
-                    "JSONValue": "title of the benefit in 6-8 words in the product_benefits array"
-                },
-                {
-                    "JSONKey": "benefits_description",
-                    "JSONValue": "description of the benefit in 40 words in the product_benefits array"
+                    "JSONKey": "product_sheet_image_prompt",
+                    "JSONValue": "Give image description for this subcategory in 20 words. It should have some human. the format should comma separated nouns and adjectives to describe the image. Only give the comma separated list and nothing else in your response."
                 },
                 {
                     "JSONKey": "document_names",
-                    "JSONValue": "array of 5 documents involved in subcategory. give only names."
+                    "JSONValue": "array of 4 documents involved in subcategory. give only names."
                 },
                 {
                     "JSONKey": "form_names",
-                    "JSONValue": "array of 5 forms involved in subcategory. give only names."
+                    "JSONValue": "array of 4 forms involved in subcategory. give only names."
+                },
+                {
+                    "JSONKey": "forms_description",
+                    "JSONValue": "description of forms involved in the app in this subcategory. give in 30 to 35 words."
                 },
                 {
                     "JSONKey": "checklist_names",
-                    "JSONValue": "array of 5 checklists involved in subcategory. give only names."
+                    "JSONValue": "array of 4 checklists involved in subcategory. give only names."
                 },
                 {
                     "JSONKey": "report_names",
-                    "JSONValue": "array of 5 reports involved in subcategory. give only names."
+                    "JSONValue": "array of 4 reports involved in subcategory. give only names."
+                },
+                {
+                    "JSONKey": "reports_description",
+                    "JSONValue": "description of the reports involved in the app in this subcategory. give in 18 to 20 words."
                 },
                 {
                     "JSONKey": "dashboard_names",
-                    "JSONValue": "array of dashboards involved in subcategory. give only names."
+                    "JSONValue": "array of 4 dashboards involved in subcategory. give only names."
                 },
                 {
-                    "JSONKey": "workflow_names",
-                    "JSONValue": "array of 5 workflows involved in subcategory. give only names."
+                    "JSONKey": "dashboards_description",
+                    "JSONValue": "description of the dashboards involved in the app in this subcategory. give in 18 to 20 words."
+                },
+                {
+                    "JSONKey": "workflows",
+                    "JSONValue": "json of two keys: workflows_description of the workflows involved in the app in this subcategory in 18 to 20 words, and workflows array of json {workflow_title, workflow_description} for 4 workflows involved in this subcategory"
+                },
+                {
+                    "JSONKey": "faqs",
+                    "JSONValue": "10 faqs array of this app with question and answer, Make the FAQs relevant to Axonator platform, mobile forms, workflows, reports, scheduler, dashboards and integration with third party software"
                 },
                 {
                     "JSONKey": "auditchecklist_names",
-                    "JSONValue": "array of audits involved in subcategory. give only names."
+                    "JSONValue": "array of 4 audits involved in subcategory. give only names."
+                },
+                {
+                    "JSONKey": "auditchecklists_description",
+                    "JSONValue": "description of the audit checklists involved in the app in this subcategory. give in 18 to 20 words."
                 },
                 {
                     "JSONKey": "standards_names",
-                    "JSONValue": "array of standards involved in subcategory. give only names."
+                    "JSONValue": "array of 4 standards involved in subcategory. give only names."
+                },
+                {
+                    "JSONKey": "standards_description",
+                    "JSONValue": "description of the standards involved in the app in this subcategory. give in 18 to 20 words."
                 },
                 {
                     "JSONKey": "guidelines_names",
-                    "JSONValue": "array of guidelines involved in subcategory. give only names."
+                    "JSONValue": "array of 4 guidelines involved in subcategory. give only names."
                 },
                 {
-                    "JSONKey": "integration_names",
-                    "JSONValue": "array of 3 specific third-party system integrations involved in subcategory. give only names."
+                    "JSONKey": "guidelines_description",
+                    "JSONValue": "description of the guidelines involved in the app in this subcategory. give in 18 to 20 words."
+                },
+                {
+                    "JSONKey": "integrations",
+                    "JSONValue": "json of two keys: integration_description of the integrations involved in the app in this subcategory in 18 to 20 words, and integrations array of json {integration_title, integration_description} for 4 relevant integrations involved in this subcategory"
+                },
+                {
+                    "JSONKey": "integration_title",
+                    "JSONValue": "most relevant integration name from the list [\"Salesforce\",\"Microsoft Dynamics 365\",\"SAP\",\"IMB Meximo\",\"Oracle\",\"QuickBooks\",\"ServiceNow\",\"SharePoint\",\"Dropbox\",\"Google Drive\",\"Box\",\"Slack\",\"Trello\",\"Jira\",\"Zendesk\",\"Twilio\",\"Zapier\",\"Mailchimp\",\"HubSpot\",\"Shopify\",\"WooCommerce\",\"Magento\",\"Shopify Plus\",\"Stripe\",\"PayPal\",\"Square\"] in the integrations array"
+                },
+                {
+                    "JSONKey": "integration_description",
+                    "JSONValue": "description of the integration in the integrations array in 18 to 20 words"
                 }
             ],
             "MoreInstructions": [

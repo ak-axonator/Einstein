@@ -85,17 +85,23 @@ define_section name="page_end_section" class="PageEndSection" {
 
 define_section name="watch_video_section" class="WatchVideoSection" {
 }
-
 define_section name="para_section" class="ParaSection" {
 }
-
 define_section name="blog_heading_section" class="BlogHeadingSection" {
 }
-
 define_section name="sub_heading_section" class="SubHeadingSection" {
 }
-
 define_section name="bullets_section" class="BulletsSection" {
+}
+define_section name="artifact_hero_section" class="ArtifactHeroSection" {
+}
+define_section name="persona_section" class="PersonaSection" {
+}
+define_section name="how_to_use_artifact_section" class="HowToUseArtifactSection" {
+}
+define_section name="artifact_preview_section" class="ArtifactPreviewSection" {
+}
+define_section name="app_summary_section" class="AppSummarySection" {
 }
 
 define_section name="group_header" class="GroupHeader" {

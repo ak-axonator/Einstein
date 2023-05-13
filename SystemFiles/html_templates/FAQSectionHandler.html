@@ -1,13 +1,15 @@
+  <!--------- FAQ Section---------->
   <div class="faq-section">
     <div class="axo-container">
       <div class="title">FAQ</div>
-      {for card in question_answers:
       <div class="accordion-wrapper">
-        <div class="accordion">
-          <div class="accordion-header"><div class="accordion-title font-medium">{card.question}</div><div class="accordion-icon"><i class="fa-toggle fas fa-plus"></i></div></div>
-          <div class="accordion-body">{card.answer}</div>
-        </div>
+        {for card in question_answers:
+          <div class="accordion">
+            <div class="accordion-header">
+              <div class="accordion-title">{card.question}</div><div class="accordion-icon"><i class="fa-toggle fas fa-plus rotate"></i></div></div>
+            <div class="accordion-body accordion-text">{card.answer}</div>
+          </div>
+        }
       </div>
-    }
     </div>
   </div>

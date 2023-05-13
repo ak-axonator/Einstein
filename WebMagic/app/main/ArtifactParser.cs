@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using MarkdownSharp;
 using System.Globalization;
 
 
@@ -17,6 +16,7 @@ namespace WebMagic
                             .form {width: 60%;margin-left: auto!important;margin-right: auto!important;}
                             .form-group {margin-bottom: 10px;margin-left: auto;}.form-label {font-weight: bold;margin-bottom: 5px;}
                             .checkpoint-hint {width: 18px;height: 22px;display: inline-block;border: 1px solid lightgrey;border-radius: 50%;}
+                            .fa-info-circle {width: 18px;height: 22px;display: inline-block;border: 1px solid lightgrey;border-radius: 50%;}
                             .submit-btn {width: 50%;}
                             .form-control {width: 50%;padding: 10px;font-size: 16px;border-radius: 4px;border: 1px solid #ccc;box-sizing: border-box;}
                             .form-control:focus {border-color: #007bff;outline: none;box-shadow: none;}
@@ -40,8 +40,8 @@ namespace WebMagic
             var dummyFilePath = Path.Combine(outputPath, dummyFile);
             Compiler.CreateOutputDirectory(dummyFilePath);
             
-            // Create App Store Docs folder if doesn't already exists
-            var outputDocsPath = Path.Combine(outputPath, "App Store Docs");
+            // Create docs folder if doesn't already exists
+            var outputDocsPath = Path.Combine(outputPath, "docs");
             dummyFilePath = Path.Combine(outputDocsPath, dummyFile);
             Compiler.CreateOutputDirectory(dummyFilePath);
 
@@ -83,11 +83,11 @@ namespace WebMagic
                         kdl_lines.Add($"\tform3 \"{appDetails.Form_Names[2]}\"");
                         kdl_lines.Add($"\treport \"{appDetails.Report_Names[0]}\"");
                         kdl_lines.Add($"\tdashboard \"{appDetails.Dashboard_Names[0]}\"");
-                        if (appDetails.Integration_Names != null && appDetails.Integration_Names.Count > 0)
+                        if (appDetails.Integrations.Integrations != null && appDetails.Integrations.Integrations.Count > 0)
                         {
-                            kdl_lines.Add($"\tintegration1 \"{appDetails.Integration_Names[0]}\"");
-                            kdl_lines.Add($"\tintegration2 \"{appDetails.Integration_Names[1]}\"");
-                            kdl_lines.Add($"\tintegration3 \"{appDetails.Integration_Names[2]}\"");
+                            kdl_lines.Add($"\tintegration1 \"{appDetails.Integrations.Integrations[0].Title}\"");
+                            kdl_lines.Add($"\tintegration2 \"{appDetails.Integrations.Integrations[1].Title}\"");
+                            kdl_lines.Add($"\tintegration3 \"{appDetails.Integrations.Integrations[2].Title}\"");
                         }
                         else
                         {
@@ -98,43 +98,117 @@ namespace WebMagic
                         kdl_lines.Add("}");
 
                         // add 6 features grid with title and description for each feature
-                        AddFeaturesSection(kdl_lines, appDetails.Product_Features);
+                        AddFeaturesSection(kdl_lines, appDetails.Features_Section);
                         // add 6 benefits grid with title and description for each benefit
-                        AddBenefitsSection(kdl_lines, appDetails.Product_Benefits);
+                        AddBenefitsSection(kdl_lines, appDetails.Benefits_Section);
                         // add 4 users persona section
-                        // AddPersonaSection(kdl_lines, appDetails.Users);
-
+                        // AddPersonaSection(kdl_lines, appDetails.Users_Section);
+                        
                         kdl_lines.Add("app_forms_section {");
+                        kdl_lines.Add($"\tdescription \"{appDetails.Description}\"");
                         kdl_lines.Add($"\tform1 \"{appDetails.Form_Names[0]}\"");
                         kdl_lines.Add($"\tform2 \"{appDetails.Form_Names[1]}\"");
                         kdl_lines.Add($"\tform3 \"{appDetails.Form_Names[2]}\"");
                         kdl_lines.Add("}");
 
-                        kdl_lines.Add("app_reports_section {");
-                        kdl_lines.Add($"\treport1 \"{appDetails.Report_Names[0]}\"");
-                        kdl_lines.Add($"\treport2 \"{appDetails.Report_Names[1]}\"");
-                        kdl_lines.Add($"\treport3 \"{appDetails.Report_Names[2]}\"");
-                        kdl_lines.Add("}");
-
-                        //if appDetails.Integration_Names is not null or empty, add integration section
-                        if (appDetails.Integration_Names != null && appDetails.Integration_Names.Count > 0)
+                        if (appDetails.AuditChecklist_Names != null && appDetails.AuditChecklist_Names.Count > 0)
                         {
-                            kdl_lines.Add("app_integrations_section {");
-                            kdl_lines.Add($"\tintegration1 \"{appDetails.Integration_Names[0]}\"");
-                            kdl_lines.Add($"\tintegration2 \"{appDetails.Integration_Names[1]}\"");
-                            kdl_lines.Add($"\tintegration3 \"{appDetails.Integration_Names[2]}\"");
+                            // add 4 columns abstract type grid section for audit checklists
+                            kdl_lines.Add("grid_section {");
+                            kdl_lines.Add("\ttitle \"Audits\"");
+                            kdl_lines.Add("\ttheme \"abstract\"");
+                            kdl_lines.Add("\tcolumns 4");
+                            for (int i = 0; i < appDetails.AuditChecklist_Names.Count; i++)
+                            {
+                                kdl_lines.Add ("\tcard {");
+                                kdl_lines.Add($"\t\ttitle \"{appDetails.AuditChecklist_Names[i]}\"");
+                                kdl_lines.Add($"\t\ttitle \"{appDetails.AuditChecklist_Names[i].Replace(" ","-")}\"");
+                                kdl_lines.Add("\t}");
+                            }
+                            kdl_lines.Add ("\tcard {}"); //cottle needs extra card to render properly
                             kdl_lines.Add("}");
                         }
 
-                        // if appDetails.Dashboard_Names is not null or empty, add dashboard section
+                        if (appDetails.Standards_Names != null && appDetails.Standards_Names.Count > 0)
+                        {
+                            // add 4 column text_only_grid section for standards
+                            kdl_lines.Add("grid_section {");
+                            kdl_lines.Add("\ttitle \"Standards\"");
+                            kdl_lines.Add("\ttheme \"textonly\"");
+                            kdl_lines.Add("\tcolumns 4");
+                            for (int i = 0; i < appDetails.Standards_Names.Count; i++)
+                            {
+                                kdl_lines.Add ("\tcard {");
+                                kdl_lines.Add($"\t\ttitle \"{appDetails.Standards_Names[i]}\"");
+                                kdl_lines.Add($"\t\turl \"/{appDetails.Standards_Names[i].Replace(" ","-")}\"");
+                                kdl_lines.Add("\t}");
+                            }
+                            kdl_lines.Add ("\tcard {}"); //cottle needs extra card to render properly
+                            kdl_lines.Add("}");
+                        }
+
+                        // if appDetails.Dashboard_Names is not null or empty, add 4 column text_only_grid section for standards
                         if (appDetails.Dashboard_Names != null && appDetails.Dashboard_Names.Count > 0)
                         {
-                            kdl_lines.Add("app_dashboards_section {");
-                            kdl_lines.Add($"\tdashboard1 \"{appDetails.Dashboard_Names[0]}\"");
-                            kdl_lines.Add($"\tdashboard2 \"{appDetails.Dashboard_Names[1]}\"");
-                            kdl_lines.Add($"\tdashboard3 \"{appDetails.Dashboard_Names[2]}\"");
+                            kdl_lines.Add("grid_section {");
+                            kdl_lines.Add("\ttitle \"Dashboards\"");
+                            kdl_lines.Add("\ttheme \"textonly\"");
+                            kdl_lines.Add("\tcolumns 4");
+                            for (int i = 0; i < appDetails.Dashboard_Names.Count; i++)
+                            {
+                                kdl_lines.Add ("\tcard {");
+                                kdl_lines.Add($"\t\ttitle \"{appDetails.Dashboard_Names[i]}\"");
+                                kdl_lines.Add($"\t\turl \"/{appDetails.Dashboard_Names[i].Replace(" ","-")}\"");
+                                kdl_lines.Add("\t}");
+                            }
+                        }
+
+                        //Workflows preview SVGs in preview_section when available
+                        if (appDetails.Workflows.Workflows != null && appDetails.Workflows.Workflows.Count > 0)
+                        {
+                            kdl_lines.Add("preview_section {");
+                            kdl_lines.Add("\theading \"Workflows\"");
+                            kdl_lines.Add("\tsub_heading \"Workflows\"");
+                            kdl_lines.Add("\ttype \"img\"");
+                            for (int i = 0; i < appDetails.Workflows.Workflows.Count; i++)
+                            {
+                                string workflow_preview_img_url = Path.Combine("/assets","images", appDetails.Workflows.Workflows[i].Workflow_Title.Replace(" ","-")+"-preview.svg");
+                                kdl_lines.Add ("\tcard {");
+                                kdl_lines.Add($"\t\ttitle \"{appDetails.Workflows.Workflows[i]}\"");
+                                kdl_lines.Add($"\t\tpreview_url \"{workflow_preview_img_url}\"");
+                                kdl_lines.Add("\t\tDownload_button {");
+                                kdl_lines.Add($"\t\t\tlabel \"Download\"");
+                                kdl_lines.Add($"\t\t\turl \"{workflow_preview_img_url}\"");
+                                kdl_lines.Add("\t\t}");
+                                kdl_lines.Add("\t}");
+                            }
+                            kdl_lines.Add ("\tcard {}"); //cottle needs extra card to render properly
                             kdl_lines.Add("}");
                         }
+
+                        //reports preview HTMLs in preview_section
+                        if (appDetails.Report_Names != null && appDetails.Report_Names.Count > 0)
+                        {
+                            kdl_lines.Add("preview_section {");
+                            kdl_lines.Add("\theading \"Reports\"");
+                            kdl_lines.Add("\tsub_heading \"Reports\"");
+                            kdl_lines.Add("\ttype \"html\"");
+                            for (int i = 0; i < appDetails.Report_Names.Count; i++)
+                            {
+                                string report_preview_html_url = Path.Combine("/docs", appDetails.Report_Names[i].Replace(" ","-")+".html");
+                                kdl_lines.Add ("\tcard {");
+                                kdl_lines.Add($"\t\ttitle \"{appDetails.Report_Names[i]}\"");
+                                kdl_lines.Add($"\t\tpreview_url \"{report_preview_html_url}\"");
+                                kdl_lines.Add("\t\tDownload_button {");
+                                kdl_lines.Add($"\t\t\tlabel \"Download\"");
+                                kdl_lines.Add($"\t\t\turl \"{report_preview_html_url}\"");
+                                kdl_lines.Add("\t\t}");
+                                kdl_lines.Add("\t}");
+                            }
+                            kdl_lines.Add ("\tcard {}"); //cottle needs extra card to render properly
+                            kdl_lines.Add("}");
+                        }
+
                     }
                     else
                     {
@@ -151,11 +225,12 @@ namespace WebMagic
                                 kdl_lines.Add("}");
 
                                 // add 6 features grid with title and description for each feature
-                                AddFeaturesSection(kdl_lines, form.Features);
+                                AddFeaturesSection(kdl_lines, form.Features_Section);
                                 // add 6 benefits grid with title and description for each benefit
-                                AddBenefitsSection(kdl_lines, form.Benefits);
+                                AddBenefitsSection(kdl_lines, form.Benefits_Section);
                                 // add 4 users persona section
-                                AddPersonaSection(kdl_lines, form.Users);
+                                AddPersonaSection(kdl_lines, form.Users_Section);
+                                AddUseSection(kdl_lines, form.Use);
                                 
                                 GeneratePreviewFile(outputDocsPath, jsonFile, kdl_lines, "form");
                                 
@@ -178,11 +253,11 @@ namespace WebMagic
                                 kdl_lines.Add("}");
 
                                 // add 6 features grid with title and description for each feature
-                                AddFeaturesSection(kdl_lines, checklist.Features);
+                                AddFeaturesSection(kdl_lines, checklist.Features_Section);
                                 // add 6 benefits grid with title and description for each benefit
-                                AddBenefitsSection(kdl_lines, checklist.Benefits);
+                                AddBenefitsSection(kdl_lines, checklist.Benefits_Section);
                                 // add 4 users persona section
-                                AddPersonaSection(kdl_lines, checklist.Users);
+                                AddPersonaSection(kdl_lines, checklist.Users_Section);
                                 
                                 GeneratePreviewFile(outputDocsPath, jsonFile, kdl_lines, "checklist");
                                 
@@ -205,11 +280,12 @@ namespace WebMagic
                                 kdl_lines.Add("}");
 
                                 // add 6 features grid with title and description for each feature
-                                AddFeaturesSection(kdl_lines, checklist.Features);
+                                AddFeaturesSection(kdl_lines, checklist.Features_Section);
                                 // add 6 benefits grid with title and description for each benefit
-                                AddBenefitsSection(kdl_lines, checklist.Benefits);
+                                AddBenefitsSection(kdl_lines, checklist.Benefits_Section);
                                 // add 4 users persona section
-                                AddPersonaSection(kdl_lines, checklist.Users);
+                                AddPersonaSection(kdl_lines, checklist.Users_Section);
+                                AddUseSection(kdl_lines, checklist.Use);
                                 
                                 GeneratePreviewFile(outputDocsPath, jsonFile, kdl_lines, "checklist");
                                 
@@ -273,8 +349,9 @@ namespace WebMagic
             }
             kdl_lines.Add("}");
         }
-        private static void AddPersonaSection(List<string> kdl_lines, List<string> users)
+        private static void AddPersonaSection(List<string> kdl_lines, UsersSection user_section)
         {
+            var users = user_section.Users;
             kdl_lines.Add("persona_section {");
             for (int i = 0; i < 4; i++)
             {
@@ -289,17 +366,29 @@ namespace WebMagic
             }
             kdl_lines.Add("}");
         }
-        private static void AddFeaturesSection(List<string> kdl_lines, List<Feature> features)
+        private static void AddUseSection(List<string> kdl_lines, Use use)
+        {
+            kdl_lines.Add("how_to_use_artifact_section {");
+            if (! string.IsNullOrEmpty(use.Use_With_Axonator))
+                kdl_lines.Add($"\tuse_with_axonator \"{use.Use_With_Axonator}\"");
+            if (! string.IsNullOrEmpty(use.Use_Without_Axonator))
+                kdl_lines.Add($"\tuse_without_axonator \"{use.Use_Without_Axonator}\"");
+            kdl_lines.Add("}");
+        }
+        private static void AddFeaturesSection(List<string> kdl_lines, FeaturesSection feature_section)
         {
             kdl_lines.Add("grid_section {");
-            kdl_lines.Add("\ttitle \"Features\"");
-            for (int i = 0; i < 6; i++)
+            kdl_lines.Add("\theading \"Features\"");
+            kdl_lines.Add("\ttheme \"abstract\"");
+            kdl_lines.Add("\tcolumns \"4\"");
+            var features = feature_section.Features;
+            for (int i = 0; i < 4; i++)
             {
                 if (i < features.Count)
                 {
                     kdl_lines.Add($"\tcard {{");
-                    kdl_lines.Add($"\t\ttitle \"{features[i].Features_Title}\"");
-                    kdl_lines.Add($"\t\tdescription \"{features[i].Features_Description}\"");
+                    kdl_lines.Add($"\t\ttitle \"{features[i].Feature_Title}\"");
+                    kdl_lines.Add($"\t\tdescription \"{features[i].Feature_Description}\"");
                     kdl_lines.Add("\t}");
                 }
                 else
@@ -313,17 +402,20 @@ namespace WebMagic
             kdl_lines.Add("\tcard {}");
             kdl_lines.Add("}");
         }
-        private static void AddBenefitsSection(List<string> kdl_lines, List<Benefit> benefits)
+        private static void AddBenefitsSection(List<string> kdl_lines, BenefitsSection benefit_section)
         {
             kdl_lines.Add("grid_section {");
-            kdl_lines.Add("\ttitle \"Benefits\"");
-            for (int i = 0; i < 6; i++)
+            kdl_lines.Add("\theading \"Benefits\"");
+            kdl_lines.Add("\ttheme \"abstract\"");
+            kdl_lines.Add("\tcolumns \"4\"");
+            var benefits = benefit_section.Benefits;
+            for (int i = 0; i < 4; i++)
             {
                 if (i < benefits.Count)
                 {
                     kdl_lines.Add($"\tcard {{");
-                    kdl_lines.Add($"\t\ttitle \"{benefits[i].Benefits_Title}\"");
-                    kdl_lines.Add($"\t\tdescription \"{benefits[i].Benefits_Description}\"");
+                    kdl_lines.Add($"\t\ttitle \"{benefits[i].Benefit_Title}\"");
+                    kdl_lines.Add($"\t\tdescription \"{benefits[i].Benefit_Description}\"");
                     kdl_lines.Add("\t}");
                 }
                 else
@@ -362,7 +454,7 @@ namespace WebMagic
                 // var parser = new TextParser();
                 // try
                 // {
-                //     parser.Convert(jsonFile, Path.Combine("/App Store Docs", previewUrl));
+                //     parser.Convert(jsonFile, Path.Combine("/docs", previewUrl));
                 // }
                 // catch (Exception e)
                 // {
@@ -375,7 +467,7 @@ namespace WebMagic
             kdl_lines.Add($"\theading \"{GetArtifactTitle(_fileName)}\"");
             kdl_lines.Add($"\tsub_heading \"{_fileName}\"");
             kdl_lines.Add($"\timg \"\"");
-            kdl_lines.Add($"\turl \"{Path.Combine("/App Store Docs", previewUrl)}\"");
+            kdl_lines.Add($"\turl \"{Path.Combine("/docs", previewUrl)}\"");
             kdl_lines.Add("}");
         }
 
@@ -395,66 +487,66 @@ namespace WebMagic
             {
                 // Start building the HTML for this field
                 lines.Add("<div class=\"form-group\">");
-                lines.Add($"<label for=\"{field.Form_Field.Replace(" ", "")}\">{field.Form_Field}</label>");
-                if (!string.IsNullOrEmpty(field.Hint)){
-                    lines.Add($"<span class=\"fa fa-info-circle\" title=\"{field.Hint}\"></span>");
-                }
-                var required_flag = false;
-                // if field.Validation is string and is equal to "Required" or if field.Validation is json and contains "required" : true
-                try{
-                    if ((field.Validation != null && field.Validation.Contains("Required") || field.Validation.Contains("Mandatory")) || (field.Validation != null && field.Validation.Contains("required")))
-                    {
-                        required_flag = true;
-                    }
-                }
-                catch (Exception e)
+                //if field type is groupheader, dont add label
+                if (field.Field_Type.ToLower() != "group header")
                 {
-                    CommandProcessor.LogJsonParsingError(e, e.Message, "validation parsing error in " + form.Form_Title);
+                    lines.Add($"<label for=\"{field.Field_Identifier.Replace(" ", "")}\">{field.Field_Title}</label>");
                 }
+                if (!string.IsNullOrEmpty(field.Description))
+                {
+                    lines.Add($"<span class=\"fa fa-info-circle\" title=\"{field.Description}\"></span>");
+                }
+                string validations = GetFieldValidations(field);
+
                 // Add the appropriate HTML based on the field type
                 switch (field.Field_Type.ToLower())
                 {
-                    case "textbox": case "text":
-                        lines.Add($"<input type=\"text\" class=\"form-control\" id=\"{field.Form_Field.Replace(" ", "")}\" placeholder=\"{field.Description}\" {(required_flag ? "required" : "")}>");
+                    case "textbox": case "[textbox]":
+                        lines.Add($"<input type=\"text\" class=\"form-control\" id=\"{field.Field_Identifier.Replace(" ", "")}\" placeholder=\"{field.Placeholder}\" {validations}>");
                         break;
-                    case "Choices":
-                        lines.Add("<select class=\"form-control\" id=\"" + field.Form_Field.Replace(" ", "") + "\" " + (required_flag ? "required" : "") + ">");
-                        lines.Add("<option value=\"\">" + field.Description + "</option>");
+                    case "choice list": case "[choice list]":
+                        lines.Add("<select class=\"form-control\" id=\"" + field.Field_Identifier.Replace(" ", "") + "\" " + validations + ">");
                         foreach (string option in field.Options)
                         {
                             lines.Add("<option value=\"" + option + "\">" + option + "</option>");
                         }
                         lines.Add("</select>");
                         break;
-                    case "number":
-                        lines.Add($"<input type=\"number\" class=\"form-control\" id=\"{field.Form_Field.Replace(" ", "")}\" placeholder=\"{field.Description}\" {(required_flag ? "required" : "")}>");
+                    case "number": case "[number]":
+                        lines.Add($"<input type=\"number\" class=\"form-control\" id=\"{field.Field_Identifier.Replace(" ", "")}\" placeholder=\"{field.Placeholder}\" {validations}>");
                         break;
-                    case "date picker": case "date": case "datepicker":
-                        lines.Add($"<input type=\"date\" class=\"form-control\" id=\"{field.Form_Field.Replace(" ", "")}\" {(required_flag ? "required" : "")}>");
+                    case "date picker": case "[date picker]":
+                        lines.Add($"<input type=\"date\" class=\"form-control\" id=\"{field.Field_Identifier.Replace(" ", "")}\" {validations}>");
                         break;
-                    case "time picker": case "time": case "timepicker":
-                        lines.Add($"<input type=\"time\" class=\"form-control\" id=\"{field.Form_Field.Replace(" ", "")}\" {(required_flag ? "required" : "")}>");
+                    case "time picker": case "[time picker]":
+                        lines.Add($"<input type=\"time\" class=\"form-control\" id=\"{field.Field_Identifier.Replace(" ", "")}\" {validations}>");
                         break;
-                    case "textarea": case "text area":
-                        lines.Add($"<textarea class=\"form-control\" id=\"{field.Form_Field.Replace(" ", "")}\" rows=\"3\" placeholder=\"{field.Description}\" {(required_flag ? "required" : "")}></textarea>");
+                    case "textarea": case "[textarea]":
+                        lines.Add($"<textarea class=\"form-control\" id=\"{field.Field_Identifier.Replace(" ", "")}\" rows=\"3\" placeholder=\"{field.Description}\" {validations}></textarea>");
                         break;
-                    case "picture upload": case "picture": case "image": case "image upload":
-                        lines.Add($"<input type=\"file\" class=\"form-control-file\" id=\"{field.Form_Field.Replace(" ", "")}\">");
+                    case "photo upload": case "[photo upload]":
+                        lines.Add($"<input type=\"file\" class=\"form-control-file\" id=\"{field.Field_Identifier.Replace(" ", "")}\">");
                         break;
-                    case "video capture": case "video": case "video upload":
-                        lines.Add($"<input type=\"file\" accept=\"video/*\" capture=\"camera\" class=\"form-control-file\" id=\"{field.Form_Field.Replace(" ", "")}\">");
+                    case "video upload": case "[video upload]":
+                        lines.Add($"<input type=\"file\" accept=\"video/*\" capture=\"camera\" class=\"form-control-file\" id=\"{field.Field_Identifier.Replace(" ", "")}\" {validations}>");
                         break;
-                    case "audio capture": case "audio": case "audio upload":
-                        lines.Add($"<input type=\"file\" accept=\"audio/*\" capture=\"microphone\" class=\"form-control-file\" id=\"{field.Form_Field.Replace(" ", "")}\">");
+                    case "audio upload": case "[audio upload]":
+                        lines.Add($"<input type=\"file\" accept=\"audio/*\" capture=\"microphone\" class=\"form-control-file\" id=\"{field.Field_Identifier.Replace(" ", "")}\" {validations}>");
                         break;
-                    case "gps location": case "location": case "gps": case "geolocation":
-                        lines.Add($"<input type=\"text\" class=\"form-control\" id=\"{field.Form_Field.Replace(" ", "")}\" placeholder=\"{field.Description}\" {(required_flag ? "required" : "")}>");
+                    case "gps location": case "[gps location]":
+                        lines.Add($"<input type=\"text\" class=\"form-control\" id=\"{field.Field_Identifier.Replace(" ", "")}\" placeholder=\"{field.Description}\" {validations}>");
                         break;
-                    case "file upload": case "file": case "file picker": case "filepicker": case "document": case "document upload":
-                        lines.Add($"<input type=\"file\" class=\"form-control-file\" id=\"{field.Form_Field.Replace(" ", "")}\">");
+                    case "document upload": case "[document upload]":
+                        lines.Add($"<input type=\"file\" class=\"form-control-file\" id=\"{field.Field_Identifier.Replace(" ", "")}\" {validations}>");
+                        break;
+                    case "group header": case "[group header]":
+                        lines.Add($"<h3>{field.Field_Title}</h3>");
+                        break;
+                    case "sign": case "[sign]":
+                        lines.Add($"<input type=\"sign\" class=\"form-control\" id=\"{field.Field_Identifier.Replace(" ", "")}\" {validations}>");
                         break;
                     case "default":
-                        lines.Add($"<input type=\"text\" class=\"form-control\" id=\"{field.Form_Field.Replace(" ", "")}\" placeholder=\"{field.Description}\" {(required_flag ? "required" : "")}>");
+                        lines.Add($"<input type=\"text\" class=\"form-control\" id=\"{field.Field_Identifier.Replace(" ", "")}\" placeholder=\"{field.Description}\" {validations}>");
                         break;
                 }
                 lines.Add("</div>");
@@ -470,6 +562,38 @@ namespace WebMagic
 
             return string.Join("\n", lines);
         }
+
+        private static string GetFieldValidations(FormField field)
+        {
+            string validations = "";
+            //check keys in field.Validations object for null or empty values, and add html attributes accordingly
+            if (field.Validations != null)
+            {
+                if (field.Validations.Required == true)
+                {
+                    validations += "required ";
+                }
+                if (field.Validations.Min_Value != null)
+                {
+                    validations += $"min=\"{field.Validations.Min_Value}\" ";
+                }
+                if (field.Validations.Max_Value != null)
+                {
+                    validations += $"max=\"{field.Validations.Max_Value}\" ";
+                }
+                if (field.Validations.Min_Length != null)
+                {
+                    validations += $"minlength=\"{field.Validations.Min_Length}\" ";
+                }
+                if (field.Validations.Max_Length != null)
+                {
+                    validations += $"maxlength=\"{field.Validations.Max_Length}\" ";
+                }
+            }
+
+            return validations;
+        }
+
         private static string GenerateChecklistHtml(Checklist checklist)
         {
             // Parse the JSON string into a list of checkpoints
@@ -481,6 +605,7 @@ namespace WebMagic
             lines.Add("<h1> "+checklist.Checklist_Title+" </h1>");
             lines.Add("<p> "+checklist.Checklist_Description+" </p>");
             lines.Add("<form>");
+            
 
             // Loop through each form field and add the appropriate HTML
             foreach (ChecklistPoint checkpoint in checkpoints)
@@ -494,12 +619,9 @@ namespace WebMagic
                 var required_flag = false;
                 // if field.Validation is string and is equal to "Required" or if field.Validation is json and contains "required" : true
                 try{
-                    if(checkpoint.Validation != null)
+                    if(checkpoint.Required != null)
                     {
-                        if (checkpoint.Validation.Contains("Required") || checkpoint.Validation.Contains("Mandatory") || checkpoint.Validation.Contains("required"))
-                        {
-                            required_flag = true;
-                        }
+                        required_flag = checkpoint.Required;
                     }
                 }
                 catch (Exception e)
@@ -507,7 +629,7 @@ namespace WebMagic
                     CommandProcessor.LogJsonParsingError(e, e.Message, "validation parsing error in " + checklist.Checklist_Title);
                 }
                 
-                lines.Add("<select class=\"form-control\" id=\"" + checkpoint.Checkpoint.Replace(" ", "") + "\" " + (required_flag ? "required" : "") + ">");
+                lines.Add($"<select class=\"form-control\" id=\"{checkpoint.Checkpoint.Replace(" ", "")}\" {(required_flag ? "required": "")}>");
                 //if checkpoint.Options is null, set options as Ok, Not Ok and N/A
                 if (checkpoint.Options == null)
                 {

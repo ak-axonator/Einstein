@@ -1,0 +1,19 @@
+{
+    //What is the name of your guideline?
+    "ArtifactName": "",
+    "Prompts": [
+        //generate guidelines prompt
+        {
+            "Enabled" : true,
+            "PrefixInstruction": "Give guidelines: ",
+            "Artifact": "guidelines",
+            "GiveContentFor": [],
+            "MoreInstructions": [
+                "Include section \"Who should use these guidelines?\" at the start",
+                "Give upto 15 points",
+                "Guidlines section should have a heading",
+                "Give response in markdown syntax"
+            ]
+        }
+    ]
+}

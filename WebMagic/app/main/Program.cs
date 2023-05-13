@@ -19,8 +19,8 @@ namespace WebMagic
 {
     public class Benefit
     {
-        public string Benefits_Title { get; set; }
-        public string Benefits_Description { get; set; }
+        public string Benefit_Title { get; set; }
+        public string Benefit_Description { get; set; }
     }
     class Program
     {
@@ -38,7 +38,7 @@ namespace WebMagic
             // testCSVAppNameRename();
             // GenerateAndRunAppArtifactPrompts(args[0]);
             // GenerateAndRunAppArtifactPrompts("form");
-            // GenerateAndRunAppArtifactPrompts("report");
+            GenerateAndRunAppArtifactPrompts("report");
             // GenerateAndRunAppArtifactPrompts("checklist");
             // GenerateAndRunAppArtifactPrompts("dashboard");
             // GenerateAndRunAppArtifactPrompts("audit_checklist");
@@ -56,7 +56,7 @@ namespace WebMagic
             //testS3Uploading();
             // CreatePageFileFromOutputKDL();
             // testMDtoKDLParser();
-            ConvertToKDL();
+            // ConvertJsonToKDL();
             // ReplacePageBeginSections();
 
         }
@@ -109,7 +109,7 @@ namespace WebMagic
             }
         }
 
-        private static void ConvertToKDL(){
+        private static void ConvertJsonToKDL(){
             ArtifactParser.ConvertToKDL();
         }
 
@@ -123,12 +123,13 @@ namespace WebMagic
             
             // string inputFilePath = @"/Users/arohikulkarni/Work/Website Project/Old Website/md files/home.md";
             // files.Add(inputFilePath);
-            files.Add(@"/Users/arohikulkarni/Work/Website Project/Old Website/md files/micro_app_store_safety_audit_checklist_app_.md");
+            files.Add(@"/Users/arohikulkarni/Work/Website Project/Old Website/md files/digital_checklists_.md");
+            // files.Add(@"/Users/arohikulkarni/Work/Website Project/Old Website/md files/micro_app_store_safety_audit_checklist_app_.md");
             // files.Add(@"/Users/arohikulkarni/Work/Website Project/Old Website/md files/asset_performance_management_software_.md");
             // files.Add(@"/Users/arohikulkarni/Work/Website Project/Old Website/md files/blog_data_collection_process_.md");
             // files.Add(@"/Users/arohikulkarni/Work/Website Project/Old Website/md files/mobile_apps_for_manufacturing_industry_.md");
-            // foreach (var file in files)
-            foreach (var file in Directory.GetFiles(folderPath, "*.md"))
+            foreach (var file in files)
+            // foreach (var file in Directory.GetFiles(folderPath, "*.md"))
             {
                 var parser = new TextParser();
                 try{
@@ -275,8 +276,8 @@ namespace WebMagic
             var benefits = ParseBullets(benefitsText);
             foreach (var benefit in benefits)
             {
-                Console.WriteLine("Title: " + benefit.Benefits_Title);
-                Console.WriteLine("Description: " + benefit.Benefits_Description);
+                Console.WriteLine("Title: " + benefit.Benefit_Title);
+                Console.WriteLine("Description: " + benefit.Benefit_Description);
                 Console.WriteLine();
             }
         }
@@ -309,8 +310,8 @@ namespace WebMagic
                 }
                 benefits.Add(new Benefit
                 {
-                    Benefits_Title = parts[0].TrimStart().TrimEnd('.'),
-                    Benefits_Description = parts[1].TrimStart(),
+                    Benefit_Title = parts[0].TrimStart().TrimEnd('.'),
+                    Benefit_Description = parts[1].TrimStart(),
                 });
             }
             return benefits;

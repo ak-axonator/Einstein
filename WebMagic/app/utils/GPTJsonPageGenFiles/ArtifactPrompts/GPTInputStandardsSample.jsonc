@@ -1,0 +1,19 @@
+{
+    //What is the name of your standards?
+    "ArtifactName": "",
+    "Prompts": [
+        //generate standards prompt
+        {
+            "Enabled" : true,
+            "PrefixInstruction": "Give standards document: ",
+            "Artifact": "standards",
+            "GiveContentFor": [],
+            "MoreInstructions": [
+                "Write section \"Objective\" and \"Scope\"",
+                "Standards section should have a heading and description in upto 200 words",
+                "Include section \"Requirements to be complaint with the standards\"",
+                "Give response in markdown syntax"
+            ]
+        }
+    ]
+}

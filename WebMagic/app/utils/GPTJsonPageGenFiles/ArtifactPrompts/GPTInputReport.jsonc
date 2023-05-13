@@ -5,17 +5,47 @@
         //generate report prompt
         {
             "Enabled" : true,
-            "PrefixInstruction": "Give report template: ",
+            "PrefixInstruction": "Give sample document content for: ",
             "Artifact": "report",
-            "GiveContentFor": [],
+            "GiveContentFor": [
+                {
+                    "JSONKey": "document_heading",
+                    "JSONValue": "document main title"
+                },
+                {
+                    "JSONKey": "objective",
+                    "JSONValue": "objective of the document"
+                },
+                {
+                    "JSONKey": "users",
+                    "JSONValue": "array of 4 users of the report in this subcategory"
+                },
+                {
+                    "JSONKey": "user_description",
+                    "JSONValue": "description of the users involved in the app in this subcategory in 30 words"
+                },
+                {
+                    "JSONKey": "faqs",
+                    "JSONValue": "10 faqs array of this report with question and answer, Make the FAQs relevant to Axonator platform, mobile forms, workflows, reports, scheduler, dashboards and integration with third party software"
+                },
+                {
+                    "JSONKey": "importance_and_impact",
+                    "JSONValue": "array of Importance and Impacts of the document"
+                },
+                {
+                    "JSONKey": "disclaimers_and_notes",
+                    "JSONValue": "array of Disclaimers and Notes"
+                },
+                {
+                    "JSONKey": "sources_and_references",
+                    "JSONValue": "array of Sources and References"
+                }
+            ],
             "MoreInstructions": [
-                "Write section \"Objective\"",
-                "Write section \"Who should use this report template?\"",
-                "Write report template with a heading and description in a tabular format",
-                "Write section \"Benefits and Impact\"",
-                "Write section \"Disclaimers and Notes\"",
-                "Write section \"Sources and References\"",
-                "Give response in markdown syntax"
+                "JSON top level element should be an object",
+                "Use exact json keys provided. Make JSON Value length 100 words.",
+                "All titles must use title case.",
+                "Only JSON response. No extra text."
             ]
         }
     ]

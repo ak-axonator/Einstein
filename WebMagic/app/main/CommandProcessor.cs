@@ -91,6 +91,7 @@ namespace WebMagic
             File.AppendAllText(logFilePath, fileName + "\n");
             File.AppendAllText(logFilePath, logMessage);
             File.AppendAllText(logFilePath, "\n\n ----------------------------- \n\n");
+            Console.WriteLine("Error logged in " + logFilePath);
         }
         
         public void processCommand()

@@ -20,7 +20,7 @@ namespace WebMagic
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
             var configuration = builder.Build();
             apiKey = configuration.GetValue<string>("gptApiKey");
-            var timeout = TimeSpan.FromMinutes(2);
+            var timeout = TimeSpan.FromMinutes(3);
 
             _httpClient = new HttpClient()
             {
@@ -39,7 +39,7 @@ namespace WebMagic
         {
             var timestamp = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));
             Console.WriteLine("Running prompt " + timestamp);
-            var model = "gpt-3.5-turbo"; // Use the latest model here
+            var model = "gpt-3.5-turbo-0301"; // Use the latest model here
             var messages = new[]
             {
                 new
@@ -77,13 +77,14 @@ namespace WebMagic
                 // Console.WriteLine(result.FirstChoice);
                 // return result.FirstChoice;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
                 Console.WriteLine(@"=============================================================================================================
-                Reinstating the API call due to exception: ", ex.Message);
+                Reinstating the API call due to exception: ", e.Message);
                 // print timestamp in IST
                 timestamp = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));
                 Console.WriteLine(timestamp);
+                CommandProcessor.LogJsonParsingError(e, e.Message, prompt);
                 // wait
                 System.Threading.Thread.Sleep(10000);
                 return GetResponse(prompt);

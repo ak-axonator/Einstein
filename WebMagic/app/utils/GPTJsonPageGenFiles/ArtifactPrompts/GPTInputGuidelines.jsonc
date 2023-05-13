@@ -1,21 +1,51 @@
 {
-    //What is the name of your guideline?
+    //What is the name of guidelines?
     "ArtifactName": "",
     "Prompts": [
         //generate guidelines prompt
         {
             "Enabled" : true,
-            "PrefixInstruction": "Give guidelines: ",
+            "PrefixInstruction": "Give guidelines:",
             "Artifact": "guidelines",
-            "GiveContentFor": [],
+            "GiveContentFor": [
+                {
+                    "JSONKey": "guidelines_heading",
+                    "JSONValue": "guidelines main title"
+                },
+                {
+                    "JSONKey": "guidelines_description",
+                    "JSONValue": "guidelines description in 200 words"
+                },
+                {
+                    "JSONKey": "users",
+                    "JSONValue": "array of 4 users of the guidelines in this subcategory"
+                },
+                {
+                    "JSONKey": "user_description",
+                    "JSONValue": "description of the users involved in the app in this subcategory in 30 words"
+                },
+                {
+                    "JSONKey": "faqs",
+                    "JSONValue": "10 faqs array of this document with question and answer, Make the FAQs relevant to Axonator platform, mobile forms, workflows, reports, scheduler, dashboards and integration with third party software"
+                },
+                {
+                    "JSONKey": "impact",
+                    "JSONValue": "array of Impacts of the guidelines"
+                },
+                {
+                    "JSONKey": "disclaimers_and_notes",
+                    "JSONValue": "array of Disclaimers and Notes"
+                },
+                {
+                    "JSONKey": "sources_and_references",
+                    "JSONValue": "array of Sources and References"
+                }
+            ],
             "MoreInstructions": [
-                "Give upto 15 points",
-                "Guidlines section should have a heading",
-                "Include section \"Who should use these guidelines?\" at the start",
-                "Include section \"Impact of the Guidelines\"",
-                "Include section \"Disclaimers and Notes\" at the end",
-                "include section \"Sources and References\" near the end",
-                "Give response in markdown syntax"
+                "JSON top level element should be an object",
+                "Use exact json keys provided. Make JSON Value length 100 words.",
+                "All titles must use title case.",
+                "Only JSON response. No extra text."
             ]
         }
     ]

@@ -1,20 +1,51 @@
 {
-    //What is the name of your dashboard?
+    //What is the name of your report?
     "ArtifactName": "",
     "Prompts": [
-        //generate dashboard prompt
+        //generate report prompt
         {
             "Enabled" : true,
-            "PrefixInstruction": "Give dashboard: ",
+            "PrefixInstruction": "Give sample document content for: ",
             "Artifact": "dashboard",
-            "GiveContentFor": [],
+            "GiveContentFor": [
+                {
+                    "JSONKey": "dashboard_heading",
+                    "JSONValue": "dashboard main title"
+                },
+                {
+                    "JSONKey": "dashboard_description",
+                    "JSONValue": "dashboard description in 200 words"
+                },
+                {
+                    "JSONKey": "objective",
+                    "JSONValue": "objective of the document"
+                },
+                {
+                    "JSONKey": "users",
+                    "JSONValue": "array of 4 users of the dashboard in this subcategory, give array of strings"
+                },
+                {
+                    "JSONKey": "user_description",
+                    "JSONValue": "description of the users involved in the app in this subcategory in 30 words"
+                },
+                {
+                    "JSONKey": "faqs",
+                    "JSONValue": "10 faqs array of this dashboard with question and answer, Make the FAQs relevant to Axonator platform, mobile forms, workflows, reports, scheduler, dashboards and integration with third party software"
+                },
+                {
+                    "JSONKey": "importance_and_impact",
+                    "JSONValue": "array of importance and impacts of the document"
+                },
+                {
+                    "JSONKey": "sources_and_references",
+                    "JSONValue": "array of Sources and References"
+                }
+            ],
             "MoreInstructions": [
-                "Write section \"Objective\"",
-                "Write section \"Who should use this dashboard?\"",
-                "Write dashboard template with a chart type, name, description, metrics and dimensions in a tabular format. Give 10 charts. Give bold headings.",
-                "Write section \"Benefits and Impact\"",
-                "Write section \"Sources and References\"",
-                "Give response in markdown syntax"
+                "JSON top level element should be an object",
+                "Use exact json keys provided. Make JSON Value length 100 words.",
+                "All titles must use title case.",
+                "Only JSON response. No extra text."
             ]
         }
     ]
