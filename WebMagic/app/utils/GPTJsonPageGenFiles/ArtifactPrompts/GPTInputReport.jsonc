@@ -5,7 +5,7 @@
         //generate report prompt
         {
             "Enabled" : true,
-            "PrefixInstruction": "Give document content: ",
+            "PrefixInstruction": "Give sample document content for: ",
             "Artifact": "report",
             "GiveContentFor": [
                 {
@@ -23,34 +23,6 @@
                 {
                     "JSONKey": "user_description",
                     "JSONValue": "description of the users involved in the app in this subcategory in 30 words"
-                },
-                {
-                    "JSONKey": "actual_contents",
-                    "JSONValue": "contents of this document divided in 7 paragraphs, give in array of json with keys paragraph_heading and paragraph_contents"
-                },
-                {
-                    "JSONKey": "paragraph_heading",
-                    "JSONValue": "heading of the paragraph in the contents array"
-                },
-                {
-                    "JSONKey": "paragraph_contents",
-                    "JSONValue": "contents of the paragraph in the contents array. don't give template or description, give actual textual content"
-                },
-                {
-                    "JSONKey": "example",
-                    "JSONValue": "give examples in array of json with keys column_heading and row_value, give 5 columns and 2 rows"
-                },
-                {
-                    "JSONKey": "column_heading",
-                    "JSONValue": "heading of each column in the emaple table"
-                },
-                {
-                    "JSONKey": "row1_value",
-                    "JSONValue": "value of the first row in the example table"
-                },
-                {
-                    "JSONKey": "row2_value",
-                    "JSONValue": "different value of the second row in the example table"
                 },
                 {
                     "JSONKey": "faqs",

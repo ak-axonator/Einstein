@@ -1,0 +1,20 @@
+{
+    //What is the name of your report?
+    "ArtifactName": "",
+    "Prompts": [
+        //generate report prompt
+        {
+            "Enabled" : true,
+            "PrefixInstruction": "Give document content: ",
+            "Artifact": "document",
+            "GiveContentFor": [],
+            "MoreInstructions": [
+                "Write section \"Objective\"",
+                "Write section \"Who should use this document?\"",
+                "Write actual document content with a heading",
+                "Give examples in a tabular format",
+                "Give response in markdown syntax"
+            ]
+        }
+    ]
+}

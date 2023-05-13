@@ -118,6 +118,27 @@ namespace WebMagic
             // Save the updated JSON to the output file
             File.WriteAllText(outputFilePath, originalJson.ToString());
         }
+        public void GenerateSamplePreviewMD (Input _input, string inputFilePath, string outputFilePath)
+        {
+            var inputJson = File.ReadAllText(inputFilePath);
+            inputJson = Regex.Replace(inputJson, @"^\s*//.*$", "", RegexOptions.Multiline);
+            var input = JsonConvert.DeserializeObject<Input>(inputJson);
+            if(_input != null){
+                input.AppName = _input.AppName;
+                input.Industry = _input.Industry;
+                input.Category = _input.Category;
+                input.ArtifactName = _input.ArtifactName;
+            }
+            var sampleDocPrompt = input.Prompts[0];
+            if (sampleDocPrompt.Enabled == false)
+                return;
+            string promptString = GetPromptString(sampleDocPrompt, input);
+            Console.WriteLine($"Generated sample doc prompt for {input.AppName}...");
+
+            // Call GPTPromptsRunner.Run(promptString, outputFilePath) here
+            GPTPromptsRunner.Run(promptString, outputFilePath);
+
+        }
         public void GenerateAppArtifactPrompts(string artifact)
         {
             var GPTOutputFilesPath = GlobalPaths.LogFolder;
@@ -143,12 +164,14 @@ namespace WebMagic
                             var fileName = artifact_name.ToLower().Replace("_", "-").Replace(" ", "-");
                             var appName = appDetails.Name.ToLower().Replace("_", "-").Replace(" ", "-");
                             var outputFilePath = Path.Combine(GlobalPaths.LogFolder, filePrefix + "-" + "appname-" + appName + "-artifactname-" + fileName + getArtifactExtension(artifact));
+                            var outputPreviewFilePath = Path.Combine(GlobalPaths.LogFolder, filePrefix + "-" + "appname-" + appName + "-artifactname-" + fileName + ".md");
                             if (File.Exists(outputFilePath)){
                                 Console.WriteLine($"Skipping {artifact_name} {artifact} in {appDetails.Name}...");
                                 continue;
                             }
                             Console.WriteLine($"Generating prompt for {artifact_name} {artifact} in {appDetails.Name} app...");
                             var GPTInputFilePath = Path.Combine(GlobalPaths.GPTFolder, "ArtifactPrompts", "GPTInput" + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(artifact.Replace("_", "")) + ".jsonc");
+                            var GPTInputSampleFilePath = Path.Combine(GlobalPaths.GPTFolder, "ArtifactPrompts", "GPTInput" + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(artifact.Replace("_", "")) + "Sample.jsonc");
                             var GPTInputJson = File.ReadAllText(GPTInputFilePath);
                             GPTInputJson = Regex.Replace(GPTInputJson, @"^\s*//.*$", "", RegexOptions.Multiline);
                             var input = JsonConvert.DeserializeObject<Input>(GPTInputJson);
@@ -165,8 +188,12 @@ namespace WebMagic
                             // Console.WriteLine(promptString);
 
                             GPTPromptsRunner.Run(promptString, outputFilePath);
-                            if(artifact == "form" || artifact == "workflow" || artifact == "checklist" || artifact == "audit_checklist"){
+                            if(artifact == "form" || artifact == "workflow" || artifact == "checklist" || artifact == "audit_checklist" || artifact == "dashboard" || artifact == "report"){
                                 GenerateAndAddBenefitsAndFeatures(input,outputFilePath);
+                            }
+                            //generate md files for sample preview for media artifacts
+                            if(artifact == "report" || artifact == "dashboard" || artifact == "guidelines" || artifact == "standards" || artifact == "document"){
+                                GenerateSamplePreviewMD(input,GPTInputSampleFilePath,outputPreviewFilePath);
                             }
                         }
                         catch(Exception e){
@@ -186,26 +213,26 @@ namespace WebMagic
         //get artifact extension using switch case, if report, dashboard, guidelines or standards, then return ".md", else ".jsonc"
         private string getArtifactExtension(string artifact){
             string extension = ".jsonc";
-            switch (artifact)
-            {
-                case "report":
-                    extension = ".md";
-                    break;
-                case "dashboard":
-                    extension = ".md";
-                    break;
-                case "guidelines":
-                    extension = ".md";
-                    break;
-                case "standards":
-                    extension = ".md";
-                    break;
-                case "document":
-                    extension = ".md";
-                    break;
-                default:
-                    break;
-            }
+            // switch (artifact)
+            // {
+            //     case "report":
+            //         extension = ".md";
+            //         break;
+            //     case "dashboard":
+            //         extension = ".md";
+            //         break;
+            //     case "guidelines":
+            //         extension = ".md";
+            //         break;
+            //     case "standards":
+            //         extension = ".md";
+            //         break;
+            //     case "document":
+            //         extension = ".md";
+            //         break;
+            //     default:
+            //         break;
+            // }
             return extension;
         }
         private List<string> getAppArtifacts(AppDetails app_details, string artifact){
@@ -270,7 +297,6 @@ namespace WebMagic
             // if length of promptInput.GiveContentFor is more than 0, then add the following
             if (promptInput.GiveContentFor.Count > 0)
             {
-                prompt.Append("Give content for:\n");
                 foreach (var item in promptInput.GiveContentFor)
                 {
                     prompt.AppendLine($"\tJSON Key: {item.JSONKey}, JSON Value: {item.JSONValue}");

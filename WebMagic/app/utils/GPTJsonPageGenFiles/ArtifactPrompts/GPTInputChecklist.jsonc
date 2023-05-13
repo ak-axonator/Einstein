@@ -38,11 +38,11 @@
             },
             {
                 "JSONKey": "faqs",
-                "JSONValue": "10 faqs array of this checklist with question and answer, Make the FAQs relevant to Axonator platform, mobile forms, workflows, reports, scheduler, dashboards and integration with third party software"
+                "JSONValue": "give 10 faqs array of this checklist with question and answer, Make the FAQs relevant to Axonator platform, mobile forms, workflows, reports, scheduler, dashboards and integration with third party software"
             },
             {
                 "JSONKey": "checkpoints",
-                "JSONValue": "25 checkpoints list array"
+                "JSONValue": "give 25 checkpoints list array"
             },
             {
                 "JSONKey": "checkpoint",
@@ -65,7 +65,6 @@
                 "JSON top level element should be object",
                 "Use exact json keys provided. Make JSON Value length 100 words. All titles must use title case.",
                 "Give 25 checkpoints",
-                "Group checkpoints using the Group Header field",
                 "Only JSON response. No extra text."
             ]
         }

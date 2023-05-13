@@ -38,8 +38,8 @@ namespace WebMagic
             // testCSVAppNameRename();
             // GenerateAndRunAppArtifactPrompts(args[0]);
             // GenerateAndRunAppArtifactPrompts("form");
-            // GenerateAndRunAppArtifactPrompts("report");
-            GenerateAndRunAppArtifactPrompts("checklist");
+            GenerateAndRunAppArtifactPrompts("report");
+            // GenerateAndRunAppArtifactPrompts("checklist");
             // GenerateAndRunAppArtifactPrompts("dashboard");
             // GenerateAndRunAppArtifactPrompts("audit_checklist");
             // GenerateAndRunAppArtifactPrompts("workflow");

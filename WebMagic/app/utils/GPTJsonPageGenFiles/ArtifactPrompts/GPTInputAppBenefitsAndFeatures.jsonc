@@ -27,6 +27,14 @@
             "PrefixInstruction": "Consider {artifact_name}: ",
             "GiveContentFor": [
                 {
+                    "JSONKey": "benefits_title",
+                    "JSONValue": "give salesy benefits headline in 7 words"
+                },
+                {
+                    "JSONKey": "benefits_description",
+                    "JSONValue": "15 word sub title for the benefits of this app"
+                },
+                {
                     "JSONKey": "industry_specific_benefits",
                     "JSONValue": "industry and {artifact_name} specific benefits array of json. Convert generic benefits to the context of this industry. Make highly specific to the context and only 5 words each. Use industry jargon in each. Give only 8 most relevant benefits with industry_specific_benefit, industry_specific_benefit_description and original_benefit."
                 },
@@ -36,11 +44,19 @@
                 },
                 {
                     "JSONKey": "industry_specific_benefit_description",
-                    "JSONValue": "industry and {artifact_name} specific benefit description in 40 words in the industry_specific_benefits array"
+                    "JSONValue": "industry and {artifact_name} specific benefit description in 20 words in the industry_specific_benefits array"
                 },
                 {
                     "JSONKey": "original_benefit",
                     "JSONValue": "exact original benefit in the industry_specific_benefits array, give from the Original_benefits array provided below"
+                },
+                {
+                    "JSONKey": "features_title",
+                    "JSONValue": "give salesy features headline in 7 words"
+                },
+                {
+                    "JSONKey": "features_description",
+                    "JSONValue": "15 word sub title for the features of this app"
                 },
                 {
                     "JSONKey": "industry_specific_features",
@@ -52,7 +68,7 @@
                 },
                 {
                     "JSONKey": "industry_specific_feature_description",
-                    "JSONValue": "industry and {artifact_name} specific feature description in 40 words  in the industry_specific_features array"
+                    "JSONValue": "industry and {artifact_name} specific feature description in 20 words in the industry_specific_features array"
                 },
                 {
                     "JSONKey": "original_feature",

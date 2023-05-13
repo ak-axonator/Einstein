@@ -1,20 +1,51 @@
 {
-    //What is the name of your standards?
+    //What is the name of standards?
     "ArtifactName": "",
     "Prompts": [
         //generate standards prompt
         {
             "Enabled" : true,
-            "PrefixInstruction": "Give standards document: ",
+            "PrefixInstruction": "Give standards:",
             "Artifact": "standards",
-            "GiveContentFor": [],
+            "GiveContentFor": [
+                {
+                    "JSONKey": "document_heading",
+                    "JSONValue": "document main title"
+                },
+                {
+                    "JSONKey": "objective and scope",
+                    "JSONValue": "objective and scope of the document"
+                },
+                {
+                    "JSONKey": "users",
+                    "JSONValue": "array of 4 users of the standards in this subcategory"
+                },
+                {
+                    "JSONKey": "user_description",
+                    "JSONValue": "description of the users involved in the app in this subcategory in 30 words"
+                },
+                {
+                    "JSONKey": "faqs",
+                    "JSONValue": "array of 10 faqs related to the standards with question and answer, Make the FAQs relevant to Axonator platform, mobile forms, workflows, reports, scheduler, dashboards and integration with third party software"
+                },
+                {
+                    "JSONKey": "importance_and_impact",
+                    "JSONValue": "array of Importance and Impacts of the document"
+                },
+                {
+                    "JSONKey": "disclaimers_and_notes",
+                    "JSONValue": "array of Disclaimers and Notes"
+                },
+                {
+                    "JSONKey": "sources_and_references",
+                    "JSONValue": "array of Sources and References"
+                }
+            ],
             "MoreInstructions": [
-                "Write section \"Objective\" and \"Scope\"",
-                "Standards section should have a heading and description in upto 200 words",
-                "Include section \"Requirements to be complaint with the standards\"",
-                "Include section \"Disclaimers and Notes\" at the end",
-                "include section \"Sources and References\" near the end",
-                "Give response in markdown syntax"
+                "JSON top level element should be an object",
+                "Use exact json keys provided. Make JSON Value length 100 words.",
+                "All titles must use title case.",
+                "Only JSON response. No extra text."
             ]
         }
     ]
