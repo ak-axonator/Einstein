@@ -18,31 +18,11 @@
             },
             {
                 "JSONKey": "users",
-                "JSONValue": "users array of strings"
+                "JSONValue": "array of 4 users of the workflow in this subcategory"
             },
             {
-                "JSONKey": "benefits",
-                "JSONValue": "6 benefits array of benefits_title and benefits_description"
-            },
-            {
-                "JSONKey": "benefits_title",
-                "JSONValue": "title in 6 to 8 words in the benefits array"
-            },
-            {
-                "JSONKey": "benefits_description",
-                "JSONValue": "description in 35 words in the benefits array"
-            },
-            {
-                "JSONKey": "features",
-                "JSONValue": "6 features array of features_title and features_description"
-            },
-            {
-                "JSONKey": "features_title",
-                "JSONValue": "title in 6 to 8 words in the features array"
-            },
-            {
-                "JSONKey": "features_description",
-                "JSONValue": "description in 35 words in the features array"
+                "JSONKey": "user_description",
+                "JSONValue": "description of the users involved in the app in this subcategory in 30 words"
             },
             {
                 "JSONKey": "use",
@@ -57,7 +37,7 @@
                 "JSONValue": "array of 10 steps of workfow"
             },
             {
-                "JSONKey": "step",
+                "JSONKey": "step_title",
                 "JSONValue": "step in the workflow steps array"
             },
             {
@@ -66,19 +46,31 @@
             },
             {
                 "JSONKey": "form_fields",
-                "JSONValue": "array of 10 form fields for this step"
+                "JSONValue": "25 fields list array for each step in steps array"
             },
             {
-                "JSONKey": "label",
-                "JSONValue": "form field label"
+                "JSONKey": "field_type",
+                "JSONValue": "form field type of each field in the form_fields array, it should be one of: [Textbox], [Choice List], [Date Picker], [Time Picker], [Photo Upload], [Documen Upload], [GPS Location], [Audio Upload], [Video Upload], [Textarea], [Number], [Group Header], [Sign]"
             },
             {
-                "JSONKey": "type",
-                "JSONValue": "form field type can be text, choice, email, date, audio capture, video capture, gps location, file, picture, number, textarea"
+                "JSONKey": "description",
+                "JSONValue": "description of the field in the form_fields array in each step"
             },
             {
-                "JSONKey": "required",
-                "JSONValue": "true or false"
+                "JSONKey": "placeholder",
+                "JSONValue": "placeholder for the field in the form_fields array in each step"
+            },
+            {
+                "JSONKey": "options",
+                "JSONValue": "array of strings as options for choice list dropdown selection in the form_fields array in each step"
+            },
+            {
+                "JSONKey": "validations",
+                "JSONValue": "json of form field value validation rules in the form_fields array in each step, json keys should be in: [required]: true/false, [min_length]: number, [max_length]: number, [min_value]: number, [max_value]: number"
+            },
+            {
+                "JSONKey": "hint",
+                "JSONValue": "hint of field for user in the form_fields array in each step"
             }
             ],
             "MoreInstructions": [

@@ -35,10 +35,10 @@ namespace WebMagic
             //task.Wait();
             // initGlobalPaths();
             // testGPTResponseFiletoKDL();
-            // testCSVAppNameRename();
+            testCSVAppNameRename();
             // GenerateAndRunAppArtifactPrompts(args[0]);
             // GenerateAndRunAppArtifactPrompts("form");
-            GenerateAndRunAppArtifactPrompts("report");
+            // GenerateAndRunAppArtifactPrompts("report");
             // GenerateAndRunAppArtifactPrompts("checklist");
             // GenerateAndRunAppArtifactPrompts("dashboard");
             // GenerateAndRunAppArtifactPrompts("audit_checklist");

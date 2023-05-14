@@ -14,7 +14,6 @@ namespace WebMagic
     {
         private string apiKey = "";
         private readonly HttpClient _httpClient;
-
         public ChatGPTAPI()
         {
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");

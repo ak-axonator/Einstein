@@ -153,8 +153,6 @@ namespace WebMagic
                 var appDetails = JsonConvert.DeserializeObject<AppDetails>(app_details);
                 
                 // generate prompt for each "artifact" in appDetails and run it
-                if (artifact != "workflow")
-                {
                     foreach (var artifact_name in getAppArtifacts(appDetails, artifact))
                     {
                         try{
@@ -200,7 +198,6 @@ namespace WebMagic
                             CommandProcessor.LogJsonParsingError(e, e.Message, artifact + " -- " + file);
                         }
                     }
-                }
                 // var outputJson = JsonConvert.SerializeObject(GPTResponseFile, Formatting.Indented);
                 // // get app name after "GPTAppPageContents - " and before ".jsonc"
                 // var appName = Path.GetFileNameWithoutExtension(file).Substring(20);
@@ -251,8 +248,8 @@ namespace WebMagic
                 case "dashboard":
                     artifacts = app_details.Dashboard_Names;
                     break;
-                // case "workflow":
-                    // artifacts = app_details.Workflows;
+                case "workflow":
+                    artifacts = app_details.Workflows.Workflows.Select(x=>x.Workflow_Title).ToList();;
                     break;
                 case "audit_checklist":
                     artifacts = app_details.AuditChecklist_Names;
