@@ -1,4 +1,4 @@
-bin
-obj
+**/bin/
+**/obj/
 /node_modules
 /appsettings.json
